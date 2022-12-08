@@ -1,0 +1,16 @@
+
+Font class
+ - Sprite sheet base class, sprite derives from this
+ - Font also derives from sprite sheet
+
+Make font image
+
+File
+ - Load text file
+ - Report error - display message using font
+
+Sound
+ - Use BASS
+ - Minimal wrapper
+
+
