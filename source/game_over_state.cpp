@@ -33,7 +33,8 @@ void game_over_state::update(float dt)
     int score = the_play_state->get_player()->get_score();
     if (the_hi_score_table.is_hi_score(score))
     {   
-      the_game.set_game_state(the_enter_hi_score_state);
+      the_game.set_game_state(the_splash_state);
+      //the_game.set_game_state(the_enter_hi_score_state);
     }   
     else
     {   
@@ -74,6 +75,10 @@ void game_over_state::draw()
 
 void game_over_state::on_input(int input) 
 {
-  t += WAIT_TIME; // so we go to next state on update
+  // Prevent accidentally clicking through
+  if (t > 3.f)
+  { 
+    t += WAIT_TIME; // so we go to next state on update
+  }
 }
   
