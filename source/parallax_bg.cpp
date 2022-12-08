@@ -8,7 +8,7 @@ parallax_bg::parallax_bg()
 {
   const std::string FILENAMES[] = 
   {
-    "Background.png",
+    "Background_tiled.png",
   };
 
   for (int i = 0; i < NUM_IMAGES; i++)
@@ -38,11 +38,6 @@ void parallax_bg::draw(screen& dest)
     const image& im = m_images[i];
     vec2& pos = m_bg_pos[i];
 
-    //vec2 rel_pos = m_pos - s_cam_pos * SPEED[i];
- 
-    //int x = rel_pos.x;
-    //int y = rel_pos.y;
-
     int w = im.get_width();
     int h = im.get_height();
     int x_edge = w - screen::WIDTH;
@@ -51,27 +46,23 @@ void parallax_bg::draw(screen& dest)
     // Wrap x and y
     if (pos.x > 0)
     {
-      pos.x = -w; //x_edge;
+      pos.x = -x_edge;
     }
-    else if (pos.x < -w) //x_edge)
+    else if (pos.x < -x_edge)
     {
       pos.x = 0; 
     }
-/*
-    if (y < 0)
-    {
-      y = y_edge;
-    }
-    else if (y > y_edge)
-    {
-      y = 0;
-    } 
-*/
 
-std::cout << "BG x: " << pos.x << " y: " << pos.y << "\n";
+    if (pos.y > 0)
+    {
+      pos.y = -y_edge;
+    }
+    else if (pos.y < -y_edge)
+    {
+      pos.y = 0; 
+    }
 
     im.blit(dest, pos.x, pos.y); 
-    // Blit again for wrapping??
   }
 }
 
