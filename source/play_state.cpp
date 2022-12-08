@@ -36,9 +36,11 @@ void play_state::on_input(int input)
 {
   assert(m_player);
 
-  if (!m_player->is_immune())
+  // If this input is a combination of move directions, values will be 0..0xf.
+  // BUTTON_A is 0x10, not used in this state currently. 
+  if (input & 0x0f && !m_player->is_immune())
   {
-    m_player->move(input);  
+    m_player->move(input & 0x0f);  
   }
 }
 
