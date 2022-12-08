@@ -16,14 +16,16 @@ INCLUDES=\
   -I../../lo-res \
   -I../../microlib
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0
 
-LDFLAGS=-framework OpenGL -framework GLUT
+LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon
 
 SOURCES=\
+directory.cpp \
 global_palette.cpp \
 jammy_game_object.cpp \
 main.cpp \
+parallax_bg.cpp \
 player.cpp \
 play_state.cpp \
 rock.cpp \
@@ -34,6 +36,7 @@ rock.cpp \
 ../../lo-res/screen.cpp \
 ../../lo-res/sprite.cpp \
 ../../lo-res/sprite_sheet.cpp \
+../../microlib/file_string_utils.cpp \
 ../../microlib/game.cpp \
 ../../microlib/game_object.cpp \
 ../../microlib/message_queue.cpp \
