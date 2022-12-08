@@ -20,7 +20,12 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
 
 LDFLAGS=-framework OpenGL -framework GLUT
 
-SOURCES=main.cpp \
+SOURCES=\
+global_palette.cpp \
+jammy_game_object.cpp \
+main.cpp \
+player.cpp \
+play_state.cpp \
 ../../lo-res/font.cpp \
 ../../lo-res/image.cpp \
 ../../lo-res/lodepng.cpp \
