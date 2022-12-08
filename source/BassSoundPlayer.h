@@ -8,11 +8,11 @@ public:
   BassSoundPlayer();
   ~BassSoundPlayer();
 
-  virtual bool PlayWav(const std::string& wavFile, float volume = 1.0f);
-  virtual bool PlaySong(const std::string& songFile);
-  virtual void StopSong();
-  virtual void Update();
-  virtual void SetSongMaxVolume(float);
+  bool PlayWav(const std::string& wavFile, bool loop = false);
+  bool PlaySong(const std::string& songFile);
+  void StopSong();
+  void Update();
+  void SetSongMaxVolume(float);
 
 private:
   // Channel for current song

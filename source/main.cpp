@@ -85,6 +85,8 @@ void key_up(unsigned char c, int, int)
   // Escape -> quit immediately
   if (c == 27)
   {
+    delete the_sound_player;
+
     if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
     {
       glutLeaveGameMode();
@@ -204,9 +206,9 @@ int main(int argc, char** argv)
 
   the_sound_player = new BassSoundPlayer;
 
-  // TODO Find some music that works
-  //the_sound_player->PlaySong(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.mp3");
-  //the_sound_player->PlayWav(get_data_dir() + "Explosion2.wav");
+  // Play background music
+  const bool LOOP = true;
+  the_sound_player->PlayWav(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.wav", LOOP);
 
   glutMainLoop();
 }

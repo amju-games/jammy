@@ -31,25 +31,29 @@ std::cout << "BASS version: " << ver << "\n";
 
 BassSoundPlayer::~BassSoundPlayer()
 {
-  // TODO Shut down to avoid stuttering or clicks
-  // This seems to cause a crash, so best avoided
-  //BASS_Free();
+  BASS_Free();
 }
 
-bool BassSoundPlayer::PlayWav(const std::string& wavFile, float volume)
+bool BassSoundPlayer::PlayWav(const std::string& wavFile, bool loop)
 {
   // max no of simultaneous playbacks (of same wav ? or all wavs ?)
   static const int MAX_PLAYBACKS = 6;
 
   HSAMPLE hs = 0;
-  
-    hs = BASS_SampleLoad(
-      FALSE, // in mem ?
-      wavFile.c_str(), // filename
-      0, // file offset
-      0, // "use all data up to end of file": 2 'iterators' defining a range ?
-      MAX_PLAYBACKS, 
-      BASS_SAMPLE_OVER_POS); // flags
+
+  auto flag = BASS_SAMPLE_OVER_POS;
+  if (loop)
+  {
+    flag |= BASS_SAMPLE_LOOP;  
+  }
+
+  hs = BASS_SampleLoad(
+    FALSE, // in mem ?
+    wavFile.c_str(), // filename
+    0, // file offset
+    0, // "use all data up to end of file": 2 'iterators' defining a range ?
+    MAX_PLAYBACKS, 
+    flag);
  
 
   if (!hs)
