@@ -4,7 +4,6 @@
 #include <cassert>
 #include <iostream>
 #include <GLUT/glut.h>
-#include "BassSoundPlayer.h"
 #include "colour.h"
 #include "directory.h"
 #include "font.h"
@@ -12,6 +11,7 @@
 #include "input.h"
 #include "jammy_game_state.h"
 #include "play_state.h"
+#include "sound_player_bass24.h"
 #include "splash_state.h"
 
 // Size of window in actual device pixels
@@ -214,11 +214,11 @@ int main(int argc, char** argv)
   // Must update once before draw
   update();
 
-  the_sound_player = new BassSoundPlayer;
+  the_sound_player.reset(new sound_player_bass24);
 
   // Play background music
   const bool LOOP = true;
-  the_sound_player->PlayWav(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.wav", LOOP);
+  the_sound_player->play_wav(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.wav", LOOP);
 
   the_human_list.load();
 

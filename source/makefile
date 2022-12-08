@@ -42,12 +42,12 @@ splash_state.cpp \
 ../../lo-res/screen.cpp \
 ../../lo-res/sprite.cpp \
 ../../lo-res/sprite_sheet.cpp \
-../../microlib/BassSoundPlayer.cpp \
 ../../microlib/directory.cpp \
 ../../microlib/file_string_utils.cpp \
 ../../microlib/game.cpp \
 ../../microlib/game_object.cpp \
 ../../microlib/message_queue.cpp \
+../../microlib/sound_player_bass24.cpp \
 ../../microlib/timer.cpp
 
 

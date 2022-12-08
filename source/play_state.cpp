@@ -54,7 +54,7 @@ void play_state::on_active()
 {
   std::cout << "ON ACTIVE\n";
 
-  the_sound_player->PlayWav(get_data_dir() + "sfx_sounds_powerup2.wav");
+  the_sound_player->play_wav(get_data_dir() + "sfx_sounds_powerup2.wav");
 
   m_player = nullptr; 
   m_humans.clear();
@@ -109,7 +109,7 @@ void play_state::col_det()
       else
       {
         m_player->lose_life();
-        the_sound_player->PlayWav(get_data_dir() + "Explosion2.wav");
+        the_sound_player->play_wav(get_data_dir() + "Explosion2.wav");
       }
     }
 
@@ -123,7 +123,7 @@ void play_state::col_det()
         h->set_rescued(false);
         h->set_parent(nullptr);
 
-        the_sound_player->PlayWav(get_data_dir() + "sfx_sounds_impact3.wav");
+        the_sound_player->play_wav(get_data_dir() + "sfx_sounds_impact3.wav");
 
         // Pushed in direction of asteroid travel
         h->set_vel(h->get_vel() + r->get_vel());
@@ -152,7 +152,7 @@ void play_state::col_det()
       {
         // Not already rescued, so add to chain
         m_player->add_score(PICK_UP_HUMAN_SCORE);
-        the_sound_player->PlayWav(get_data_dir() + "sfx_sounds_fanfare2.wav");
+        the_sound_player->play_wav(get_data_dir() + "sfx_sounds_fanfare2.wav");
 
         human_timer = MAX_BIO_TIME;
         human_to_display = i;
@@ -181,7 +181,7 @@ void play_state::col_det()
   
     if (sprite_collision(h, m_hq))
     {
-      the_sound_player->PlayWav(get_data_dir() + "Sweep2.wav");
+      the_sound_player->play_wav(get_data_dir() + "Sweep2.wav");
 
       // This human and all descendants are delivered to the ship!
       for (auto jt = it; jt != m_rescued_humans.end(); ++jt)
@@ -209,7 +209,7 @@ void play_state::update(float dt)
   if (!m_player->is_immune() && m_player->get_num_lives() < 1)
   {
     the_game.set_game_state(the_game_over_state);
-    the_sound_player->PlayWav(get_data_dir() + "Shut_Down1.wav");
+    the_sound_player->play_wav(get_data_dir() + "Shut_Down1.wav");
   }
 
   // Get a score for being alive
