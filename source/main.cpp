@@ -7,13 +7,11 @@
 #include "colour.h"
 #include "directory.h"
 #include "font.h"
-#include "game.h"
-#include "global_palette.h"
+#include "globals.h"
 #include "input.h"
 #include "jammy_game_state.h"
 #include "play_state.h"
-#include "screen.h"
-#include "timer.h"
+#include "splash_state.h"
 
 // Size of window in actual device pixels
 const int WINDOW_W = 500;
@@ -21,12 +19,7 @@ const int WINDOW_H = 500;
 
 const char BLACK = 1;
 
-bool yes_full_screen = false;
-
-screen the_screen;
-game the_game;
-timer the_timer;
-font my_font;
+bool yes_full_screen = true;
 
 void draw()
 {
@@ -35,8 +28,6 @@ void draw()
   the_screen.clear(BLACK);
 
   the_game.draw();
-
-  my_font.draw(the_screen, 0, 122, "ARROW KEYS TO MOVE, ESC TO QUIT!");
 
   the_screen.draw_on_gl_thread(the_global_palette);
 
@@ -188,19 +179,23 @@ int main(int argc, char** argv)
   gluOrtho2D(0, screen::WIDTH, 0, screen::HEIGHT);
 
   the_screen.set_size(screen::WIDTH, screen::HEIGHT);
-  the_screen.clear(0);
 
   // Add black colour for space bg!
   // This will be index 1, because index 0 is for transparent colour.
   the_global_palette.add_colour(colour(0, 0, 0));
 
-  my_font.load(get_data_dir() + "font1.png", the_global_palette);
-  my_font.set_num_cells(16, 4);
+  // Add colour for rope - this is index 2.
+  the_global_palette.add_colour(colour(255, 255, 0));
 
-  play_state* ps = new play_state;
-  ps->set_game(&the_game);
-  ps->set_screen(&the_screen);
-  the_game.set_game_state(ps);
+  // Init font
+  the_font.load(get_data_dir() + "font1 - magenta.png", the_global_palette);
+  the_font.set_num_cells(16, 4);
+
+  // Init game states
+  the_play_state = new play_state;
+  the_splash_state = new splash_state;
+  // Initial state
+  the_game.set_game_state(the_splash_state);
 
   // Must update once before draw
   update();

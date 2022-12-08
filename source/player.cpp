@@ -1,7 +1,7 @@
 #include <iostream>
 #include "directory.h"
 #include "input.h"
-#include "global_palette.h"
+#include "globals.h"
 #include "player.h"
 #include "sign.h"
 
@@ -13,10 +13,61 @@ player::player()
   m_sprite.set_num_cells(9, 1);
 
   m_pos = vec2(60, 60);
+
+  m_is_immune = false;
+  m_immune_time = 0;
+  m_lives = 5;
+}
+
+int player::lose_life()
+{
+  if (m_lives > 0)
+  {
+    m_lives--;
+  }
+
+  m_is_immune = true;
+  m_immune_time = 3.f;
+
+  return m_lives;
+}
+
+static float flasher = 0;
+static const float FLASH_PERIOD = .3f;
+
+void player::draw(screen& scr)
+{
+  if (m_is_immune)  
+  {
+    if (flasher > FLASH_PERIOD * .5f)
+    {
+      return;
+    }
+  }
+
+  jammy_game_object::draw(scr);
 }
 
 void player::update(float dt)
 {
+  if (m_is_immune)
+  {
+std::cout << "IMMUNE!\n";
+
+    flasher += dt;
+    if (flasher > FLASH_PERIOD)
+    {
+      flasher = 0;
+    }
+
+    m_immune_time -= dt;
+    if (m_immune_time <= 0)
+    {
+      m_immune_time = 0;
+      m_is_immune = false;
+    }
+  }
+
   vec2 old_vel = m_vel;
 
   jammy_game_object::update(dt);

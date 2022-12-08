@@ -22,13 +22,16 @@ LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon
 
 SOURCES=\
 directory.cpp \
-global_palette.cpp \
+globals.cpp \
+hq.cpp \
+human.cpp \
 jammy_game_object.cpp \
 main.cpp \
 parallax_bg.cpp \
 player.cpp \
 play_state.cpp \
 rock.cpp \
+splash_state.cpp \
 ../../lo-res/font.cpp \
 ../../lo-res/image.cpp \
 ../../lo-res/lodepng.cpp \

@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include "directory.h"
-#include "global_palette.h"
+#include "globals.h"
 #include "rock.h"
 #include "universe.h"
 

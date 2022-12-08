@@ -1,6 +1,6 @@
 #include <iostream>
 #include "directory.h"
-#include "global_palette.h"
+#include "globals.h"
 #include "parallax_bg.h"
 #include "screen.h"
 
