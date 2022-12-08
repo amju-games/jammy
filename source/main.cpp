@@ -90,7 +90,7 @@ void key_up(unsigned char c, int, int)
 
   if (c == 27)
   {
-    delete the_sound_player;
+    the_sound_player.reset();
 
     if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
     {
@@ -203,10 +203,10 @@ int main(int argc, char** argv)
   the_font.set_num_cells(16, 4);
 
   // Init game states
-  the_play_state = new play_state;
-  the_splash_state = new splash_state;
-  the_game_over_state = new game_over_state;
-  the_enter_hi_score_state = new enter_hi_score_state;
+  the_play_state.reset(new play_state);
+  the_splash_state.reset(new splash_state);
+  the_game_over_state.reset(new game_over_state);
+  the_enter_hi_score_state.reset(new enter_hi_score_state);
 
   // Initial state
   the_game.set_game_state(the_splash_state);
