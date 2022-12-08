@@ -3,6 +3,11 @@
 #include "BassSoundPlayer.h"
 //#include "StringUtils.h"
 
+void ReportError(const std::string& s)
+{
+  std::cout << s << "\n";
+}
+
 BassSoundPlayer::BassSoundPlayer()
 {
   m_chan = (DWORD)-1; 
@@ -31,11 +36,6 @@ BassSoundPlayer::~BassSoundPlayer()
 
 bool BassSoundPlayer::PlayWav(const std::string& wavFile, float volume)
 {
-  if (m_maxWavVol == 0)
-  {
-    return true; // ok, not an error
-  }
-
   // max no of simultaneous playbacks (of same wav ? or all wavs ?)
   static const int MAX_PLAYBACKS = 6;
 
@@ -69,8 +69,8 @@ bool BassSoundPlayer::PlayWav(const std::string& wavFile, float volume)
   BASS_ChannelPlay(hc, FALSE);
 
   // Set vol
-  int vol = (int)(volume * m_maxWavVol * 100.0f);
-  BASS_ChannelSetAttributes(hc, -1, vol, -1);
+//  int vol = (int)(volume * 100.0f);
+//  BASS_ChannelSetAttributes(hc, -1, vol, -1);
 
   return true;
 }
@@ -97,13 +97,13 @@ std::cout << "BASS: playing new song: " << songFile.c_str() << "\n";
       s += songFile;
 	  int errCode = BASS_ErrorGetCode();
 	  s += " Error code: ";
-	  s += ToString(errCode);
+	  s += std::to_string(errCode);
       ReportError(s);
       return false;
     }
 
   // Set vol
-  int vol = (int)(m_maxSongVol * 100.0f);
+  int vol = (int)(100.0f);
   BASS_ChannelSetAttributes(m_chan, -1, vol, -1);
 
   BASS_ChannelPlay(m_chan,FALSE);

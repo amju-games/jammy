@@ -16,9 +16,9 @@ INCLUDES=\
   -I../../lo-res \
   -I../../microlib
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0 -arch i386
 
-LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon
+LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib -arch i386
 
 SOURCES=\
 BassSoundPlayer.cpp \

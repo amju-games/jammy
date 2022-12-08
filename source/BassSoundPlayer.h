@@ -16,5 +16,4 @@ private:
   // Channel for current song
   unsigned long m_chan;
 };
-}
 
