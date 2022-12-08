@@ -21,6 +21,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0
 LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon
 
 SOURCES=\
+BassSoundPlayer.cpp \
 directory.cpp \
 game_over_state.cpp \
 globals.cpp \
