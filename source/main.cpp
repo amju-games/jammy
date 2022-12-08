@@ -5,10 +5,14 @@
 #include <iostream>
 #include <GLUT/glut.h>
 #include "colour.h"
+#include "directory.h"
 #include "font.h"
 #include "game.h"
 #include "global_palette.h"
 #include "image.h"
+#include "input.h"
+#include "jammy_game_state.h"
+#include "parallax_bg.h"
 #include "player.h"
 #include "play_state.h"
 #include "rock.h"
@@ -39,11 +43,10 @@ void draw()
   glClear(GL_COLOR_BUFFER_BIT);
 
   the_screen.clear(BLACK);
-  //im.blit(the_screen, 2, 60, 0);
-  //spr.draw(the_screen, 2, 2);
-  //my_font.draw(the_screen, 5, 5, "HELLO\n1234567890!@^&*()_+-=<>,.?/\"':;");
 
   the_game.draw();
+
+  my_font.draw(the_screen, 0, 122, "ARROW KEYS TO MOVE, ESC TO QUIT!");
 
   the_screen.draw_on_gl_thread(the_global_palette);
 
@@ -94,6 +97,15 @@ void key_down(unsigned char c, int, int)
   }
 
   std::cout << "Got key down: " << c << "\n"; 
+
+  // Space bar => button
+  if (c == ' ')
+  {
+    game_state* gs = the_game.get_game_state();
+    jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
+    assert(jgs);
+    jgs->on_input(BUTTON_A);
+  }
 }
 
 void key_up(unsigned char c, int, int)
@@ -121,6 +133,12 @@ void special_key_down(int c, int, int)
     break;
   }
 
+  game_state* gs = the_game.get_game_state();
+  jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
+  assert(jgs);
+  jgs->on_input(move);
+
+  // TODO
   the_player->move(move);
 }
 
@@ -144,6 +162,12 @@ void special_key_up(int c, int, int)
     break;
   }
 
+  game_state* gs = the_game.get_game_state();
+  jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
+  assert(jgs);
+  jgs->on_input(move);
+
+  // TODO
   the_player->move(move);
 }
 
@@ -190,14 +214,20 @@ int main(int argc, char** argv)
 
   //spr.load("../assets/test2.png", the_palette);
 
-  //my_font.load("../assets/font1.png", the_palette);
-  //my_font.set_num_cells(16, 4);
+  my_font.load(get_data_dir() + "font1.png", the_global_palette);
+  my_font.set_num_cells(16, 4);
+
+  the_game.add_game_object(new parallax_bg);
 
   the_player = new player;
   the_game.add_game_object(the_player);
 
-  the_game.add_game_object(new rock);
-  
+  int NUM_ROCKS = 50;
+  for (int i = 0; i < NUM_ROCKS; i++)
+  {
+    the_game.add_game_object(new rock);
+  }
+
   play_state* ps = new play_state;
   ps->set_game(&the_game);
   ps->set_screen(&the_screen);

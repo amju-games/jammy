@@ -5,6 +5,11 @@
 #include "play_state.h"
 #include "screen.h"
 
+void play_state::on_input(int input)
+{
+  
+}
+
 void play_state::update(float dt)
 {
   assert(m_game);
