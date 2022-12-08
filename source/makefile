@@ -7,7 +7,7 @@ run:
 	./jammy
 
 
-CC=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+CC=clang++
 
 WARNINGS=-Wall -Wno-deprecated-declarations
 
@@ -16,9 +16,9 @@ INCLUDES=\
   -I../../lo-res \
   -I../../microlib
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0 -arch i386
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0 
 
-LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib -arch i386
+LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib 
 
 SOURCES=\
 enter_hi_score_state.cpp \
@@ -55,6 +55,7 @@ OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=jammy
 
 jammy_exe: $(SOURCES) $(EXECUTABLE)
+	install_name_tool -add_rpath @executable_path/ $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
