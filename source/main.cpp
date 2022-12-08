@@ -4,6 +4,7 @@
 #include <cassert>
 #include <iostream>
 #include <GLUT/glut.h>
+#include "BassSoundPlayer.h"
 #include "colour.h"
 #include "directory.h"
 #include "font.h"
@@ -65,16 +66,6 @@ static void clear(int& i, int b)
 
 void key_down(unsigned char c, int, int)
 {
-  // Escape -> quit immediately
-  if (c == 27)
-  {
-    if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
-    {
-      glutLeaveGameMode();
-    }
-    exit(0);
-  }
-
   std::cout << "Got key down: " << c << "\n"; 
 
   // Space bar => button
@@ -89,7 +80,17 @@ void key_down(unsigned char c, int, int)
 
 void key_up(unsigned char c, int, int)
 {
-  std::cout << "Got key up: " << c << "\n"; 
+//  std::cout << "Got key up: " << c << "\n"; 
+
+  // Escape -> quit immediately
+  if (c == 27)
+  {
+    if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
+    {
+      glutLeaveGameMode();
+    }
+    exit(0);
+  }
 }
 
 void special_key_down(int c, int, int)
@@ -200,6 +201,12 @@ int main(int argc, char** argv)
 
   // Must update once before draw
   update();
+
+  the_sound_player = new BassSoundPlayer;
+
+  // TODO Find some music that works
+  //the_sound_player->PlaySong(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.mp3");
+  //the_sound_player->PlayWav(get_data_dir() + "Explosion2.wav");
 
   glutMainLoop();
 }
