@@ -26,6 +26,7 @@ jammy_game_object.cpp \
 main.cpp \
 player.cpp \
 play_state.cpp \
+rock.cpp \
 ../../lo-res/font.cpp \
 ../../lo-res/image.cpp \
 ../../lo-res/lodepng.cpp \

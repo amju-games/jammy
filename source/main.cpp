@@ -11,6 +11,7 @@
 #include "image.h"
 #include "player.h"
 #include "play_state.h"
+#include "rock.h"
 #include "screen.h"
 #include "sprite.h"
 #include "timer.h"
@@ -21,7 +22,7 @@ const int WINDOW_H = 500;
 
 const char BLACK = 1;
 
-bool yes_full_screen = true;
+bool yes_full_screen = false;
 
 screen the_screen;
 game the_game;
@@ -195,6 +196,7 @@ int main(int argc, char** argv)
   the_player = new player;
   the_game.add_game_object(the_player);
 
+  the_game.add_game_object(new rock);
   
   play_state* ps = new play_state;
   ps->set_game(&the_game);

@@ -14,6 +14,8 @@ public:
 
   player();
 
+  void update(float dt) override;
+
   // * move *
   // Move in the given direction, a bitfield combination of 
   //  directions.
