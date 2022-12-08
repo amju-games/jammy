@@ -194,6 +194,7 @@ int main(int argc, char** argv)
   // Init game states
   the_play_state = new play_state;
   the_splash_state = new splash_state;
+  the_game_over_state = new game_over_state;
   // Initial state
   the_game.set_game_state(the_splash_state);
 

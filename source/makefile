@@ -22,6 +22,7 @@ LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon
 
 SOURCES=\
 directory.cpp \
+game_over_state.cpp \
 globals.cpp \
 hq.cpp \
 human.cpp \

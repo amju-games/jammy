@@ -2,6 +2,7 @@
 
 #include "font.h"
 #include "game.h"
+#include "game_over_state.h"
 #include "palette.h"
 #include "play_state.h"
 #include "screen.h"
@@ -9,6 +10,7 @@
 #include "timer.h"
 
 extern game the_game;
+extern game_over_state* the_game_over_state;
 extern timer the_timer;
 extern font the_font;
 extern palette the_global_palette;
