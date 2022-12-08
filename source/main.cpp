@@ -212,6 +212,8 @@ int main(int argc, char** argv)
   const bool LOOP = true;
   the_sound_player->PlayWav(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.wav", LOOP);
 
+  the_human_list.load();
+
   glutMainLoop();
 }
 

@@ -28,10 +28,15 @@ public:
  
   void add_score(int add) { m_score += add; }
 
+  void add_human_saved() { m_humans_saved++; }
+
+  int get_num_humans_saved() const { return m_humans_saved; }
+
 private:
   bool m_is_immune = false;
   float m_immune_time = 0;
   int m_lives = 0;
   int m_score = 0;
+  int m_humans_saved = 0;
 };
 

@@ -5,12 +5,15 @@
 #include "globals.h"
 #include "hq.h"
 #include "human.h"
+#include "human_list.h"
 #include "jammy_game_object.h"
 #include "parallax_bg.h"
 #include "player.h"
 #include "play_state.h"
 #include "rock.h"
 #include "screen.h"
+
+const float MAX_BIO_TIME = 3.f;
 
 const int NUM_ROCKS = 20; 
 const int NUM_HUMANS = 10; 
@@ -21,6 +24,9 @@ const int DELIVER_HUMAN_SCORE = 1000;
 const int RADAR_X = 0;
 const int RADAR_Y = 0;
 const vec2 RADAR_CENTRE(RADAR_X + 8, RADAR_Y + 8);
+
+float human_timer = 0;
+int human_to_display = 0;
 
 play_state::play_state()
 {
@@ -50,7 +56,7 @@ void play_state::on_active()
 
   the_sound_player->PlayWav(get_data_dir() + "sfx_sounds_powerup2.wav");
 
-  m_player = nullptr; // TODO leak!
+  m_player = nullptr; 
   m_humans.clear();
   m_rescued_humans.clear();
   m_rocks.clear();
@@ -108,7 +114,6 @@ void play_state::col_det()
     }
 
     // Check for rocks v humans
-    // TODO
     for (auto it = m_rescued_humans.begin(); it != m_rescued_humans.end(); ++it)
     {
       human* h = *it;
@@ -137,6 +142,7 @@ void play_state::col_det()
   }
 
   // Test for humans
+  int i = 0;
   for (human* h : m_humans)
   {
     if (sprite_collision(h, m_player))
@@ -147,6 +153,9 @@ void play_state::col_det()
         // Not already rescued, so add to chain
         m_player->add_score(PICK_UP_HUMAN_SCORE);
         the_sound_player->PlayWav(get_data_dir() + "sfx_sounds_fanfare2.wav");
+
+        human_timer = MAX_BIO_TIME;
+        human_to_display = i;
 
         h->set_rescued(true);
 
@@ -161,6 +170,7 @@ void play_state::col_det()
         m_rescued_humans.push_back(h);
       }
     }
+    i++;
   }
 
   // Check for rescued humans reaching the space ship (HQ)
@@ -177,6 +187,8 @@ void play_state::col_det()
       for (auto jt = it; jt != m_rescued_humans.end(); ++jt)
       {
         m_player->add_score(DELIVER_HUMAN_SCORE);
+        m_player->add_human_saved();
+
         human* h = *jt;
         h->set_rescued(false);
         h->set_parent(nullptr);
@@ -212,6 +224,11 @@ void play_state::update(float dt)
     }
     old_t = t;
   }
+
+  if (human_timer > 0)
+  {
+    human_timer -= dt;
+  } 
 }
 
 void play_state::draw_blip(jammy_game_object* h, int cell)
@@ -259,5 +276,11 @@ void play_state::draw()
 
   // Draw score
   the_font.draw(the_screen, 1, 120, std::to_string(m_player->get_score()));
+
+  // Draw human bio
+  if (human_timer > 0)
+  {
+    the_human_list.draw_human_bio(human_to_display);
+  } 
 }
 

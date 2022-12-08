@@ -29,6 +29,7 @@ globals.cpp \
 hi_scores.cpp \
 hq.cpp \
 human.cpp \
+human_list.cpp \
 jammy_game_object.cpp \
 main.cpp \
 parallax_bg.cpp \
