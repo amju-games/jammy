@@ -1,5 +1,6 @@
 #include "globals.h"
 
+BassSoundPlayer* the_sound_player = nullptr;
 game the_game;
 game_over_state* the_game_over_state = nullptr;
 timer the_timer;

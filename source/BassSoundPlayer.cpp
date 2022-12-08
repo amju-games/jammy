@@ -3,6 +3,8 @@
 #include "BassSoundPlayer.h"
 //#include "StringUtils.h"
 
+#define _DEBUG
+
 void ReportError(const std::string& s)
 {
   std::cout << s << "\n";

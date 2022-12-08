@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BassSoundPlayer.h"
 #include "font.h"
 #include "game.h"
 #include "game_over_state.h"
@@ -9,6 +10,7 @@
 #include "splash_state.h"
 #include "timer.h"
 
+extern BassSoundPlayer* the_sound_player;
 extern game the_game;
 extern game_over_state* the_game_over_state;
 extern timer the_timer;
