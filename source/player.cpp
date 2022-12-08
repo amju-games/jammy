@@ -5,6 +5,8 @@
 #include "player.h"
 #include "sign.h"
 
+const float MAX_IMMUNE_TIME = 3.f;
+
 const float DECELERATION = 0.25f;
 
 player::player()
@@ -19,6 +21,12 @@ player::player()
   m_lives = 5;
 }
 
+void player::keep_immune()
+{
+  m_immune_time = MAX_IMMUNE_TIME;
+  m_is_immune = true;
+}
+
 int player::lose_life()
 {
   if (m_lives > 0)
@@ -26,8 +34,7 @@ int player::lose_life()
     m_lives--;
   }
 
-  m_is_immune = true;
-  m_immune_time = 3.f;
+  keep_immune();
 
   return m_lives;
 }
@@ -52,8 +59,6 @@ void player::update(float dt)
 {
   if (m_is_immune)
   {
-std::cout << "IMMUNE!\n";
-
     flasher += dt;
     if (flasher > FLASH_PERIOD)
     {

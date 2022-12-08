@@ -17,6 +17,8 @@ public:
   void move(int move_dir);
 
   int lose_life();
+
+  void keep_immune();
  
   bool is_immune() const { return m_is_immune; }
 

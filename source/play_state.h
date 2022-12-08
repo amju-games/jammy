@@ -19,6 +19,8 @@ public:
   void on_active() override;
   void on_deactive() override;
 
+  player* get_player() { return m_player; }
+
 protected:
   void col_det();
   void draw_blip(jammy_game_object* h, int cell);

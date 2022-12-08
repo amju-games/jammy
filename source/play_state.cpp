@@ -12,7 +12,7 @@
 #include "rock.h"
 #include "screen.h"
 
-const int NUM_ROCKS = 30; 
+const int NUM_ROCKS = 20; 
 const int NUM_HUMANS = 10; 
 
 const int PICK_UP_HUMAN_SCORE = 250;
@@ -35,12 +35,22 @@ play_state::play_state()
 void play_state::on_input(int input)
 {
   assert(m_player);
-  m_player->move(input);  
+
+  if (!m_player->is_immune())
+  {
+    m_player->move(input);  
+  }
 }
 
 void play_state::on_active() 
 {
   std::cout << "ON ACTIVE\n";
+
+  m_player = nullptr; // TODO leak!
+  m_humans.clear();
+  m_rescued_humans.clear();
+  m_rocks.clear();
+  the_game.clear_game_objects();
 
   // Add background
   the_game.add_game_object(new parallax_bg);
@@ -72,28 +82,24 @@ void play_state::on_active()
 
 void play_state::on_deactive() 
 {
-  m_player = nullptr; // TODO leak!
-  m_humans.clear();
-  m_rescued_humans.clear();
-  m_rocks.clear();
-  the_game.clear_game_objects();
 }
 
 void play_state::col_det()
 {
-  if (m_player->is_immune())
-  {
-    return;
-  }
-
   // Test player and humans against rocks
   for (rock* r : m_rocks)
   {
     // Check player/rock sprites
-    if (!m_player->is_immune() &&
-        sprite_collision(r, m_player))
+    if (sprite_collision(r, m_player))
     {
-      m_player->lose_life();
+      if (m_player->is_immune())
+      {
+        m_player->keep_immune();
+      }
+      else
+      {
+        m_player->lose_life();
+      }
     }
 
     // Check for rocks v humans
@@ -132,7 +138,6 @@ void play_state::col_det()
       if (std::find(m_rescued_humans.begin(), m_rescued_humans.end(), h) == m_rescued_humans.end())
       {
         // Not already rescued, so add to chain
-std::cout << "RESCUED!!\n";
         m_player->add_score(PICK_UP_HUMAN_SCORE);
 
         h->set_rescued(true);
@@ -179,14 +184,23 @@ void play_state::update(float dt)
 
   col_det();
 
-  static float t = 0; 
-  static float old_t = t;
-  t += dt;
-  if ((int)t != (int)old_t)
+  if (!m_player->is_immune() && m_player->get_num_lives() < 1)
   {
-    m_player->add_score(10);
+    the_game.set_game_state(the_game_over_state);
   }
-  old_t = t;
+
+  // Get a score for being alive
+  if (!m_player->is_immune())
+  {
+    static float t = 0; 
+    static float old_t = t;
+    t += dt;
+    if ((int)t != (int)old_t)
+    {
+      m_player->add_score(10);
+    }
+    old_t = t;
+  }
 }
 
 void play_state::draw_blip(jammy_game_object* h, int cell)
