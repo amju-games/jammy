@@ -2,6 +2,7 @@
 
 #include "image.h"
 #include "jammy_game_state.h"
+#include "sprite_sheet.h"
 
 class game_over_state : public jammy_game_state
 {
@@ -14,5 +15,6 @@ public:
   
 private:
   image m_image;
+  sprite_sheet m_human_ss;
 };
 
