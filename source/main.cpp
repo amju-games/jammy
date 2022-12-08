@@ -198,6 +198,8 @@ int main(int argc, char** argv)
   the_play_state = new play_state;
   the_splash_state = new splash_state;
   the_game_over_state = new game_over_state;
+  the_enter_hi_score_state = new enter_hi_score_state;
+
   // Initial state
   the_game.set_game_state(the_splash_state);
 

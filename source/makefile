@@ -22,9 +22,11 @@ LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib -arch 
 
 SOURCES=\
 BassSoundPlayer.cpp \
+enter_hi_score_state.cpp \
 directory.cpp \
 game_over_state.cpp \
 globals.cpp \
+hi_scores.cpp \
 hq.cpp \
 human.cpp \
 jammy_game_object.cpp \
