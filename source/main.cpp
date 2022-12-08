@@ -18,9 +18,12 @@
 const int WINDOW_W = 500;
 const int WINDOW_H = 500;
 
+const int PRETEND_SCREEN_W = 128;
+const int PRETEND_SCREEN_H = 128;
+
 const char BLACK = 1;
 
-bool yes_full_screen = true;
+bool yes_full_screen = false;
 
 void draw()
 {
@@ -83,6 +86,8 @@ void key_up(unsigned char c, int, int)
 //  std::cout << "Got key up: " << c << "\n"; 
 
   // Escape -> quit immediately
+  // OH NO IT CRASHES
+
   if (c == 27)
   {
     delete the_sound_player;
@@ -93,6 +98,7 @@ void key_up(unsigned char c, int, int)
     }
     exit(0);
   }
+
 }
 
 void special_key_down(int c, int, int)
@@ -179,8 +185,10 @@ int main(int argc, char** argv)
   int joy_poll_interval = 60; // ?
   glutJoystickFunc(joystick, joy_poll_interval);
 
+  // Pretend screen size
+  screen::WIDTH = PRETEND_SCREEN_W;
+  screen::HEIGHT = PRETEND_SCREEN_H;
   gluOrtho2D(0, screen::WIDTH, 0, screen::HEIGHT);
-
   the_screen.set_size(screen::WIDTH, screen::HEIGHT);
 
   // Add black colour for space bg!

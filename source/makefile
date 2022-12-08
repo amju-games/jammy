@@ -7,7 +7,7 @@ run:
 	./jammy
 
 
-CC=clang++
+CC=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 
 WARNINGS=-Wall -Wno-deprecated-declarations
 
@@ -21,9 +21,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0 -arch i386
 LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib -arch i386
 
 SOURCES=\
-BassSoundPlayer.cpp \
 enter_hi_score_state.cpp \
-directory.cpp \
 game_over_state.cpp \
 globals.cpp \
 hi_scores.cpp \
@@ -44,6 +42,8 @@ splash_state.cpp \
 ../../lo-res/screen.cpp \
 ../../lo-res/sprite.cpp \
 ../../lo-res/sprite_sheet.cpp \
+../../microlib/BassSoundPlayer.cpp \
+../../microlib/directory.cpp \
 ../../microlib/file_string_utils.cpp \
 ../../microlib/game.cpp \
 ../../microlib/game_object.cpp \
