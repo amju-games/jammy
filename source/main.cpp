@@ -9,15 +9,10 @@
 #include "font.h"
 #include "game.h"
 #include "global_palette.h"
-#include "image.h"
 #include "input.h"
 #include "jammy_game_state.h"
-#include "parallax_bg.h"
-#include "player.h"
 #include "play_state.h"
-#include "rock.h"
 #include "screen.h"
-#include "sprite.h"
 #include "timer.h"
 
 // Size of window in actual device pixels
@@ -31,11 +26,6 @@ bool yes_full_screen = false;
 screen the_screen;
 game the_game;
 timer the_timer;
-
-player* the_player = nullptr;
-
-//image im; // TEST
-sprite spr;
 font my_font;
 
 void draw()
@@ -58,8 +48,6 @@ void update()
 {
   the_timer.update();
   float dt = the_timer.get_dt();
-
-  //spr.update(0);
 
   the_game.update(dt);
 }
@@ -137,9 +125,6 @@ void special_key_down(int c, int, int)
   jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
   assert(jgs);
   jgs->on_input(move);
-
-  // TODO
-  the_player->move(move);
 }
 
 void special_key_up(int c, int, int)
@@ -166,9 +151,6 @@ void special_key_up(int c, int, int)
   jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
   assert(jgs);
   jgs->on_input(move);
-
-  // TODO
-  the_player->move(move);
 }
 
 void joystick(unsigned int, int x, int y, int z)
@@ -212,21 +194,8 @@ int main(int argc, char** argv)
   // This will be index 1, because index 0 is for transparent colour.
   the_global_palette.add_colour(colour(0, 0, 0));
 
-  //spr.load("../assets/test2.png", the_palette);
-
   my_font.load(get_data_dir() + "font1.png", the_global_palette);
   my_font.set_num_cells(16, 4);
-
-  the_game.add_game_object(new parallax_bg);
-
-  the_player = new player;
-  the_game.add_game_object(the_player);
-
-  int NUM_ROCKS = 50;
-  for (int i = 0; i < NUM_ROCKS; i++)
-  {
-    the_game.add_game_object(new rock);
-  }
 
   play_state* ps = new play_state;
   ps->set_game(&the_game);

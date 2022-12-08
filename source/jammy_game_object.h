@@ -13,6 +13,9 @@ public:
   virtual void draw(screen& scr);
   void update(float dt) override; 
 
+  friend bool sprite_collision(
+    jammy_game_object* jgo1, jammy_game_object* jgo2); 
+
 protected:
   sprite m_sprite;
   bool m_is_alive = true; // ?

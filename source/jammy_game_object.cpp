@@ -5,6 +5,16 @@ vec2 jammy_game_object::s_cam_pos;
 
 static const vec2 CENTRE(60.f, 60.f);
 
+bool sprite_collision(
+  jammy_game_object* jgo1, jammy_game_object* jgo2)
+{
+  pix_int_result r = pixel_intersect(
+    jgo1->m_sprite, jgo1->m_sprite.get_cell(), jgo1->m_pos.x, jgo1->m_pos.y,
+    jgo2->m_sprite, jgo2->m_sprite.get_cell(), jgo2->m_pos.x, jgo2->m_pos.y);
+
+  return (r == pix_int_result::YES_COLLIDE);
+}
+
 void jammy_game_object::set_cam_pos(const vec2& pos)
 {
 }

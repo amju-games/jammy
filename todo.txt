@@ -1,9 +1,8 @@
 
-Font class
- - Sprite sheet base class, sprite derives from this
- - Font also derives from sprite sheet
-
-Make font image
+Collision det
+ - Sprite-sprite pixel-perfect
+ - Broad phase, use AABB
+ - Brute force
 
 File
  - Load text file
