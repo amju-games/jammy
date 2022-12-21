@@ -21,12 +21,17 @@ void jammy_game_object::set_cam_pos(const vec2& pos)
 
 void jammy_game_object::draw(screen& dest)
 {
+  draw_sprite(m_sprite, dest);
+}
+
+void jammy_game_object::draw_sprite(const sprite& s, screen& dest) const
+{
   vec2 rel_pos = m_pos - s_cam_pos + CENTRE;
 
   int x = rel_pos.x;
   int y = rel_pos.y;
 
-  m_sprite.draw(dest, x, y);
+  s.draw(dest, x, y);
 }
 
 void jammy_game_object::update(float dt) 

@@ -17,6 +17,9 @@ public:
     jammy_game_object* jgo1, jammy_game_object* jgo2); 
 
 protected:
+  void draw_sprite(const sprite& spr, screen& dest) const;
+
+protected:
   sprite m_sprite;
   bool m_is_alive = true; // ?
 
