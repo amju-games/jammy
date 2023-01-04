@@ -1,0 +1,12 @@
+#include "universe.h"
+
+int UNIVERSE_SIZE = 512; 
+
+int WINDOW_W = 512;
+int WINDOW_H = 512;
+
+int PRETEND_SCREEN_W = 256;
+int PRETEND_SCREEN_H = 256;
+
+vec2 CENTRE_SCREEN(PRETEND_SCREEN_W / 2, PRETEND_SCREEN_H / 2); 
+
