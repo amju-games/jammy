@@ -10,8 +10,10 @@ public:
   void update(float dt) override;
 
 private:
-  static const int NUM_IMAGES = 1;
-  image m_images[NUM_IMAGES];
-  vec2 m_bg_pos[NUM_IMAGES];
+  static constexpr int NUM_IMAGES = 1;
+  sprite m_sprites[NUM_IMAGES];
+
+  static constexpr int NUM_LAYERS = 2;
+  vec2 m_bg_pos[NUM_LAYERS];
 };
 

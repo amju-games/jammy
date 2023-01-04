@@ -3,8 +3,6 @@
 
 vec2 jammy_game_object::s_cam_pos;
 
-static const vec2 CENTRE(60.f, 60.f);
-
 bool sprite_collision(
   jammy_game_object* jgo1, jammy_game_object* jgo2)
 {
@@ -17,6 +15,7 @@ bool sprite_collision(
 
 void jammy_game_object::set_cam_pos(const vec2& pos)
 {
+  s_cam_pos = pos;
 }
 
 void jammy_game_object::draw(screen& dest)
@@ -26,7 +25,7 @@ void jammy_game_object::draw(screen& dest)
 
 void jammy_game_object::draw_sprite(const sprite& s, screen& dest) const
 {
-  vec2 rel_pos = m_pos - s_cam_pos + CENTRE;
+  vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
 
   int x = rel_pos.x;
   int y = rel_pos.y;
@@ -39,23 +38,23 @@ void jammy_game_object::update(float dt)
   game_object::update(dt);
 
   // Wrap around
-  vec2 rel_pos = m_pos - s_cam_pos + CENTRE;
+  vec2 rel_pos = m_pos - s_cam_pos;
 
-  if (rel_pos.x < -(UNIVERSE_SIZE / 2))
+  if (rel_pos.x < -(UNIVERSE_SIZE / 2 + m_sprite.get_cell_w()))
   {
-    m_pos.x += UNIVERSE_SIZE;
+    m_pos.x += UNIVERSE_SIZE + m_sprite.get_cell_w();
   }
   if (rel_pos.x > (UNIVERSE_SIZE / 2))
   {
-    m_pos.x -= UNIVERSE_SIZE;
+    m_pos.x -= (UNIVERSE_SIZE + m_sprite.get_cell_w());
   }
-  if (rel_pos.y < -(UNIVERSE_SIZE / 2))
+  if (rel_pos.y < -(UNIVERSE_SIZE / 2 + m_sprite.get_cell_h()))
   {
-    m_pos.y += UNIVERSE_SIZE;
+    m_pos.y += UNIVERSE_SIZE + m_sprite.get_cell_h();
   }
   if (rel_pos.y > (UNIVERSE_SIZE / 2))
   {
-    m_pos.y -= UNIVERSE_SIZE;
+    m_pos.y -= (UNIVERSE_SIZE + m_sprite.get_cell_h());
   }
 
   m_sprite.update(dt);

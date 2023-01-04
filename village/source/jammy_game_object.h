@@ -9,7 +9,8 @@ class jammy_game_object : public game_object
 public:
   // load
 
-  void set_cam_pos(const vec2& pos);
+  static void set_cam_pos(const vec2& pos);
+
   virtual void draw(screen& scr);
   void update(float dt) override; 
 
