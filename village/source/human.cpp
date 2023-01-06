@@ -89,9 +89,9 @@ void human::draw(screen& dest)
   // Draw rope between this human and parent
   if (m_parent)
   {
-    const vec2 OFFSET(65, 67);
-    vec2 v1 = m_pos - s_cam_pos + OFFSET; 
-    vec2 v2 = m_parent->get_pos() - s_cam_pos + OFFSET; 
+    const vec2 OFFSET(5, 5);
+    vec2 v1 = m_pos - s_cam_pos + OFFSET + CENTRE_SCREEN; 
+    vec2 v2 = m_parent->get_pos() - s_cam_pos + OFFSET + CENTRE_SCREEN; 
 
     plot_line(v1.x, v1.y, v2.x, v2.y, dest);
   }
