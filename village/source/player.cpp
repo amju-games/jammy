@@ -4,22 +4,30 @@
 #include "globals.h"
 #include "player.h"
 #include "sign.h"
+#include "universe.h"
+
+//#define NO_DECEL
 
 const float MAX_IMMUNE_TIME = 3.f;
-
-const float DECELERATION = 9.f;
+const float DECELERATION = 0.5f;
+const float FLAME_FRAME_TIME = 0.15f;
 float PLAYER_SPEED = 30.f; 
 
 player::player()
 {
-  m_sprite.load(get_data_dir() + "Player_all.png", the_global_palette);
-  m_sprite.set_num_cells(9, 1);
+  m_sprite.load(get_data_dir() + "player2.png", the_global_palette);
+  m_sprite.set_num_cells(1, 2);
 
-  m_pos = vec2(60, 60);
+  m_flames.load(get_data_dir() + "flames.png", the_global_palette);
+  m_flames.set_num_cells(4, 6); // 4 frames * 6 directions
+  m_flames.set_cell_time(FLAME_FRAME_TIME);
+
+  m_pos = vec2(0, 0); //CENTRE_SCREEN;
 
   m_is_immune = false;
   m_immune_time = 0;
   m_lives = 5;
+  m_last_move_dir = vec2(1.f, 0.f);
 }
 
 void player::keep_immune()
@@ -53,7 +61,13 @@ void player::draw(screen& scr)
     }
   }
 
-  jammy_game_object::draw(scr);
+  walker::draw(scr);
+
+  // Draw jet pac flame
+  if (m_flame_on)
+  {
+    draw_sprite(m_flames, scr);
+  }
 }
 
 void player::update(float dt)
@@ -76,35 +90,49 @@ void player::update(float dt)
 
   vec2 old_vel = m_vel;
 
-  jammy_game_object::update(dt);
+  set_cam_pos(m_pos); // TODO some elasticity
+
+  jammy_game_object::update(dt); // not walker
+
+  m_flames.update(dt);
   
   // Check for deceleration to stop
   if (sign(old_vel.x) != sign(m_vel.x))
   {
-std::cout << "Stopped in x\n";
     m_vel.x = 0;
   }
 
   if (sign(old_vel.y) != sign(m_vel.y))
   {
-std::cout << "Stopped in y\n";
     m_vel.y = 0;
   }
 
+/*
   const float STOPPED = 0.1f;
   if (fabs(m_vel.x) < STOPPED && fabs(m_vel.y) < STOPPED)
   {
     // Set sprite to stopped
     m_sprite.set_cell_range(3, 3);
   }
+*/
 
-  s_cam_pos = m_pos; // TODO some elasticity
 }
+
+  // Flame sprite sheet cell range start positions
+  namespace flame
+  {
+    const int R = 0;
+    const int L = 4;
+    const int UR = 8;
+    const int UL = 12;
+    const int DR = 16;
+    const int DL = 20;
+    const int NUM_FRAMES = 4;
+  };
 
 void player::move(int move_dir)
 {
-std::cout << "Player move command: " << move_dir << "\n";
-
+/*
   if (move_dir != MOVE_NONE)
   {
     int CELL[16];  // 16 permutations but not all are valid
@@ -125,48 +153,66 @@ std::cout << "Player move command: " << move_dir << "\n";
     int c = CELL[move_dir];
     m_sprite.set_cell_range(c, c);
   }
+*/
 
   vec2 dir;
+
+  m_flame_on = false;
+
   if (move_dir & MOVE_UP)
   {
-std::cout << "Move up\n";
     dir.y -= PLAYER_SPEED; 
   }
   if (move_dir & MOVE_DOWN)
   {
-std::cout << "Move down\n";
     dir.y += PLAYER_SPEED; 
+  }
+  if (move_dir & MOVE_LEFT)
+  {
+    dir.x -= PLAYER_SPEED; 
+    m_sprite.set_cell_range(1, 1);
+    m_flame_on = true;
+    m_flames.set_cell_range(flame::L, flame::L + flame::NUM_FRAMES - 1);
+  }
+  if (move_dir & MOVE_RIGHT)
+  {
+    dir.x += PLAYER_SPEED; 
+    m_sprite.set_cell_range(0, 0);
+    m_flame_on = true;
+    m_flames.set_cell_range(flame::R, flame::R + flame::NUM_FRAMES - 1);
+  }
+
+#ifdef NO_DECEL
+  if ((move_dir & MOVE_LEFT) == 0 && (move_dir & MOVE_RIGHT) == 0)
+  {
+std::cout << "Not moving left or right\n";
+    dir.x = 0;
   }
   if ((move_dir & MOVE_UP) == 0 && (move_dir & MOVE_DOWN) == 0)
   {
 std::cout << "Not moving up or down\n";
     dir.y = 0;
   }
-  if (move_dir & MOVE_LEFT)
-  {
-std::cout << "Move left\n";
-    dir.x -= PLAYER_SPEED; 
-  }
-  if (move_dir & MOVE_RIGHT)
-  {
-std::cout << "Move right\n";
-    dir.x += PLAYER_SPEED; 
-  }
-  if ((move_dir & MOVE_LEFT) == 0 && (move_dir & MOVE_RIGHT) == 0)
-  {
-std::cout << "Not moving left or right\n";
-    dir.x = 0;
-  }
+#endif
 
-  m_vel = dir; // no accel in this game
+  m_vel += dir; 
+
+  // Store last non-zero vel
+  if (squared_length(m_vel) > 0.f)
+  {
+    m_last_move_dir = m_vel;
+  }
 
   // Max PLAYER_SPEED
-//  float max_PLAYER_SPEED = 20.f; // TODO
-//  if (squared_length(m_vel) > max_PLAYER_SPEED)
-//  {
-//    m_vel = normalise(m_vel) * max_PLAYER_SPEED;
-//  }
+  float max_PLAYER_SPEED = 20.f; // TODO
+  if (squared_length(m_vel) > max_PLAYER_SPEED)
+  {
+    m_vel = normalise(m_vel) * max_PLAYER_SPEED;
+  }
 
-//  m_acc = -m_vel * DECELERATION; 
+#ifndef NO_DECEL
+  m_acc = -m_vel * DECELERATION; 
+  
+#endif
 }
 
