@@ -4,23 +4,20 @@
 #include "colour.h"
 #include "directory.h"
 #include "font.h"
+#include "fps_counter.h"
 #include "globals.h"
 #include "input.h"
 #include "jammy_game_state.h"
 #include "play_state.h"
 #include "sound_player_bass24.h"
 #include "splash_state.h"
-
-// Size of window in actual device pixels
-const int WINDOW_W = 500;
-const int WINDOW_H = 500;
-
-const int PRETEND_SCREEN_W = 128;
-const int PRETEND_SCREEN_H = 128;
+#include "universe.h"
 
 const char BLACK = 1;
 
 bool yes_full_screen = false;
+
+fps_counter the_fps_counter;
 
 void draw()
 {
@@ -30,6 +27,10 @@ void draw()
 
   the_game.draw();
 
+  the_font.draw(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
+
+
+  // Copy buffer to GL screen surface
   the_screen.draw_on_gl_thread(the_global_palette);
 
   glutSwapBuffers();
@@ -41,6 +42,8 @@ void update()
   the_timer.update();
   float dt = the_timer.get_dt();
 
+  the_fps_counter.update(dt);
+ 
   the_game.update(dt);
 }
 
@@ -49,6 +52,10 @@ void update()
 void draw_and_update()
 {
   draw();
+
+  // Poll joystick
+  glutForceJoystickFunc();
+
   update();
 }
 
@@ -66,7 +73,9 @@ static void clear(int& i, int b)
 
 void key_down(unsigned char c, int, int)
 {
+#ifdef KEY_DEBUG
   std::cout << "Got key down: '" << c << "'\n"; 
+#endif
 
   // Space bar => button
   if (c == ' ')
@@ -80,7 +89,9 @@ void key_down(unsigned char c, int, int)
 
 void key_up(unsigned char c, int, int)
 {
+#ifdef KEY_DEBUG
   std::cout << "Got key up: '" << c << "'\n"; 
+#endif
 
   // Escape -> quit immediately
   // OH NO IT CRASHES
@@ -100,7 +111,9 @@ void key_up(unsigned char c, int, int)
 
 void special_key_down(int c, int, int)
 {
+#ifdef KEY_DEBUG
   std::cout << "Got special key down: " << c << "\n"; 
+#endif
 
   switch (c)
   {
@@ -126,7 +139,9 @@ void special_key_down(int c, int, int)
 
 void special_key_up(int c, int, int)
 {
+#ifdef KEY_DEBUG
   std::cout << "Got special key up: " << c << "\n"; 
+#endif
 
   switch (c)
   {
@@ -150,9 +165,71 @@ void special_key_up(int c, int, int)
   jgs->on_input(move);
 }
 
-void joystick(unsigned int, int x, int y, int z)
+void joystick(unsigned int buttons, int x, int y, int z)
 {
-  std::cout << "Got js callback! x: " << x << " y:" << y << "\n";
+#ifdef JOYSTICK_DEBUG
+  std::cout << "Got js callback! buttons: " << buttons 
+    << "\tx: " << x 
+    << "\ty: " << y 
+    << "\tz: " << z 
+    << "\n";
+#endif
+
+  // Initialise to first values, so we don't do anything on first call.
+  static unsigned int prev_buttons = buttons;
+  static int prev_x = x;
+  static int prev_y = y;
+
+  if (buttons == prev_buttons && x == prev_x && y == prev_y)
+  {
+    return;
+  }
+
+  game_state* gs = the_game.get_game_state();
+  jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
+  assert(jgs);
+
+  if (buttons != prev_buttons)
+  {
+    // Lowest 4 bits of move are movement directions. Shift button mask up.
+    move &= 0x0f; // Save directions
+    move |= ((buttons & 0x0fff) << 4); // copy button mask into move, shifted up 4 bits
+    prev_buttons = buttons;
+  }
+
+  static const int DEAD_ZONE = 500; // glut-specific: axis values go -1000..1000
+
+  if (x != prev_x)
+  {
+    clear(move, MOVE_RIGHT);
+    clear(move, MOVE_LEFT);
+    if (x < -DEAD_ZONE)
+    {
+      set(move, MOVE_LEFT);
+    }
+    if (x > DEAD_ZONE)
+    {
+      set(move, MOVE_RIGHT);
+    }
+    prev_x = x;
+  }
+
+  if (y != prev_y)
+  {
+    clear(move, MOVE_UP);
+    clear(move, MOVE_DOWN);
+    if (y < -DEAD_ZONE)
+    {
+      set(move, MOVE_UP); 
+    }
+    if (y > DEAD_ZONE)
+    {
+      set(move, MOVE_DOWN);
+    }
+    prev_y = y;
+  }
+
+  jgs->on_input(move);
 }
 
 int main(int argc, char** argv)
@@ -178,9 +255,9 @@ int main(int argc, char** argv)
   glutSpecialFunc(special_key_down);
   glutSpecialUpFunc(special_key_up);
 
-  // Joystick - Windows only?
-  int joy_poll_interval = 60; // ?
-  glutJoystickFunc(joystick, joy_poll_interval);
+  // Joystick 
+  const int POLL_WITH_GLUT_FORCE_JOYSTICK_FUNC = -1;
+  glutJoystickFunc(joystick, POLL_WITH_GLUT_FORCE_JOYSTICK_FUNC);
 
   // Pretend screen size
   screen::WIDTH = PRETEND_SCREEN_W;
