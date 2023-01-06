@@ -10,9 +10,11 @@
 #include "jammy_game_object.h"
 #include "parallax_bg.h"
 #include "player.h"
+#include "player_bullet.h"
 #include "play_state.h"
 #include "rock.h"
 #include "screen.h"
+#include "string_utils.h"
 
 const float MAX_BIO_TIME = 3.f;
 
@@ -41,8 +43,6 @@ play_state::play_state()
 
 void play_state::on_input(int input)
 {
-std::cout << "play state input: " << input << "\n";
-
   assert(m_player);
 
   // If this input is a combination of move directions, values will be 0..0xf.
@@ -65,16 +65,16 @@ std::cout << "play state input: " << input << "\n";
 
 void play_state::add_player_bullet()
 {
-std::cout << "Shoot!\n";
+  // For bullet dir, we use last non-zero direction of player
+  player_bullet* pb = new player_bullet(m_player->get_pos(), m_player->get_last_move_dir());
+  the_game.add_game_object(std::shared_ptr<player_bullet>(pb));
+  m_player_bullets.push_back(pb);
 
-  // For bullet dir, we should use last non-zero direction of player
-  m_player_bullets.push_back(player_bullet(m_player->get_pos(), m_player->get_vel()));
+  the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_impact3.wav");
 }
 
 void play_state::on_active() 
 {
-  std::cout << "ON ACTIVE\n";
-
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
 
   m_player = nullptr; 
@@ -84,23 +84,23 @@ void play_state::on_active()
   the_game.clear_game_objects();
 
   // Add background
-  the_game.add_game_object(new parallax_bg);
+  the_game.add_game_object(std::make_shared<parallax_bg>());
   
   // Add HQ
   m_hq = new hq;
-  the_game.add_game_object(m_hq);
+  the_game.add_game_object(std::shared_ptr<hq>(m_hq));
 
   // Add humans
   for (int i = 0; i < NUM_HUMANS; i++)
   {
     human* h = new human;
-    the_game.add_game_object(h);
+    the_game.add_game_object(std::shared_ptr<human>(h));
     m_humans.push_back(h);
   }
 
   // Add player
   m_player = new player;
-  the_game.add_game_object(m_player);
+  the_game.add_game_object(std::shared_ptr<player>(m_player));
 
   // Add asteroids
 //  for (int i = 0; i < NUM_ROCKS; i++)
@@ -109,6 +109,9 @@ void play_state::on_active()
 //    the_game.add_game_object(r);
 //    m_rocks.push_back(r);
 //  }
+
+  populate_collision_funcs(m_collision_mgr);
+  m_collision_mgr.set_game_objects(the_game.get_game_objects());
 }
 
 void play_state::on_deactive() 
@@ -117,6 +120,9 @@ void play_state::on_deactive()
 
 void play_state::col_det()
 {
+  m_collision_mgr.check_for_collisions();
+
+/*
   // Test player and humans against rocks
   for (rock* r : m_rocks)
   {
@@ -161,6 +167,7 @@ void play_state::col_det()
       }
     }
   }
+*/
 
   // Test for humans
   int i = 0;
@@ -267,9 +274,9 @@ void play_state::draw_blip(jammy_game_object* h, int cell)
 void play_state::draw() 
 {
   game_objects* gos = the_game.get_game_objects();
-  for (game_object* go : *gos)
+  for (p_game_object& go : *gos)
   {
-    jammy_game_object* jgo = dynamic_cast<jammy_game_object*>(go);
+    jammy_game_object* jgo = dynamic_cast<jammy_game_object*>(go.get());
     assert(jgo);
     jgo->draw(the_screen);
   }
@@ -303,5 +310,11 @@ void play_state::draw()
 //  {
 //    the_human_list.draw_human_bio(human_to_display);
 //  } 
+
+  the_font.draw(the_screen, 20, 8,  concat("PLR: ", m_player->get_pos()));
+  the_font.draw(the_screen, 20, 16,  concat("HQ:  ", m_hq->get_pos()));
+//  the_font.draw(the_screen, 20, 16, concat("VEL: ", m_player->get_vel()));
+//  the_font.draw(the_screen, 20, 24, concat("ACC: ", m_player->get_acc()));
+
 }
 

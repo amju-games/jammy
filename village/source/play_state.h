@@ -1,13 +1,16 @@
 #pragma once
 
+//import std;
 #include <vector>
+
+#include "jammy_collision_mgr.h"
 #include "jammy_game_state.h"
-#include "player_bullet.h"
 
 class hq;
 class human;
 class jammy_game_object;
 class player;
+class player_bullet;
 class rock;
 
 class play_state : public jammy_game_state
@@ -31,7 +34,7 @@ protected:
   player* m_player = nullptr;
   hq* m_hq = nullptr;
 
-  std::vector<player_bullet> m_player_bullets;
+  std::vector<player_bullet*> m_player_bullets;
   std::vector<human*> m_humans;
   std::vector<human*> m_rescued_humans;
 
@@ -41,5 +44,7 @@ protected:
   sprite_sheet m_blips;
   image m_life_empty;
   image m_life_full;
+
+  jammy_collision_mgr m_collision_mgr;
 };
 
