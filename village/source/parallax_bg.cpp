@@ -29,7 +29,7 @@ void parallax_bg::update(float dt)
   vec2 cam_change = old_pos - s_cam_pos;
   old_pos = s_cam_pos;
 
-  const float SPEED[] = { 1.f, 0.5f, 0.25f }; // etc
+  const float SPEED[] = { 1.f, 0.75f, 0.25f }; // etc
 
   for (int i = 0; i < NUM_LAYERS; i++)
   {
