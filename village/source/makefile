@@ -16,7 +16,7 @@ INCLUDES=\
   -I../../../lo-res \
   -I../../../microlib
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX  -g -O0 
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -DMACOSX  -g -O0 
 
 LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib 
 
@@ -28,6 +28,7 @@ hi_scores.cpp \
 hq.cpp \
 human.cpp \
 human_list.cpp \
+jammy_collision_mgr.cpp \
 jammy_game_object.cpp \
 main.cpp \
 parallax_bg.cpp \
@@ -36,6 +37,8 @@ player_bullet.cpp \
 play_state.cpp \
 rock.cpp \
 splash_state.cpp \
+universe.cpp \
+walker.cpp \
 ../../../lo-res/font.cpp \
 ../../../lo-res/image.cpp \
 ../../../lo-res/lodepng.cpp \
@@ -49,6 +52,7 @@ splash_state.cpp \
 ../../../microlib/game_object.cpp \
 ../../../microlib/message_queue.cpp \
 ../../../microlib/sound_player_bass24.cpp \
+../../../microlib/string_utils.cpp \
 ../../../microlib/timer.cpp
 
 
