@@ -2,6 +2,7 @@
 #include "directory.h"
 #include "globals.h"
 #include "player.h"
+#include "resources.h"
 #include "universe.h"
 
 void plot(int x, int y, screen& dest)
@@ -9,7 +10,7 @@ void plot(int x, int y, screen& dest)
   const int COL = 2; // index 2, should be rope colour
   if (x >= 0 && x < screen::WIDTH && y >= 0 && y < screen::HEIGHT)
   {
-    dest.set_colour(dest.index(x, y), COL);
+    dest.set_colour(x, y, COL);
   }
 }
 
@@ -61,7 +62,7 @@ void plot_line(int x1, int y1, int x2, int y2, screen& dest)
 
 human::human()
 {
-  m_sprite.load(get_data_dir() + "Human_all.png", the_global_palette);
+  m_sprite.set_image(resources().get<image>(get_data_dir() + "Human_all.png"));
   m_sprite.set_num_cells(9, 1);
   m_sprite.set_cell_range(0, 0);
 
