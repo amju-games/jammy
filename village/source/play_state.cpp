@@ -14,8 +14,8 @@
 #include "play_state.h"
 #include "resources.h"
 #include "rock.h"
-#include "screen.h"
 #include "string_utils.h"
+#include "universe.h"
 
 const float MAX_BIO_TIME = 3.f;
 
@@ -300,7 +300,7 @@ void play_state::draw()
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
-    m_life_full->blit(the_screen, screen::WIDTH - (i + 1) * HEART_W, 2);
+    m_life_full->blit(the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
   }
 
   // Draw score

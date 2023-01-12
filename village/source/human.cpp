@@ -5,17 +5,17 @@
 #include "resources.h"
 #include "universe.h"
 
-void plot(int x, int y, screen& dest)
+void plot(int x, int y, ref_image dest)
 {
   const int COL = 2; // index 2, should be rope colour
-  if (x >= 0 && x < screen::WIDTH && y >= 0 && y < screen::HEIGHT)
+  if (x >= 0 && x < PRETEND_SCREEN_W && y >= 0 && y < PRETEND_SCREEN_H)
   {
-    dest.set_colour(x, y, COL);
+    dest->set_colour(x, y, COL);
   }
 }
 
 // https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C.2B.2B
-void plot_line(int x1, int y1, int x2, int y2, screen& dest)
+void plot_line(int x1, int y1, int x2, int y2, ref_image dest)
 {
   // Bresenham's line algorithm
   const bool steep = (fabs(y2 - y1) > fabs(x2 - x1));
@@ -85,7 +85,7 @@ void human::update(float dt)
   }
 }
 
-void human::draw(screen& dest)
+void human::draw(ref_image dest)
 {
   // Draw rope between this human and parent
   if (m_parent)

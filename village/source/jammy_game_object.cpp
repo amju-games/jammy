@@ -18,12 +18,12 @@ void jammy_game_object::set_cam_pos(const vec2& pos)
   s_cam_pos = pos;
 }
 
-void jammy_game_object::draw(screen& dest)
+void jammy_game_object::draw(ref_image dest)
 {
   draw_sprite(m_sprite, dest);
 }
 
-void jammy_game_object::draw_sprite(const sprite& s, screen& dest) const
+void jammy_game_object::draw_sprite(const sprite& s, ref_image dest) const
 {
   vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
 

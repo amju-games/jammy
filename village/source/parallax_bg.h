@@ -6,7 +6,7 @@ class parallax_bg : public jammy_game_object
 {
 public:
   parallax_bg();
-  void draw(screen&) override;
+  void draw(ref_image) override;
   void update(float dt) override;
 
 private:

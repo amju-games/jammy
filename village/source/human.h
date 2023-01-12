@@ -10,7 +10,7 @@ public:
   human();
 
   void update(float dt) override;
-  void draw(screen& dest) override;
+  void draw(ref_image dest) override;
 
   void set_rescued(bool rescued) { m_rescued = rescued; }
 

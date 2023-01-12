@@ -52,7 +52,7 @@ int player::lose_life()
 static float flasher = 0;
 static const float FLASH_PERIOD = .3f;
 
-void player::draw(screen& scr)
+void player::draw(ref_image dest)
 {
   if (m_is_immune)  
   {
@@ -62,12 +62,12 @@ void player::draw(screen& scr)
     }
   }
 
-  walker::draw(scr);
+  walker::draw(dest);
 
   // Draw jet pac flame
   if (m_flame_on)
   {
-    draw_sprite(m_flames, scr);
+    draw_sprite(m_flames, dest);
   }
 }
 

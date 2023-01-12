@@ -34,10 +34,3 @@ void walker::update(float dt)
   jammy_game_object::update(dt);
 }
 
-void walker::draw(screen& scr)
-{
-
-  jammy_game_object::draw(scr);
-}
-
-

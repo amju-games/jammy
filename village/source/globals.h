@@ -9,11 +9,11 @@
 #include "human_list.h"
 #include "palette.h"
 #include "play_state.h"
-#include "screen.h"
 #include "sound_player.h"
 #include "splash_state.h"
 #include "timer.h"
 
+extern p_image the_screen;
 extern std::unique_ptr<sound_player> the_sound_player;
 extern font the_font;
 extern game the_game;
@@ -23,7 +23,6 @@ extern hi_scores the_hi_score_table;
 extern human_list the_human_list;
 extern palette the_global_palette;
 extern std::unique_ptr<play_state> the_play_state;
-extern screen the_screen;
 extern std::unique_ptr<splash_state> the_splash_state;
 extern timer the_timer;
 

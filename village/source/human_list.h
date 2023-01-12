@@ -11,7 +11,7 @@ public:
   {
     std::string m_name;
     std::string m_text;
-    image m_image;
+    p_image m_image;
   };
 
   void draw_human_bio(int human_to_display);

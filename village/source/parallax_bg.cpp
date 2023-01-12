@@ -2,7 +2,6 @@
 #include "directory.h"
 #include "globals.h"
 #include "parallax_bg.h"
-#include "screen.h"
 #include "resources.h"
 #include "universe.h"
 
@@ -64,11 +63,11 @@ vec2 get_random_star_pos(int layer, int star)
   return pos;
 }
 
-void parallax_bg::draw(screen& dest)
+void parallax_bg::draw(ref_image dest)
 {
   // Clear screen to colour index 1, which we know is black because we added it in main 
   //  explicitly.
-  dest.clear(1); // TODO get this index from somewhere
+  dest->clear(1); // TODO get this index from somewhere
 
   // Draw most distant layer first
   for (int i = NUM_LAYERS - 1; i >= 0; i--)

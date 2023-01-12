@@ -6,9 +6,11 @@
 #include "font.h"
 #include "fps_counter.h"
 #include "globals.h"
+#include "image_8.h"
 #include "input.h"
 #include "jammy_game_state.h"
 #include "play_state.h"
+#include "render_image_opengl.h"
 #include "sound_player_bass24.h"
 #include "splash_state.h"
 #include "resources.h"
@@ -24,7 +26,7 @@ void draw()
 {
   glClear(GL_COLOR_BUFFER_BIT);
 
-  the_screen.clear(BLACK);
+  the_screen->clear(BLACK);
 
   the_game.draw();
 
@@ -32,7 +34,7 @@ void draw()
 
 
   // Copy buffer to GL screen surface
-  the_screen.draw_on_gl_thread(image::get_palette());
+  render_image_opengl(the_screen);
 
   glutSwapBuffers();
   glutPostRedisplay();
@@ -261,17 +263,17 @@ int main(int argc, char** argv)
   glutJoystickFunc(joystick, POLL_WITH_GLUT_FORCE_JOYSTICK_FUNC);
 
   // Pretend screen size
-  screen::WIDTH = PRETEND_SCREEN_W;
-  screen::HEIGHT = PRETEND_SCREEN_H;
-  gluOrtho2D(0, screen::WIDTH, 0, screen::HEIGHT);
-  the_screen.set_size(screen::WIDTH, screen::HEIGHT);
+  gluOrtho2D(0, PRETEND_SCREEN_W, 0, PRETEND_SCREEN_H);
+ 
+  the_screen = std::make_shared<image_8>();
+  the_screen->set_size(PRETEND_SCREEN_W, PRETEND_SCREEN_H);
 
   // Add black colour for space bg!
   // This will be index 1, because index 0 is for transparent colour.
-  image::get_palette().add_colour(colour(0, 0, 0));
+  image_8::get_palette().add_colour(colour(0, 0, 0));
 
   // Add colour for rope - this is index 2.
-  image::get_palette().add_colour(colour(255, 255, 0));
+  image_8::get_palette().add_colour(colour(255, 255, 0));
 
   // Init font
   the_font.set_image(resources().get<image>(get_data_dir() + "font1 - magenta.png"));

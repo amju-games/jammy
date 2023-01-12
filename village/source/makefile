@@ -41,10 +41,10 @@ splash_state.cpp \
 universe.cpp \
 walker.cpp \
 ../../../lo-res/font.cpp \
-../../../lo-res/image.cpp \
+../../../lo-res/image_8.cpp \
 ../../../lo-res/lodepng.cpp \
 ../../../lo-res/palette.cpp \
-../../../lo-res/screen.cpp \
+../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \
 ../../../lo-res/sprite_sheet.cpp \
 ../../../microlib/directory.cpp \

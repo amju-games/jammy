@@ -9,7 +9,7 @@ public:
 
   void update(float dt) override;
 
-  void draw(screen& scr) override;
+  void draw(ref_image dest) override;
 
   // * move *
   // Move in the given direction, a bitfield combination of 
