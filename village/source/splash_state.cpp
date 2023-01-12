@@ -1,10 +1,11 @@
 #include "directory.h"
 #include "globals.h"
+#include "resources.h"
 #include "splash_state.h"
 
 splash_state::splash_state()
 {
-  m_image.load(get_data_dir() + "Splash_Screen.png", the_global_palette);
+  m_image = resources().get<image>(get_data_dir() + "Splash_Screen.png");
 }
 
 static float flash = 0;
@@ -21,7 +22,7 @@ void splash_state::update(float dt)
 
 void splash_state::draw()
 {
-  m_image.blit(the_screen, 0, 0);
+  m_image->blit(the_screen, 0, 0);
   
   if (flash < FLASH_PERIOD * .5f)
   {

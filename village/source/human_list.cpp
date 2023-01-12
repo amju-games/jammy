@@ -4,6 +4,7 @@
 #include "directory.h"
 #include "globals.h"
 #include "human_list.h"
+#include "resources.h"
 
 void human_list::draw_human_bio(int h)
 {
@@ -17,13 +18,14 @@ void human_list::draw_human_bio(int h)
 bool human_list::load()
 {
   // Load sprite sheet
-  std::string im = get_data_dir() + "Humans/humans_indexed.png";
-  if (!m_ss.load(im, the_global_palette))
+  p_image im = resources().get<image>(get_data_dir() + "Humans/humans_indexed.png");
+  if (!im)
   {
     std::cout << "FAILED TO LOAD HUMANS\n";
     assert(0);
     return false;
   }
+  m_ss.set_image(im);
   m_ss.set_num_cells(23, 1);
 
   std::ifstream f;

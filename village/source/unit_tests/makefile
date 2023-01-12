@@ -20,10 +20,17 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++17   -DMACOSX
 
 LDFLAGS=-framework OpenGL -framework GLUT
 
+# (some code is just in .h files as templated)
 SOURCES= \
 brute_force_tests.cpp \
 catch_test_main.cpp \
+../resources.cpp \
+resources_tests.cpp \
 sweep_and_prune_tests.cpp \
+../../../../lo-res/image.cpp \
+../../../../lo-res/lodepng.cpp \
+../../../../lo-res/palette.cpp \
+../../../../microlib/file_string_utils.cpp \
 ../../../../microlib/game.cpp \
 ../../../../microlib/game_object.cpp
 

@@ -11,6 +11,6 @@ public:
   void on_input(int input) override;
 
 private:
-  image m_image;
+  p_image m_image;
 };
 

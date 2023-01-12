@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include "directory.h"
 #include "globals.h"
+#include "resources.h"
 #include "rock.h"
 #include "universe.h"
 
@@ -10,7 +11,7 @@ rock::rock()
   int r = rand() % NUM_ASTEROID_TYPES + 1;
   std::string s = "asteroid_" + std::to_string(r) + ".png";
 
-  m_sprite.load(get_data_dir() + s, the_global_palette);
+  m_sprite.set_image(resources().get<image>(get_data_dir() + s));
   m_sprite.set_num_cells(1, 1);
   m_sprite.set_cell_range(0, 0); 
 

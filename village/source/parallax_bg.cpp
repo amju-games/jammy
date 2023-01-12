@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "parallax_bg.h"
 #include "screen.h"
+#include "resources.h"
 #include "universe.h"
 
 parallax_bg::parallax_bg()
@@ -16,7 +17,7 @@ parallax_bg::parallax_bg()
   {
     auto& s = m_sprites[i];
 
-    s.load(get_data_dir() + FILENAMES[i], the_global_palette);
+    s.set_image(resources().get<image>(get_data_dir() + FILENAMES[i]));
     s.set_cell_time(.4f); // TODO TEMP TEST
     s.set_num_cells(4, 1); 
     s.set_cell_range(0, 3);

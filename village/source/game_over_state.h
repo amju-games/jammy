@@ -14,7 +14,7 @@ public:
   void on_active() override;
   
 private:
-  image m_image;
+  p_image m_image;
   sprite_sheet m_human_ss;
 };
 

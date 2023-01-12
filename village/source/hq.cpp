@@ -1,10 +1,11 @@
 #include "directory.h"
 #include "globals.h"
 #include "hq.h"
+#include "resources.h"
 
 hq::hq()
 {
-  m_sprite.load(get_data_dir() + "player_HQ.png", the_global_palette);
+  m_sprite.set_image(resources().get<image>(get_data_dir() + "player_HQ.png"));
   m_sprite.set_num_cells(1, 1);
   m_sprite.set_cell_range(0, 0);
 

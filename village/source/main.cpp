@@ -11,6 +11,7 @@
 #include "play_state.h"
 #include "sound_player_bass24.h"
 #include "splash_state.h"
+#include "resources.h"
 #include "universe.h"
 
 const char BLACK = 1;
@@ -31,7 +32,7 @@ void draw()
 
 
   // Copy buffer to GL screen surface
-  the_screen.draw_on_gl_thread(the_global_palette);
+  the_screen.draw_on_gl_thread(image::get_palette());
 
   glutSwapBuffers();
   glutPostRedisplay();
@@ -267,13 +268,13 @@ int main(int argc, char** argv)
 
   // Add black colour for space bg!
   // This will be index 1, because index 0 is for transparent colour.
-  the_global_palette.add_colour(colour(0, 0, 0));
+  image::get_palette().add_colour(colour(0, 0, 0));
 
   // Add colour for rope - this is index 2.
-  the_global_palette.add_colour(colour(255, 255, 0));
+  image::get_palette().add_colour(colour(255, 255, 0));
 
   // Init font
-  the_font.load(get_data_dir() + "font1 - magenta.png", the_global_palette);
+  the_font.set_image(resources().get<image>(get_data_dir() + "font1 - magenta.png"));
   the_font.set_num_cells(16, 4);
 
   // Init game states

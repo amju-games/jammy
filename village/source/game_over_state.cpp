@@ -2,6 +2,7 @@
 #include "game_over_state.h"
 #include "globals.h"
 #include "player.h"
+#include "resources.h"
 
 void draw_centred(int y, const std::string& str)
 {
@@ -11,9 +12,9 @@ void draw_centred(int y, const std::string& str)
 
 game_over_state::game_over_state()
 {
-  m_image.load(get_data_dir() + "Background.png", the_global_palette);
+  m_image = resources().get<image>(get_data_dir() + "Background.png");
 
-  m_human_ss.load(get_data_dir() + "Human_all.png", the_global_palette);
+  m_human_ss.set_image(resources().get<image>(get_data_dir() + "Human_all.png"));
   m_human_ss.set_num_cells(9, 1);
 }
 
@@ -45,7 +46,7 @@ void game_over_state::update(float dt)
 
 void game_over_state::draw()
 {
-  m_image.blit(the_screen, 0, 0); 
+  m_image->blit(the_screen, 0, 0); 
   
   the_font.draw(the_screen, 46, 25, "GAME OVER");
 

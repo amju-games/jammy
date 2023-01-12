@@ -4,6 +4,7 @@
 #include "globals.h"
 #include "player.h"
 #include "sign.h"
+#include "resources.h"
 #include "universe.h"
 
 //#define NO_DECEL
@@ -15,10 +16,10 @@ float PLAYER_SPEED = 30.f;
 
 player::player()
 {
-  m_sprite.load(get_data_dir() + "player2.png", the_global_palette);
-  m_sprite.set_num_cells(1, 2);
+  m_sprite.set_image(resources().get<image>(get_data_dir() + "player1.png"));
+  m_sprite.set_num_cells(3, 2);
 
-  m_flames.load(get_data_dir() + "flames.png", the_global_palette);
+  m_flames.set_image(resources().get<image>(get_data_dir() + "flames.png"));
   m_flames.set_num_cells(4, 6); // 4 frames * 6 directions
   m_flames.set_cell_time(FLAME_FRAME_TIME);
 
@@ -170,7 +171,7 @@ void player::move(int move_dir)
   if (move_dir & MOVE_LEFT)
   {
     dir.x -= PLAYER_SPEED; 
-    m_sprite.set_cell_range(1, 1);
+    m_sprite.set_cell_range(3, 3);
     m_flame_on = true;
     m_flames.set_cell_range(flame::L, flame::L + flame::NUM_FRAMES - 1);
   }

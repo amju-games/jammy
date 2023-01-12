@@ -2,10 +2,11 @@
 #include "enter_hi_score_state.h"
 #include "globals.h"
 #include "player.h"
+#include "resources.h"
 
 enter_hi_score_state::enter_hi_score_state()
 {
-  m_image.load(get_data_dir() + "Background.png", the_global_palette);
+  m_image = resources().get<image>(get_data_dir() + "Background.png");
 }
 
 static float t = 0;
@@ -35,7 +36,7 @@ void enter_hi_score_state::update(float dt)
 
 void enter_hi_score_state::draw()
 {
-  m_image.blit(the_screen, 0, 0); 
+  m_image->blit(the_screen, 0, 0); 
   
   the_font.draw(the_screen, 46, 30, "GAME OVER");
 

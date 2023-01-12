@@ -40,10 +40,10 @@ protected:
 
   std::vector<rock*> m_rocks;
 
-  image m_radar;
+  p_image m_radar;
   sprite_sheet m_blips;
-  image m_life_empty;
-  image m_life_full;
+  p_image m_life_empty;
+  p_image m_life_full;
 
   jammy_collision_mgr m_collision_mgr;
 };

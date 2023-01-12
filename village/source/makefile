@@ -35,6 +35,7 @@ parallax_bg.cpp \
 player.cpp \
 player_bullet.cpp \
 play_state.cpp \
+resources.cpp \
 rock.cpp \
 splash_state.cpp \
 universe.cpp \

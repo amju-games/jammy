@@ -12,6 +12,7 @@
 #include "player.h"
 #include "player_bullet.h"
 #include "play_state.h"
+#include "resources.h"
 #include "rock.h"
 #include "screen.h"
 #include "string_utils.h"
@@ -33,11 +34,11 @@ int human_to_display = 0;
 
 play_state::play_state()
 {
-  m_life_empty.load(get_data_dir() + "life_empty.png", the_global_palette);
-  m_life_full.load(get_data_dir() + "life_full.png", the_global_palette);
+  m_life_empty = resources().get<image>(get_data_dir() + "life_empty.png");
+  m_life_full = resources().get<image>(get_data_dir() + "life_full.png");
 
-  m_radar.load(get_data_dir() + "radar.png", the_global_palette);
-  m_blips.load(get_data_dir() + "blips.png", the_global_palette);
+  m_radar = resources().get<image>(get_data_dir() + "radar.png");
+  m_blips.set_image(resources().get<image>(get_data_dir() + "blips.png"));
   m_blips.set_num_cells(3, 2);
 }
 
@@ -120,7 +121,7 @@ void play_state::on_deactive()
 
 void play_state::col_det()
 {
-  m_collision_mgr.check_for_collisions();
+//  m_collision_mgr.check_for_collisions();
 
 /*
   // Test player and humans against rocks
@@ -282,7 +283,7 @@ void play_state::draw()
   }
 
   // Draw radar
-  m_radar.blit(the_screen, RADAR_X, RADAR_Y);
+  m_radar->blit(the_screen, RADAR_X, RADAR_Y);
 
   for (human* h : m_humans)
   {
@@ -299,7 +300,7 @@ void play_state::draw()
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
-    m_life_full.blit(the_screen, screen::WIDTH - (i + 1) * HEART_W, 2);
+    m_life_full->blit(the_screen, screen::WIDTH - (i + 1) * HEART_W, 2);
   }
 
   // Draw score
