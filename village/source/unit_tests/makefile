@@ -27,7 +27,7 @@ catch_test_main.cpp \
 ../resources.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
-../../../../lo-res/image.cpp \
+../../../../lo-res/image_8.cpp \
 ../../../../lo-res/lodepng.cpp \
 ../../../../lo-res/palette.cpp \
 ../../../../microlib/file_string_utils.cpp \
