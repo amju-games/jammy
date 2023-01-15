@@ -1,10 +1,10 @@
 all:village_exe
 
 clean:
-	rm village *.o ../../../lo-res/*.o ../../../microlib/*.o 
+	rm jammy_village *.o ../../../lo-res/*.o ../../../microlib/*.o 
 
 run:
-	./village
+	./jammy_village
 
 
 CC=clang++
@@ -59,7 +59,7 @@ walker.cpp \
 
 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=village
+EXECUTABLE=jammy_village
 
 village_exe: $(SOURCES) $(EXECUTABLE)
 	install_name_tool -add_rpath @executable_path/ $(EXECUTABLE)
