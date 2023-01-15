@@ -1,3 +1,4 @@
+#include "blit.h"
 #include "directory.h"
 #include "globals.h"
 #include "resources.h"
@@ -22,7 +23,7 @@ void splash_state::update(float dt)
 
 void splash_state::draw()
 {
-  m_image->blit(the_screen, 0, 0);
+  blit(m_image, the_screen, 0, 0);
   
   if (flash < FLASH_PERIOD * .5f)
   {

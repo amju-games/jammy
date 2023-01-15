@@ -1,3 +1,4 @@
+#include "blit.h"
 #include "directory.h"
 #include "enter_hi_score_state.h"
 #include "globals.h"
@@ -36,7 +37,7 @@ void enter_hi_score_state::update(float dt)
 
 void enter_hi_score_state::draw()
 {
-  m_image->blit(the_screen, 0, 0); 
+  blit(m_image, the_screen, 0, 0); 
   
   the_font.draw(the_screen, 46, 30, "GAME OVER");
 

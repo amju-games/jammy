@@ -40,6 +40,7 @@ rock.cpp \
 splash_state.cpp \
 universe.cpp \
 walker.cpp \
+../../../lo-res/blit.cpp \
 ../../../lo-res/font.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/lodepng.cpp \

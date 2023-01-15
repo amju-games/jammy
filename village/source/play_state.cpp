@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include "blit.h"
 #include "directory.h"
 #include "game.h"
 #include "globals.h"
@@ -283,7 +284,7 @@ void play_state::draw()
   }
 
   // Draw radar
-  m_radar->blit(the_screen, RADAR_X, RADAR_Y);
+  blit(m_radar, the_screen, RADAR_X, RADAR_Y);
 
   for (human* h : m_humans)
   {
@@ -300,7 +301,7 @@ void play_state::draw()
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
-    m_life_full->blit(the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
+    blit(m_life_full, the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
   }
 
   // Draw score

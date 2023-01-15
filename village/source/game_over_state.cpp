@@ -1,3 +1,4 @@
+#include "blit.h"
 #include "directory.h"
 #include "game_over_state.h"
 #include "globals.h"
@@ -46,7 +47,7 @@ void game_over_state::update(float dt)
 
 void game_over_state::draw()
 {
-  m_image->blit(the_screen, 0, 0); 
+  blit(m_image, the_screen, 0, 0); 
   
   the_font.draw(the_screen, 46, 25, "GAME OVER");
 
