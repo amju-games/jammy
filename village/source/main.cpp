@@ -34,7 +34,7 @@ void draw()
 
 
   // Copy buffer to GL screen surface
-  render_image_opengl(the_screen);
+  render_image_8_opengl(the_screen);
 
   glutSwapBuffers();
   glutPostRedisplay();
@@ -263,7 +263,7 @@ int main(int argc, char** argv)
   glutJoystickFunc(joystick, POLL_WITH_GLUT_FORCE_JOYSTICK_FUNC);
 
   // Pretend screen size
-  gluOrtho2D(0, PRETEND_SCREEN_W, 0, PRETEND_SCREEN_H);
+  //gluOrtho2D(0, PRETEND_SCREEN_W, 0, PRETEND_SCREEN_H);
  
   the_screen = std::make_shared<image_8>();
   the_screen->set_size(PRETEND_SCREEN_W, PRETEND_SCREEN_H);
