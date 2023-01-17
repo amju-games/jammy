@@ -16,8 +16,6 @@
 #include "resources.h"
 #include "universe.h"
 
-const char BLACK = 1;
-
 bool yes_full_screen = false;
 
 fps_counter the_fps_counter;
@@ -25,8 +23,6 @@ fps_counter the_fps_counter;
 void draw()
 {
   glClear(GL_COLOR_BUFFER_BIT);
-
-  the_screen->clear(BLACK);
 
   the_game.draw();
 

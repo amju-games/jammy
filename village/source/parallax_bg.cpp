@@ -65,9 +65,8 @@ vec2 get_random_star_pos(int layer, int star)
 
 void parallax_bg::draw(ref_image dest)
 {
-  // Clear screen to colour index 1, which we know is black because we added it in main 
-  //  explicitly.
-  dest->clear(1); // TODO get this index from somewhere
+  // Clear screen to black
+  dest->clear(colour(0, 0, 0));
 
   // Draw most distant layer first
   for (int i = NUM_LAYERS - 1; i >= 0; i--)

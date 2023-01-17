@@ -7,10 +7,10 @@
 
 void plot(int x, int y, ref_image dest)
 {
-  const int COL = 2; // index 2, should be rope colour
+  const colour ROPE_COLOUR(0xff, 0xff, 0);
   if (x >= 0 && x < PRETEND_SCREEN_W && y >= 0 && y < PRETEND_SCREEN_H)
   {
-    dest->set_colour(x, y, COL);
+    dest->set_colour(x, y, ROPE_COLOUR);
   }
 }
 
