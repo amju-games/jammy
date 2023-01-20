@@ -6,7 +6,7 @@
 #include "font.h"
 #include "fps_counter.h"
 #include "globals.h"
-#include "image_8.h"
+#include "image_32.h"
 #include "input.h"
 #include "jammy_game_state.h"
 #include "play_state.h"
@@ -30,7 +30,7 @@ void draw()
 
 
   // Copy buffer to GL screen surface
-  render_image_8_opengl(the_screen);
+  render_image_32_opengl(the_screen);
 
   glutSwapBuffers();
   glutPostRedisplay();
@@ -261,15 +261,15 @@ int main(int argc, char** argv)
   // Pretend screen size
   //gluOrtho2D(0, PRETEND_SCREEN_W, 0, PRETEND_SCREEN_H);
  
-  the_screen = std::make_shared<image_8>();
+  the_screen = std::make_shared<image_32>();
   the_screen->set_size(PRETEND_SCREEN_W, PRETEND_SCREEN_H);
 
   // Add black colour for space bg!
   // This will be index 1, because index 0 is for transparent colour.
-  image_8::get_palette().add_colour(colour(0, 0, 0));
+  //image_8::get_palette().add_colour(colour(0, 0, 0));
 
   // Add colour for rope - this is index 2.
-  image_8::get_palette().add_colour(colour(255, 255, 0));
+  //image_8::get_palette().add_colour(colour(255, 255, 0));
 
   // Init font
   the_font.set_image(resources().get<image>(get_data_dir() + "font1 - magenta.png"));

@@ -43,6 +43,7 @@ walker.cpp \
 ../../../lo-res/blit.cpp \
 ../../../lo-res/font.cpp \
 ../../../lo-res/image_8.cpp \
+../../../lo-res/image_32.cpp \
 ../../../lo-res/lodepng.cpp \
 ../../../lo-res/palette.cpp \
 ../../../lo-res/render_image_opengl.cpp \
