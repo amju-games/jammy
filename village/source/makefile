@@ -14,6 +14,7 @@ WARNINGS=-Wall -Wno-deprecated-declarations
 INCLUDES=\
   -I.. \
   -I../../../lo-res \
+  -I../../../lo-res/third_party \
   -I../../../microlib
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -DMACOSX  -g -O0 
@@ -44,11 +45,11 @@ walker.cpp \
 ../../../lo-res/font.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/image_32.cpp \
-../../../lo-res/lodepng.cpp \
 ../../../lo-res/palette.cpp \
 ../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \
 ../../../lo-res/sprite_sheet.cpp \
+../../../lo-res/third_party/lodepng.cpp \
 ../../../microlib/directory.cpp \
 ../../../microlib/file_string_utils.cpp \
 ../../../microlib/game.cpp \
