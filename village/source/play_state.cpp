@@ -67,17 +67,27 @@ void play_state::on_input(int input)
 
 void play_state::add_player_bullet()
 {
-  // For bullet dir, we use last non-zero direction of player
-  player_bullet* pb = new player_bullet(m_player->get_pos(), m_player->get_last_move_dir());
-  the_game.add_game_object(std::shared_ptr<player_bullet>(pb));
-  m_player_bullets.push_back(pb);
+std::cout << "Shoot bullet!\n";
 
+  // Use a circular buffer for player bullets.
+  // If we haven't filled up the buffer, create a new player_bullet, add it to the game and
+  //  the buffer. If we have filled the buffer, reset the player_bullet we are currently pointing
+  //  to, and inc to the next slot.
+
+  auto pb = m_player_bullets->get_next_element();
+  pb->set_pos(m_player->get_pos()); // TODO offset
+  pb->set_vel(m_player->get_last_move_dir()); // TODO speed, and handle zero vec
+
+  // TODO Appropriate sound FX
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_impact3.wav");
 }
 
 void play_state::on_active() 
 {
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
+
+  const int MAX_PLAYER_BULLETS = 10;
+  m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
 
   m_player = nullptr; 
   m_humans.clear();
