@@ -4,6 +4,7 @@
 #include "circular_buffer.h"
 #include "jammy_collision_mgr.h"
 #include "jammy_game_state.h"
+#include "player.h"
 #include "player_bullet.h"
 
 class hq;
@@ -23,7 +24,7 @@ public:
   void on_active() override;
   void on_deactive() override;
 
-  player* get_player() { return m_player; }
+  const std::shared_ptr<const player> get_player() { return m_player; }
 
 protected:
   void add_player_bullet();
@@ -31,7 +32,7 @@ protected:
   void draw_blip(jammy_game_object* h, int cell);
 
 protected:
-  player* m_player = nullptr;
+  std::shared_ptr<player> m_player;
   hq* m_hq = nullptr;
 
   std::unique_ptr<circular_buffer<player_bullet>> m_player_bullets;

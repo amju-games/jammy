@@ -108,8 +108,8 @@ void play_state::on_active()
   }
 
   // Add player
-  m_player = new player;
-  the_game.add_game_object(std::shared_ptr<player>(m_player));
+  m_player = std::make_shared<player>();
+  the_game.add_game_object(m_player);
 
   // Add asteroids
 //  for (int i = 0; i < NUM_ROCKS; i++)
