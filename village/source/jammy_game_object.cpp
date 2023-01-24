@@ -20,6 +20,11 @@ void jammy_game_object::set_cam_pos(const vec2& pos)
 
 void jammy_game_object::draw(ref_image dest)
 {
+  if (!is_alive())
+  {
+    return;
+  }
+
   draw_sprite(m_sprite, dest);
 }
 
@@ -35,6 +40,11 @@ void jammy_game_object::draw_sprite(const sprite& s, ref_image dest) const
 
 void jammy_game_object::update(float dt) 
 {
+  if (!is_alive())
+  {
+    return;
+  }
+
   game_object::update(dt);
 
   // Wrap around

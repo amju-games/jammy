@@ -6,7 +6,10 @@
 class jammy_game_object : public game_object
 {
 public:
-  // load
+  // TODO load
+
+  bool is_alive() const { return m_is_alive; }
+  void set_is_alive(bool alive) { m_is_alive = alive; }
 
   static void set_cam_pos(const vec2& pos);
 
@@ -21,7 +24,9 @@ protected:
 
 protected:
   sprite m_sprite;
-  bool m_is_alive = true; // ?
+
+  // If not alive, we don't draw, update, or consider in collisions
+  bool m_is_alive = true; 
 
   static vec2 s_cam_pos;
 };
