@@ -84,6 +84,10 @@ void key_down(unsigned char c, int, int)
     assert(jgs);
     jgs->on_input(BUTTON_A);
   }
+  else if (c == 'R' || c == 'r')
+  {
+    resources().reload();
+  }
 }
 
 void key_up(unsigned char c, int, int)
