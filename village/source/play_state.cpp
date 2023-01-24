@@ -112,12 +112,12 @@ void play_state::on_active()
   the_game.add_game_object(m_player);
 
   // Add asteroids
-//  for (int i = 0; i < NUM_ROCKS; i++)
-//  {
-//    rock* r = new rock;
-//    the_game.add_game_object(r);
-//    m_rocks.push_back(r);
-//  }
+  for (int i = 0; i < NUM_ROCKS; i++)
+  {
+    auto r = std::make_shared<rock>();
+    the_game.add_game_object(r);
+    m_rocks.push_back(r);
+  }
 
   populate_collision_funcs(m_collision_mgr);
   m_collision_mgr.set_game_objects(the_game.get_game_objects());
@@ -129,7 +129,7 @@ void play_state::on_deactive()
 
 void play_state::col_det()
 {
-//  m_collision_mgr.check_for_collisions();
+  m_collision_mgr.check_for_collisions();
 
 /*
   // Test player and humans against rocks

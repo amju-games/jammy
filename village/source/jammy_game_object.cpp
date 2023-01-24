@@ -1,4 +1,5 @@
 #include "jammy_game_object.h"
+#include "string_utils.h"
 #include "universe.h"
 
 vec2 jammy_game_object::s_cam_pos;
@@ -11,6 +12,11 @@ bool sprite_collision(
     jgo2->m_sprite, jgo2->m_sprite.get_cell(), jgo2->m_pos.x, jgo2->m_pos.y);
 
   return (r == pix_int_result::YES_COLLIDE);
+}
+
+std::string jammy_game_object::print() const
+{
+  return concat(typeid(*this).name(), ": ", get_id()); 
 }
 
 void jammy_game_object::set_cam_pos(const vec2& pos)

@@ -16,6 +16,8 @@ float PLAYER_SPEED = 30.f;
 
 player::player()
 {
+  m_is_collidable = true;
+
   m_sprite.set_image(resources().get<image>(get_data_dir() + "player1.png"));
   m_sprite.set_num_cells(3, 2);
 

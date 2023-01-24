@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef NARROW_PHASE_DEBUG
+#include <iostream>
+#endif
+
 #include <array>
 #include <vector>
 #include "jammy_game_object.h"
@@ -19,7 +23,13 @@ public:
     std::copy_if(
       poss_colliders.begin(), poss_colliders.end(),
       std::back_inserter(ret),
-      [](const auto& p) { return sprite_collision(p[0], p[1]); });
+      [](const auto& p) 
+      {
+#ifdef NARROW_PHASE_DEBUG
+        std::cout << "Narrow check: (" << p[0]->print() << ") and (" << p[1]->print() << ")\n";
+#endif
+        return sprite_collision(p[0], p[1]); 
+      });
 
     return ret;
   }

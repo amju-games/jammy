@@ -30,12 +30,20 @@ public:
     const int num_game_objects = m_game_objects->size(); 
     for (int i = 0; i < num_game_objects; i++)
     {
+      if ((*m_game_objects)[i]->is_collidable() == false)
+      {
+        continue;
+      }
+
       for (int j = i + 1; j < num_game_objects; j++)
       {
-        ret.push_back(std::array<DERIVED_TYPE*, 2>{
-          dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[i].get()),
-          dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[j].get()) 
-        });
+        if ((*m_game_objects)[j]->is_collidable())
+        {
+          ret.push_back(std::array<DERIVED_TYPE*, 2>{
+            dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[i].get()),
+            dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[j].get()) 
+          });
+        }
       }
     }
     return ret;

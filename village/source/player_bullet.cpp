@@ -18,6 +18,8 @@ player_bullet::player_bullet()
 void player_bullet::fire(std::shared_ptr<player>& player)
 {
   set_is_alive(true);
+  set_is_collidable(true);
+
   auto dir = player->get_player_dir();
   const float BULLET_SPEED = 150.0f;
 
@@ -76,6 +78,7 @@ void player_bullet::update(float dt)
   if (fabs(dist) > PRETEND_SCREEN_W)
   {
     set_is_alive(false);
+    set_is_collidable(false);
   }
 }
 

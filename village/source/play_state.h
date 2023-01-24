@@ -39,7 +39,7 @@ protected:
   std::vector<human*> m_humans;
   std::vector<human*> m_rescued_humans;
 
-  std::vector<rock*> m_rocks;
+  std::vector<std::shared_ptr<rock>> m_rocks;
 
   p_image m_radar;
   sprite_sheet m_blips;

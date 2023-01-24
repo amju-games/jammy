@@ -7,6 +7,8 @@
 
 rock::rock()
 {
+  set_is_collidable(true);
+
   const int NUM_ASTEROID_TYPES = 11;
   int r = rand() % NUM_ASTEROID_TYPES + 1;
   std::string s = "asteroid_" + std::to_string(r) + ".png";
