@@ -12,6 +12,7 @@ std::cout << "Bullet hits rock!\n";
   pb->set_is_collidable(false);
   
   // Destroy rock, show explosion
+  r->explode();
   r->set_is_alive(false);
   r->set_is_collidable(false);
 

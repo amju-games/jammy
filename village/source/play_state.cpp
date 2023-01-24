@@ -79,6 +79,25 @@ void play_state::add_player_bullet()
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_impact3.wav");
 }
 
+std::shared_ptr<rock> add_rock_and_descendants(
+  game& g, std::vector<std::shared_ptr<rock>>& rocks, int level)
+{
+  auto r = std::make_shared<rock>(level);
+  g.add_game_object(r);
+  rocks.push_back(r);
+
+  if (level < 3)
+  {
+    for (int i = 0; i < 2; i++) // TODO a bit of variety
+    {
+      auto child = add_rock_and_descendants(g, rocks, level + 1);
+      r->add_child(child);
+    }
+  }
+
+  return r;
+}
+
 void play_state::on_active() 
 {
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
@@ -114,9 +133,8 @@ void play_state::on_active()
   // Add asteroids
   for (int i = 0; i < NUM_ROCKS; i++)
   {
-    auto r = std::make_shared<rock>();
-    the_game.add_game_object(r);
-    m_rocks.push_back(r);
+    // Rocks break up into child rocks. Let's do this recursively.
+    add_rock_and_descendants(the_game, m_rocks, 0); // level 0: largest rock
   }
 
   populate_collision_funcs(m_collision_mgr);
