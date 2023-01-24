@@ -45,6 +45,7 @@ walker.cpp \
 ../../../lo-res/font.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/image_32.cpp \
+../../../lo-res/image_colour_xform.cpp \
 ../../../lo-res/palette.cpp \
 ../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \

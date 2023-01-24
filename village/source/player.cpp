@@ -170,6 +170,7 @@ void player::move(int move_dir)
   }
   if (move_dir & MOVE_LEFT)
   {
+    m_player_dir = player_dir::LEFT;
     dir.x -= PLAYER_SPEED; 
     m_sprite.set_cell_range(3, 3);
     m_flame_on = true;
@@ -177,6 +178,7 @@ void player::move(int move_dir)
   }
   if (move_dir & MOVE_RIGHT)
   {
+    m_player_dir = player_dir::RIGHT;
     dir.x += PLAYER_SPEED; 
     m_sprite.set_cell_range(0, 0);
     m_flame_on = true;

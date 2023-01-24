@@ -67,16 +67,13 @@ void play_state::on_input(int input)
 
 void play_state::add_player_bullet()
 {
-std::cout << "Shoot bullet!\n";
-
   // Use a circular buffer for player bullets.
   // If we haven't filled up the buffer, create a new player_bullet, add it to the game and
   //  the buffer. If we have filled the buffer, reset the player_bullet we are currently pointing
   //  to, and inc to the next slot.
 
   auto pb = m_player_bullets->get_next_element();
-  pb->set_pos(m_player->get_pos()); // TODO offset
-  pb->set_vel(m_player->get_last_move_dir()); // TODO speed, and handle zero vec
+  pb->fire(m_player);
 
   // TODO Appropriate sound FX
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_impact3.wav");
@@ -179,7 +176,6 @@ void play_state::col_det()
       }
     }
   }
-*/
 
   // Test for humans
   int i = 0;
@@ -238,6 +234,7 @@ void play_state::col_det()
       break;
     }
   }
+*/
 }
 
 void play_state::update(float dt)
