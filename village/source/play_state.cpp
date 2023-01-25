@@ -20,7 +20,7 @@
 
 const float MAX_BIO_TIME = 3.f;
 
-const int NUM_ROCKS = 20; 
+const int NUM_ROCKS = 100; 
 const int NUM_HUMANS = 10; 
 
 const int PICK_UP_HUMAN_SCORE = 250;
@@ -86,7 +86,7 @@ std::shared_ptr<rock> add_rock_and_descendants(
   g.add_game_object(r);
   rocks.push_back(r);
 
-  if (level < 3)
+  if (level < 2)
   {
     for (int i = 0; i < 2; i++) // TODO a bit of variety
     {

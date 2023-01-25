@@ -22,6 +22,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -DMACOSX  -g -O0
 LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib 
 
 SOURCES=\
+collision_player_bullet_rock.cpp \
 enter_hi_score_state.cpp \
 game_over_state.cpp \
 globals.cpp \
