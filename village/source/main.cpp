@@ -8,6 +8,7 @@
 #include "globals.h"
 #include "image_32.h"
 #include "input.h"
+#include "jammy_blend.h"
 #include "jammy_game_state.h"
 #include "play_state.h"
 #include "render_image_opengl.h"
@@ -26,7 +27,7 @@ void draw()
 
   the_game.draw();
 
-  the_font.draw(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
+  the_font.draw<jb_font_mask>(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
 
 
   // Copy buffer to GL screen surface
@@ -294,7 +295,7 @@ int main(int argc, char** argv)
   the_sound_player.reset(new sound_player_bass24);
 
   // Play background music
-  const bool LOOP = true;
+  //const bool LOOP = true;
   //the_sound_player->play_wav(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.wav", LOOP);
 
   //the_human_list.load();

@@ -24,10 +24,9 @@ rock::rock(int size)
   m_sprite.set_num_cells(1, 1);
   m_sprite.set_cell_range(0, 0); 
 
-  p_image expl = std::make_shared<image_32>();
-  expl->load(get_data_dir() + "explosion1_64.png");
-  m_explosion.set_image(expl); 
-    //resources().get<image>(get_data_dir() + "explosion1_64.png"));
+  m_explosion.set_image(resources().get<image>(get_data_dir() + "explosion1_64.png"));
+
+  // TODO this cell range should not loop
   m_explosion.set_num_cells(4, 4);
   m_explosion.set_cell_range(0, 15);
   m_explosion.set_cell_time(0.05f); // TODO CONFIG
@@ -54,10 +53,13 @@ void rock::update(float dt)
 
 void rock::draw(ref_image dest)
 {
-  jammy_game_object::draw(dest);  
   if (m_is_exploding)
   {
-    draw_sprite(m_explosion, dest); // TODO blend additively
+    draw_sprite<additive_blend>(m_explosion, dest);
+  }
+  else 
+  {
+    jammy_game_object::draw(dest);  
   }
 }
 

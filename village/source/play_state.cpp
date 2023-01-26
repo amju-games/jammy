@@ -8,6 +8,7 @@
 #include "human.h"
 #include "human_list.h"
 #include "input.h"
+#include "jammy_blend.h"
 #include "jammy_game_object.h"
 #include "parallax_bg.h"
 #include "player.h"
@@ -18,13 +19,13 @@
 #include "string_utils.h"
 #include "universe.h"
 
-const float MAX_BIO_TIME = 3.f;
+//const float MAX_BIO_TIME = 3.f;
 
-const int NUM_ROCKS = 100; 
+const int NUM_ROCKS = 10; 
 const int NUM_HUMANS = 10; 
 
-const int PICK_UP_HUMAN_SCORE = 250;
-const int DELIVER_HUMAN_SCORE = 1000;
+//const int PICK_UP_HUMAN_SCORE = 250;
+//const int DELIVER_HUMAN_SCORE = 1000;
 
 const int RADAR_X = 0;
 const int RADAR_Y = 0;
@@ -294,7 +295,7 @@ void play_state::draw_blip(jammy_game_object* h, int cell)
   if (dist_sq < MAX_DIST * MAX_DIST)
   {
     vec2 pos = RADAR_CENTRE + d * (10.f / MAX_DIST);
-    m_blips.draw_cell(the_screen, cell, pos.x, pos.y);
+    m_blips.draw_cell<jb_mask>(the_screen, cell, pos.x, pos.y);
   }
 } 
 
@@ -309,7 +310,7 @@ void play_state::draw()
   }
 
   // Draw radar
-  blit(m_radar, the_screen, RADAR_X, RADAR_Y);
+  blit<jb_mask>(m_radar, the_screen, RADAR_X, RADAR_Y);
 
   for (human* h : m_humans)
   {
@@ -326,11 +327,11 @@ void play_state::draw()
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
-    blit(m_life_full, the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
+    blit<jb_mask>(m_life_full, the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
   }
 
   // Draw score
-  the_font.draw(the_screen, 1, 120, std::to_string(m_player->get_score()));
+  the_font.draw<jb_font_mask>(the_screen, 1, 120, std::to_string(m_player->get_score()));
 
   // Draw human bio
 //  if (human_timer > 0)
@@ -338,10 +339,10 @@ void play_state::draw()
 //    the_human_list.draw_human_bio(human_to_display);
 //  } 
 
-  the_font.draw(the_screen, 20, 8,  concat("PLR: ", m_player->get_pos()));
-  the_font.draw(the_screen, 20, 16,  concat("HQ:  ", m_hq->get_pos()));
-//  the_font.draw(the_screen, 20, 16, concat("VEL: ", m_player->get_vel()));
-//  the_font.draw(the_screen, 20, 24, concat("ACC: ", m_player->get_acc()));
+  the_font.draw<jb_font_mask>(the_screen, 20, 8,  concat("PLR: ", m_player->get_pos()));
+//  the_font.draw<jb_font_mask>(the_screen, 20, 16,  concat("HQ:  ", m_hq->get_pos()));
+  the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", m_player->get_vel()));
+  the_font.draw<jb_font_mask>(the_screen, 20, 24, concat("ACC: ", m_player->get_acc()));
 
 }
 

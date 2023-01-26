@@ -50,7 +50,7 @@ void player_bullet::fire(std::shared_ptr<player>& player)
   {
     alg3::vec4{ 1, 1, 1, 1 },
     alg3::vec4{ 1, 1, 0, 1 },
-    alg3::vec4{ 1, 0, 1, 1 },
+    alg3::vec4{ 1, .1f, 1, 1 }, // yuck, pure magenta is treated as transparent here.
     alg3::vec4{ 0, 1, 1, 1 },
     alg3::vec4{ 1, 0, 0, 1 },
     alg3::vec4{ 0, 1, 0, 1 }

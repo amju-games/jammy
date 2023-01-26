@@ -3,6 +3,7 @@
 #include <iostream>
 #include "directory.h"
 #include "globals.h"
+#include "jammy_blend.h"
 #include "human_list.h"
 #include "resources.h"
 
@@ -10,9 +11,9 @@ void human_list::draw_human_bio(int h)
 {
   assert(h < m_humans.size());
 
-  m_ss.draw_cell(the_screen, h, 1, 100);
-  the_font.draw(the_screen, 13, 100, m_humans[h]->m_name);
-  the_font.draw(the_screen, 13, 106, m_humans[h]->m_text);
+  m_ss.draw_cell<jb_overwrite>(the_screen, h, 1, 100);
+  the_font.draw<jb_font_mask>(the_screen, 13, 100, m_humans[h]->m_name);
+  the_font.draw<jb_font_mask>(the_screen, 13, 106, m_humans[h]->m_text);
 }
 
 bool human_list::load()

@@ -42,15 +42,12 @@ rock.cpp \
 splash_state.cpp \
 universe.cpp \
 walker.cpp \
-../../../lo-res/blit.cpp \
-../../../lo-res/font.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/image_32.cpp \
 ../../../lo-res/image_colour_xform.cpp \
 ../../../lo-res/palette.cpp \
 ../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \
-../../../lo-res/sprite_sheet.cpp \
 ../../../lo-res/third_party/lodepng.cpp \
 ../../../microlib/directory.cpp \
 ../../../microlib/file_string_utils.cpp \

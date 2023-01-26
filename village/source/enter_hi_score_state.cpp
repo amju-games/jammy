@@ -2,6 +2,7 @@
 #include "directory.h"
 #include "enter_hi_score_state.h"
 #include "globals.h"
+#include "jammy_blend.h"
 #include "player.h"
 #include "resources.h"
 
@@ -37,14 +38,14 @@ void enter_hi_score_state::update(float dt)
 
 void enter_hi_score_state::draw()
 {
-  blit(m_image, the_screen, 0, 0); 
+  blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
-  the_font.draw(the_screen, 46, 30, "GAME OVER");
+  the_font.draw<jb_font_mask>(the_screen, 46, 30, "GAME OVER");
 
   int score = the_play_state->get_player()->get_score();
   std::string str = std::to_string(score);
   const float CHAR_W = 4;
-  the_font.draw(the_screen, 63 - (6 + str.length()) * CHAR_W / 2, 80, "SCORE: " + str);
+  the_font.draw<jb_font_mask>(the_screen, 63 - (6 + str.length()) * CHAR_W / 2, 80, "SCORE: " + str);
 }
 
 void enter_hi_score_state::on_input(int input) 

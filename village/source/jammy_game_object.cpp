@@ -1,3 +1,5 @@
+
+#include "jammy_blend.h"
 #include "jammy_game_object.h"
 #include "string_utils.h"
 #include "universe.h"
@@ -7,7 +9,7 @@ vec2 jammy_game_object::s_cam_pos;
 bool sprite_collision(
   jammy_game_object* jgo1, jammy_game_object* jgo2)
 {
-  pix_int_result r = pixel_intersect(
+  pix_int_result r = pixel_intersect<jb_transparent>(
     jgo1->m_sprite, jgo1->m_sprite.get_cell(), jgo1->m_pos.x, jgo1->m_pos.y,
     jgo2->m_sprite, jgo2->m_sprite.get_cell(), jgo2->m_pos.x, jgo2->m_pos.y);
 
@@ -31,17 +33,7 @@ void jammy_game_object::draw(ref_image dest)
     return;
   }
 
-  draw_sprite(m_sprite, dest);
-}
-
-void jammy_game_object::draw_sprite(const sprite& s, ref_image dest) const
-{
-  vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
-
-  int x = rel_pos.x;
-  int y = rel_pos.y;
-
-  s.draw(dest, x, y);
+  draw_sprite<jb_mask>(m_sprite, dest);
 }
 
 void jammy_game_object::update(float dt) 

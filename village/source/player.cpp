@@ -2,6 +2,7 @@
 #include "directory.h"
 #include "input.h"
 #include "globals.h"
+#include "jammy_blend.h"
 #include "player.h"
 #include "sign.h"
 #include "resources.h"
@@ -69,7 +70,7 @@ void player::draw(ref_image dest)
   // Draw jet pac flame
   if (m_flame_on)
   {
-    draw_sprite(m_flames, dest);
+    draw_sprite<jb_mask>(m_flames, dest);
   }
 }
 
@@ -126,10 +127,10 @@ void player::update(float dt)
   {
     const int R = 0;
     const int L = 4;
-    const int UR = 8;
-    const int UL = 12;
-    const int DR = 16;
-    const int DL = 20;
+    //const int UR = 8;
+    //const int UL = 12;
+    //const int DR = 16;
+    //const int DL = 20;
     const int NUM_FRAMES = 4;
   };
 

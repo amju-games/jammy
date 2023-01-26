@@ -1,6 +1,7 @@
 #include "blit.h"
 #include "directory.h"
 #include "globals.h"
+#include "jammy_blend.h"
 #include "resources.h"
 #include "splash_state.h"
 
@@ -23,13 +24,13 @@ void splash_state::update(float dt)
 
 void splash_state::draw()
 {
-  blit(m_image, the_screen, 0, 0);
+  blit<jb_overwrite>(m_image, the_screen, 0, 0);
   
   if (flash < FLASH_PERIOD * .5f)
   {
-    the_font.draw(the_screen, 28, 45, "HIT SPACE TO START!");
+    the_font.draw<jb_font_mask>(the_screen, 28, 45, "HIT SPACE TO START!");
   }
-  the_font.draw(the_screen, 1, 120, "ARROW KEYS TO MOVE, ESC TO QUIT!");
+  the_font.draw<jb_font_mask>(the_screen, 1, 120, "ARROW KEYS TO MOVE, ESC TO QUIT!");
 }
 
 void splash_state::on_input(int input) 

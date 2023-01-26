@@ -2,6 +2,7 @@
 
 #include "game_object.h"
 #include "sprite.h"
+#include "universe.h"
 
 class jammy_game_object : public game_object
 {
@@ -19,7 +20,12 @@ public:
     jammy_game_object* jgo1, jammy_game_object* jgo2); 
 
 protected:
-  void draw_sprite(const sprite& spr, ref_image dest) const;
+  template<class BLENDER>
+  void draw_sprite(const sprite& spr, ref_image dest) const
+  {
+    vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
+    spr.draw<BLENDER>(dest, rel_pos.x, rel_pos.y);
+  }
 
 protected:
   sprite m_sprite;

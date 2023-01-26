@@ -1,6 +1,7 @@
 #include <iostream>
 #include "directory.h"
 #include "globals.h"
+#include "jammy_blend.h"
 #include "parallax_bg.h"
 #include "resources.h"
 #include "universe.h"
@@ -74,15 +75,15 @@ void parallax_bg::draw(ref_image dest)
     // TODO An array of images for each layer?
     const auto& s = m_sprites[0];
 
-    const int NUM_STARS_PER_LAYER = 100;
+    const int NUM_STARS_PER_LAYER = 100; // TODO CONFIG
     for (int j = 0; j < NUM_STARS_PER_LAYER; j++)
     {
       const vec2 star_pos = get_random_star_pos(i, j);
       const vec2 p = m_bg_pos[i] + star_pos + CENTRE_SCREEN;
-      s.draw(dest, p.x, p.y); 
-      s.draw(dest, p.x - UNIVERSE_SIZE, p.y); 
-      s.draw(dest, p.x, p.y - UNIVERSE_SIZE); 
-      s.draw(dest, p.x - UNIVERSE_SIZE, p.y - UNIVERSE_SIZE); 
+      s.draw<jb_mask>(dest, p.x, p.y); 
+      s.draw<jb_mask>(dest, p.x - UNIVERSE_SIZE, p.y); 
+      s.draw<jb_mask>(dest, p.x, p.y - UNIVERSE_SIZE); 
+      s.draw<jb_mask>(dest, p.x - UNIVERSE_SIZE, p.y - UNIVERSE_SIZE); 
     }
   }
 }
