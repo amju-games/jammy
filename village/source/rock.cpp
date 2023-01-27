@@ -1,5 +1,5 @@
-//#include <cstdlib>
-
+#include <cmath>
+#include "deg_to_rad.h"
 #include "directory.h"
 #include "globals.h"
 #include "image_32.h"
@@ -9,16 +9,31 @@
 
 namespace
 {
-  const int SPEED_LIMIT = 50; // TODO
+  const int SPEED_LIMIT = 50; // TODO CONFIG
+
+  vec2 gen_random_vel(int speed_limit)
+  {
+    return vec2(rand() % speed_limit - speed_limit / 2, rand() % speed_limit - speed_limit / 2);
+  }
+
+  vec2 gen_random_pos(const vec2& centre)
+  {
+    // Pos should be just off screen.
+    float angle = deg_to_rad(static_cast<float>(rand() % 360));
+    float dist = PRETEND_SCREEN_W;
+    return centre + vec2(dist * cos(angle), dist * sin(angle));
+  }
 }
 
-rock::rock(int size)
+rock::rock(int size_level, int child_index)
 {
-  set_is_alive(size == 0);
-  set_is_collidable(size == 0);
+  m_size_level = size_level;
+  set_is_alive(size_level == 0);
+  set_is_collidable(size_level == 0);
 
-  // TODO Variants
-  std::string s = "rock_" + std::to_string(size) + ".png";
+  // TODO Variants.
+  // TODO Use child_index so we don't have two children with the same sprite sheet.
+  std::string s = "rock_" + std::to_string(size_level) + ".png";
 
   m_sprite.set_image(resources().get<image>(get_data_dir() + s));
   m_sprite.set_num_cells(1, 1);
@@ -32,8 +47,15 @@ rock::rock(int size)
   m_explosion.set_cell_time(0.05f); // TODO CONFIG
 
   // Set random pos/vel
-  m_pos = vec2(rand() % UNIVERSE_SIZE, rand() % UNIVERSE_SIZE);
-  m_vel = vec2(rand() % SPEED_LIMIT - SPEED_LIMIT / 2, rand() % SPEED_LIMIT - SPEED_LIMIT / 2);
+  m_pos = gen_random_pos(s_cam_pos);
+  m_vel = gen_random_vel(SPEED_LIMIT);
+}
+
+int rock::get_score() const
+{
+  static const std::array<int, 3> SCORE = { 20, 50, 100 }; // TODO CONFIG
+
+  return SCORE[m_size_level];
 }
 
 void rock::update(float dt)
@@ -65,6 +87,12 @@ void rock::draw(ref_image dest)
 
 void rock::explode()
 {
+  if (m_is_exploding)
+  {
+std::cout << "Rock already exploding!\n";
+    return;
+  }
+
   //set_is_alive(false); // wait until explosion finishes
   set_is_exploding(true);
   // Centre explosion sprite on position
@@ -78,7 +106,9 @@ void rock::explode()
     r->set_is_collidable(true);
 
     r->set_pos(get_pos()); // plus an offset
-    r->set_vel(vec2(rand() % SPEED_LIMIT - SPEED_LIMIT / 2, rand() % SPEED_LIMIT - SPEED_LIMIT / 2)); // maybe smaller faster?
+
+    // Child rocks get combined vel
+    r->set_vel(m_vel + gen_random_vel(SPEED_LIMIT));
   }
 }
 

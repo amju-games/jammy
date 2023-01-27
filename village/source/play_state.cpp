@@ -1,4 +1,6 @@
 #include <iostream>
+#include <bitset>
+
 #include <cassert>
 #include "blit.h"
 #include "directory.h"
@@ -19,11 +21,10 @@
 #include "string_utils.h"
 #include "universe.h"
 
+const int NUM_ROCKS = 1; 
+
 //const float MAX_BIO_TIME = 3.f;
-
-const int NUM_ROCKS = 10; 
-const int NUM_HUMANS = 10; 
-
+//const int NUM_HUMANS = 10; 
 //const int PICK_UP_HUMAN_SCORE = 250;
 //const int DELIVER_HUMAN_SCORE = 1000;
 
@@ -62,6 +63,7 @@ void play_state::on_input(int input)
   }
   else
   {
+std::cout << "Player move: " << std::bitset<8>(input) << "\n";
     m_player->move(input & 0x0f);  
   }
 }
@@ -80,18 +82,32 @@ void play_state::add_player_bullet()
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_impact3.wav");
 }
 
-std::shared_ptr<rock> add_rock_and_descendants(
-  game& g, std::vector<std::shared_ptr<rock>>& rocks, int level)
+void play_state::dec_num_rocks()
 {
-  auto r = std::make_shared<rock>(level);
-  g.add_game_object(r);
-  rocks.push_back(r);
+  assert(m_num_rocks_in_level > 0);
+  m_num_rocks_in_level--;
+  
+std::cout << "This many rocks left in level: " << m_num_rocks_in_level << "\n";
+
+  if (m_num_rocks_in_level == 0)
+  {
+    // TODO New level
+  }
+}
+
+std::shared_ptr<rock> play_state::add_rock_and_descendants(int level, int child_index)
+{
+  auto r = std::make_shared<rock>(level, child_index);
+  the_game.add_game_object(r);
+  m_rocks.push_back(r);
+  m_num_rocks_in_level++;
 
   if (level < 2)
   {
-    for (int i = 0; i < 2; i++) // TODO a bit of variety
+    for (int i = 0; i < 2; i++) // TODO a bit of variety in num children
     {
-      auto child = add_rock_and_descendants(g, rocks, level + 1);
+      // Pass in i so each child can have a different sprite sheet
+      auto child = add_rock_and_descendants(level + 1, i);
       r->add_child(child);
     }
   }
@@ -116,16 +132,16 @@ void play_state::on_active()
   the_game.add_game_object(std::make_shared<parallax_bg>());
   
   // Add HQ
-  m_hq = new hq;
-  the_game.add_game_object(std::shared_ptr<hq>(m_hq));
+//  m_hq = new hq;
+//  the_game.add_game_object(std::shared_ptr<hq>(m_hq));
 
-  // Add humans
-  for (int i = 0; i < NUM_HUMANS; i++)
-  {
-    human* h = new human;
-    the_game.add_game_object(std::shared_ptr<human>(h));
-    m_humans.push_back(h);
-  }
+//  // Add humans
+//  for (int i = 0; i < NUM_HUMANS; i++)
+//  {
+//    human* h = new human;
+//    the_game.add_game_object(std::shared_ptr<human>(h));
+//    m_humans.push_back(h);
+//  }
 
   // Add player
   m_player = std::make_shared<player>();
@@ -135,7 +151,7 @@ void play_state::on_active()
   for (int i = 0; i < NUM_ROCKS; i++)
   {
     // Rocks break up into child rocks. Let's do this recursively.
-    add_rock_and_descendants(the_game, m_rocks, 0); // level 0: largest rock
+    add_rock_and_descendants(0, 0); // level 0: largest rock; index 0
   }
 
   populate_collision_funcs(m_collision_mgr);
@@ -268,19 +284,6 @@ void play_state::update(float dt)
     the_sound_player->play_wav(get_data_dir() + "sounds/Shut_Down1.wav");
   }
 
-  // Get a score for being alive
-  if (!m_player->is_immune())
-  {
-    static float t = 0; 
-    static float old_t = t;
-    t += dt;
-    if ((int)t != (int)old_t)
-    {
-      m_player->add_score(10);
-    }
-    old_t = t;
-  }
-
   if (human_timer > 0)
   {
     human_timer -= dt;
@@ -299,16 +302,8 @@ void play_state::draw_blip(jammy_game_object* h, int cell)
   }
 } 
 
-void play_state::draw() 
+void play_state::draw_radar()
 {
-  game_objects* gos = the_game.get_game_objects();
-  for (p_game_object& go : *gos)
-  {
-    jammy_game_object* jgo = dynamic_cast<jammy_game_object*>(go.get());
-    assert(jgo);
-    jgo->draw(the_screen);
-  }
-
   // Draw radar
   blit<jb_mask>(m_radar, the_screen, RADAR_X, RADAR_Y);
 
@@ -321,17 +316,32 @@ void play_state::draw()
     }
   }
   draw_blip(m_hq, 4);
-
-  // Draw lives
+}
+ 
+void play_state::draw_lives()
+{
   int lives = m_player->get_num_lives();
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
     blit<jb_mask>(m_life_full, the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
   }
+}
+ 
+void play_state::draw() 
+{
+  game_objects* gos = the_game.get_game_objects();
+  for (p_game_object& go : *gos)
+  {
+    jammy_game_object* jgo = dynamic_cast<jammy_game_object*>(go.get());
+    assert(jgo);
+    jgo->draw(the_screen);
+  }
 
+  draw_lives();
+  
   // Draw score
-  the_font.draw<jb_font_mask>(the_screen, 1, 120, std::to_string(m_player->get_score()));
+  the_font.draw<jb_font_mask>(the_screen, 1, 1, std::to_string(m_player->get_score()));
 
   // Draw human bio
 //  if (human_timer > 0)
@@ -339,10 +349,10 @@ void play_state::draw()
 //    the_human_list.draw_human_bio(human_to_display);
 //  } 
 
-  the_font.draw<jb_font_mask>(the_screen, 20, 8,  concat("PLR: ", m_player->get_pos()));
+//  the_font.draw<jb_font_mask>(the_screen, 20, 8,  concat("PLR: ", m_player->get_pos()));
 //  the_font.draw<jb_font_mask>(the_screen, 20, 16,  concat("HQ:  ", m_hq->get_pos()));
-  the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", m_player->get_vel()));
-  the_font.draw<jb_font_mask>(the_screen, 20, 24, concat("ACC: ", m_player->get_acc()));
+//  the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", m_player->get_vel()));
+//  the_font.draw<jb_font_mask>(the_screen, 20, 24, concat("ACC: ", m_player->get_acc()));
 
 }
 

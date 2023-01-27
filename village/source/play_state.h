@@ -24,11 +24,19 @@ public:
   void on_active() override;
   void on_deactive() override;
 
-  const std::shared_ptr<const player> get_player() { return m_player; }
+  std::shared_ptr<player> get_player() { return m_player; }
+
+  void dec_num_rocks();
 
 protected:
   void add_player_bullet();
+
+  // Recursively add rocks
+  std::shared_ptr<rock> add_rock_and_descendants(int level, int child_index);
+
   void col_det();
+  void draw_radar();
+  void draw_lives();
   void draw_blip(jammy_game_object* h, int cell);
 
 protected:
@@ -40,6 +48,9 @@ protected:
   std::vector<human*> m_rescued_humans;
 
   std::vector<std::shared_ptr<rock>> m_rocks;
+  // This is the number of rocks still alive in the level - when it hits zero,
+  //  the level is complete (if we only care about rocks)
+  int m_num_rocks_in_level = 0;
 
   p_image m_radar;
   sprite_sheet m_blips;
