@@ -4,7 +4,7 @@
 
 void initialise_multi_manager(multi_manager& mm)
 {
-  std::unique_ptr<resource_manager<image>> image_resource_manager = std::make_unique<resource_manager<image>>( 
+  auto image_resource_manager = std::make_unique<resource_manager<image>>( 
     resource_manager<image>::default_loader,
     [](){ return std::make_shared<image_32>(); }
   );
