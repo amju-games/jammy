@@ -4,7 +4,7 @@
 
 TEST_CASE("get resource manager", "[resources]")
 {
-  auto r = resources();
+  auto& r = resources();
 }
 
 TEST_CASE("get a resource from manager", "[resources]")
