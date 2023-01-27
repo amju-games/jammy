@@ -4,6 +4,9 @@
 
 class my_game_object : public game_object
 {
+public:
+  // Broad phase ignores non-collidable game objects
+  my_game_object() { set_is_collidable(true); }
 };
 
 TEST_CASE("create, destroy", "[brute_force]")
