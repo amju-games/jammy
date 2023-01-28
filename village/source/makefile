@@ -23,6 +23,7 @@ LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib
 
 SOURCES=\
 collision_player_bullet_rock.cpp \
+collision_player_rock.cpp \
 enter_hi_score_state.cpp \
 game_over_state.cpp \
 globals.cpp \

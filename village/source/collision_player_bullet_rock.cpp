@@ -11,11 +11,5 @@ void collision_player_bullet_rock(player_bullet* pb, rock* r)
   
   // Destroy rock, show explosion
   r->explode();
-
-  the_sound_player->play_wav(get_data_dir() + "sounds/Explosion2.wav");
-
-  the_play_state->get_player()->add_score(r->get_score());
-  
-  the_play_state->dec_num_rocks();
 }
 

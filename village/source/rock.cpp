@@ -5,6 +5,7 @@
 #include "image_32.h"
 #include "resources.h"
 #include "rock.h"
+#include "sound_player.h"
 #include "universe.h"
 
 namespace
@@ -92,6 +93,14 @@ void rock::explode()
 std::cout << "Rock already exploding!\n";
     return;
   }
+
+  the_sound_player->play_wav(get_data_dir() + "sounds/Explosion2.wav");
+
+  // TODO This should be in player progress
+  the_play_state->get_player()->add_score(get_score());
+
+  // TODO This should be in level 
+  the_play_state->dec_num_rocks();
 
   //set_is_alive(false); // wait until explosion finishes
   set_is_exploding(true);
