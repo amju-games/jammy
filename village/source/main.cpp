@@ -87,6 +87,7 @@ void key_down(unsigned char c, int, int)
   }
   else if (c == 'R' || c == 'r')
   {
+std::cout << "HOT RELOAD!\n";
     resources().reload();
   }
 }
@@ -119,26 +120,22 @@ void special_key_down(int c, int, int)
   std::cout << "Got special key down: " << c << "\n"; 
 #endif
 
+  const button_value v = button_value::down;
   switch (c)
   {
   case GLUT_KEY_UP:
-    set(move, MOVE_UP);
+    the_game.on_dir_button_action({ dir_button_name::up, v });
     break;
   case GLUT_KEY_DOWN:
-    set(move, MOVE_DOWN);
+    the_game.on_dir_button_action({ dir_button_name::down, v });
     break;
   case GLUT_KEY_LEFT:
-    set(move, MOVE_LEFT);
+    the_game.on_dir_button_action({ dir_button_name::left, v });
     break;
   case GLUT_KEY_RIGHT:
-    set(move, MOVE_RIGHT);
+    the_game.on_dir_button_action({ dir_button_name::right, v });
     break;
   }
-
-  game_state* gs = the_game.get_game_state();
-  jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
-  assert(jgs);
-  jgs->on_input(move);
 }
 
 void special_key_up(int c, int, int)
@@ -147,26 +144,23 @@ void special_key_up(int c, int, int)
   std::cout << "Got special key up: " << c << "\n"; 
 #endif
 
+  const button_value v = button_value::up;
   switch (c)
-  {
+  { 
   case GLUT_KEY_UP:
-    clear(move, MOVE_UP);
+    the_game.on_dir_button_action({ dir_button_name::up, v });
     break;
   case GLUT_KEY_DOWN:
-    clear(move, MOVE_DOWN);
+    the_game.on_dir_button_action({ dir_button_name::down, v });
     break;
   case GLUT_KEY_LEFT:
-    clear(move, MOVE_LEFT);
+    the_game.on_dir_button_action({ dir_button_name::left, v });
     break;
   case GLUT_KEY_RIGHT:
-    clear(move, MOVE_RIGHT);
+    the_game.on_dir_button_action({ dir_button_name::right, v });
     break;
   }
 
-  game_state* gs = the_game.get_game_state();
-  jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
-  assert(jgs);
-  jgs->on_input(move);
 }
 
 void joystick(unsigned int buttons, int x, int y, int z)
@@ -282,6 +276,8 @@ int main(int argc, char** argv)
 
   // Init game states
   the_play_state.reset(new play_state);
+  the_play_state->set_vel_controller(std::make_unique<vel_controller_buttons_no_accel>());
+
   the_splash_state.reset(new splash_state);
   the_game_over_state.reset(new game_over_state);
   the_enter_hi_score_state.reset(new enter_hi_score_state);
