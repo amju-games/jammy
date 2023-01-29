@@ -13,11 +13,6 @@ public:
 
   void draw(ref_image dest) override;
 
-  // * move *
-  // Move in the given direction, a bitfield combination of 
-  //  directions.
-  void move(int move_dir);
-
   // Shoot in direction of movement
   void shoot();
 
@@ -37,20 +32,30 @@ public:
 
   int get_num_humans_saved() const { return m_humans_saved; }
 
-  const vec2& get_last_move_dir() const { return m_last_move_dir; }
-
   // For Defender-style firing, we need to know if we're facing left or right
   // TODO This could go in Walker perhaps?
   enum class player_dir { LEFT, RIGHT };
   player_dir get_player_dir() const { return m_player_dir; }
 
+  vel_controller& get_vel_controller();
+
 private:
+  void set_up_anims();
+  void update_anim(float dt);
+  void update_vel(float dt);
+
+  // TODO: set_activity, switch between different vel/anim controllers
+
+private:
+  // TODO Multiple controllers for different activities
+  std::unique_ptr<anim_controller> m_anim_controller;
+  std::unique_ptr<vel_controller> m_vel_controller;
+
   bool m_is_immune = false;
   float m_immune_time = 0;
   int m_lives = 0;
   int m_score = 0;
   int m_humans_saved = 0;
-  vec2 m_last_move_dir; // TODO deprecated? is still useful?
   player_dir m_player_dir = player_dir::RIGHT;
 
   sprite m_flames;

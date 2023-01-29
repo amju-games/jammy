@@ -6,7 +6,6 @@
 #include "jammy_game_state.h"
 #include "player.h"
 #include "player_bullet.h"
-#include "vel_controller.h"
 
 class hq;
 class human;
@@ -28,9 +27,6 @@ public:
   void on_dir_button_action(const dir_button_action&) override;
 
   std::shared_ptr<player> get_player() { return m_player; }
-
-  void set_vel_controller(std::unique_ptr<vel_controller>&& v);
-  vel_controller& get_vel_controller();
 
   // TODO Should be in a level class
   void dec_num_rocks();
@@ -65,7 +61,5 @@ protected:
   p_image m_life_full;
 
   jammy_collision_mgr m_collision_mgr;
-
-  std::unique_ptr<vel_controller> m_vel_controller;
 };
 

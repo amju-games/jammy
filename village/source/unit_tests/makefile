@@ -1,7 +1,7 @@
 all:jammy_tests_exe
 
 clean:
-	rm jammy_tests *.o ../*.o 
+	rm jammy_tests *.o ../*.o
 
 run:
 	./jammy_tests
@@ -16,16 +16,18 @@ INCLUDES=\
   -I../../../../microlib \
   -I../../../../lo-res
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++17   -DMACOSX
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++2a -DMACOSX -DUNIT_TEST
 
 LDFLAGS=-framework OpenGL -framework GLUT
 
 # (some code is just in .h files as templated, so not many .cpp files!)
 SOURCES= \
+anim_controller_tests.cpp \
 brute_force_tests.cpp \
 catch_test_main.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
+vel_controller_tests.cpp \
 ../resources.cpp \
 ../../../../lo-res/image_8.cpp \
 ../../../../lo-res/image_32.cpp \

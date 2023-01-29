@@ -2,6 +2,7 @@
 
 #include <array>
 #include "action.h"
+#include "sign.h"
 #include "vec2.h"
 
 class vel_controller
@@ -56,12 +57,23 @@ protected:
 };
 
 
+// Policies to implement different movement behaviours
+
+struct null_policy
+{
+  vec2 operator()(const vec2& v) { return v; }
+};
+
+
 // Update player vel in response to button actions
 // TODO Policy-based vel controller: use policies for accel and decel.
-class vel_controller_buttons_no_accel : public vel_controller
+//template<class MAX_SPEED_POLICY = null_policy>
+
+class vel_controller_flying : public vel_controller
 {
 public:
-  void update([[maybe_unused]] float dt) override
+  // Return vec where x and y are in range -1 .. 1
+  vec2 convert_active_buttons_to_vel() const
   {
     // No accel: immediately set vel according to buttons. 
     float x = 0, y = 0;
@@ -70,9 +82,27 @@ public:
     if (button(dir_button_name::up)) y -= 1.f;
     if (button(dir_button_name::down)) y += 1.f;
     if (m_up_is_positive_y) y = -y;
-    vec2 vel(x, y);
-    if (x != 0 || y != 0) vel = normalise(vel);    
-    vel *= m_max_speed;
+
+    return vec2(x, y);
+  }
+ 
+  void update([[maybe_unused]] float dt) override
+  {
+    vec2 vel = convert_active_buttons_to_vel();
+
+    vel *= m_max_speed; // now vel x and y are in range -min_speed .. min_speed
+
+/*
+    // Check for deceleration to stop
+    if (sign(vel.x) != sign(m_vel.x))
+    {
+      vel.x = 0;
+    }
+    if (sign(vel.y) != sign(m_vel.y))
+    {
+      vel.y = 0;
+    }
+*/
     m_vel = vel;
   }
 };

@@ -276,8 +276,6 @@ int main(int argc, char** argv)
 
   // Init game states
   the_play_state.reset(new play_state);
-  the_play_state->set_vel_controller(std::make_unique<vel_controller_buttons_no_accel>());
-
   the_splash_state.reset(new splash_state);
   the_game_over_state.reset(new game_over_state);
   the_enter_hi_score_state.reset(new enter_hi_score_state);

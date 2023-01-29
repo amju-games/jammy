@@ -45,43 +45,18 @@ play_state::play_state()
   m_blips.set_num_cells(3, 2);
 }
 
-void play_state::set_vel_controller(std::unique_ptr<vel_controller>&& v)
-{
-  m_vel_controller = std::move(v);
-  m_vel_controller->set_max_speed(50.f); // TODO TEMP TEST
-}
-
-vel_controller& play_state::get_vel_controller()
-{
-  assert(m_vel_controller.get());
-  return *(m_vel_controller.get());
-}
-
 void play_state::on_dir_button_action(const dir_button_action& dba)
 {
-  m_vel_controller->on_dir_button_action(dba);
+  m_player->get_vel_controller().on_dir_button_action(dba);
 }
 
 void play_state::on_input(int input)
 {
   assert(m_player);
 
-  // If this input is a combination of move directions, values will be 0..0xf.
-  // BUTTON_A is 0x10
-/*
-  if (input & 0x0f && !m_player->is_immune())
-  {
-    m_player->move(input & 0x0f);  
-  }
-*/
   if (input & BUTTON_A)
   {
     add_player_bullet();
-  }
-  else
-  {
-std::cout << "Player move: " << std::bitset<8>(input) << "\n";
-    m_player->move(input & 0x0f);  
   }
 }
 
@@ -294,9 +269,6 @@ void play_state::update(float dt)
   the_game.update_game_objects(dt); 
 
   col_det();
-
-  get_vel_controller().update(dt);
-  m_player->set_vel(get_vel_controller().get_vel());
 
   if (!m_player->is_immune() && m_player->get_num_lives() < 1)
   {

@@ -42,7 +42,6 @@ resources.cpp \
 rock.cpp \
 splash_state.cpp \
 universe.cpp \
-walker.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/image_32.cpp \
 ../../../lo-res/image_colour_xform.cpp \
