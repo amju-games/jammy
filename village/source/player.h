@@ -1,8 +1,10 @@
 #pragma once
 
-#include "walker.h"
+#include "anim_controller.h"
+#include "jammy_game_object.h"
+#include "vel_controller.h"
 
-class player : public walker
+class player : public jammy_game_object
 {
 public:
   player();

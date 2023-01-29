@@ -65,7 +65,7 @@ void player::draw(ref_image dest)
     }
   }
 
-  walker::draw(dest);
+  jammy_game_object::draw(dest);
 
   // Draw jet pac flame
   if (m_flame_on)
