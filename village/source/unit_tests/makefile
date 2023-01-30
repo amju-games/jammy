@@ -14,7 +14,8 @@ WARNINGS=-Wall -Wno-deprecated-declarations
 INCLUDES=\
   -I.. \
   -I../../../../microlib \
-  -I../../../../lo-res
+  -I../../../../lo-res \
+  -I../../../../lo-res/third_party
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++2a -DMACOSX -DUNIT_TEST
 
@@ -25,10 +26,12 @@ SOURCES= \
 anim_controller_tests.cpp \
 brute_force_tests.cpp \
 catch_test_main.cpp \
+level_tests.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \
 ../resources.cpp \
+../vel_controller.cpp \
 ../../../../lo-res/image_8.cpp \
 ../../../../lo-res/image_32.cpp \
 ../../../../lo-res/palette.cpp \
