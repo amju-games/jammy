@@ -24,6 +24,7 @@ LDFLAGS=-framework OpenGL -framework GLUT
 # (some code is just in .h files as templated, so not many .cpp files!)
 SOURCES= \
 anim_controller_tests.cpp \
+auto_repeat_suppressor_tests.cpp \
 brute_force_tests.cpp \
 catch_test_main.cpp \
 level_tests.cpp \

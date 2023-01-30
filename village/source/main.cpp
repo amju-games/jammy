@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include <GLUT/glut.h>
+#include "auto_repeat_suppressor.h"
 #include "colour.h"
 #include "directory.h"
 #include "font.h"
@@ -18,14 +19,14 @@
 #include "resources.h"
 #include "universe.h"
 
+//#define KEY_DEBUG
+
 bool yes_full_screen = false;
 
 fps_counter the_fps_counter;
 
 void draw()
 {
-  glClear(GL_COLOR_BUFFER_BIT);
-
   the_game.draw();
 
   the_font.draw<jb_font_mask>(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
@@ -60,13 +61,19 @@ void draw_and_update()
   update();
 }
 
+static auto_repeat_suppressor the_auto_repeat_suppressor;
+
 void key_down(unsigned char c, int, int)
 {
 #ifdef KEY_DEBUG
   std::cout << "Got key down: '" << c << "'\n"; 
 #endif
 
-  the_game.on_keyboard_action(keyboard_action(c, button_value::down));
+  keyboard_action ka(c, button_value::down);
+  if (the_auto_repeat_suppressor.is_new_event(ka))
+  {
+    the_game.on_keyboard_action(ka);
+  }
 }
 
 void key_up(unsigned char c, int, int)
@@ -75,7 +82,11 @@ void key_up(unsigned char c, int, int)
   std::cout << "Got key up: '" << c << "'\n"; 
 #endif
 
-  the_game.on_keyboard_action(keyboard_action(c, button_value::up));
+  keyboard_action ka(c, button_value::up);
+  if (the_auto_repeat_suppressor.is_new_event(ka))
+  {
+    the_game.on_keyboard_action(ka);
+  }
 }
 
 void special_key_down(int c, int, int)
@@ -127,6 +138,8 @@ void special_key_up(int c, int, int)
 
 }
 
+// Convert glut bitfield to button actions.
+// TODO Currently discards events if more than one button changes this frame
 game_controller_button_action glut_button_bitfield_to_button_action(unsigned int buttons)
 {
   static unsigned int  prev_value = 0;
