@@ -10,6 +10,7 @@
 #include "input.h"
 #include "jammy_blend.h"
 #include "jammy_game_state.h"
+#include "load_level_state.h"
 #include "play_state.h"
 #include "render_image_opengl.h"
 #include "sound_player_bass24.h"
@@ -165,6 +166,13 @@ void special_key_up(int c, int, int)
 
 void joystick(unsigned int buttons, int x, int y, int z)
 {
+  the_game.on_joystick_action(joystick_action(
+    static_cast<float>(x) / 1024.f,
+    static_cast<float>(y) / 1024.f));
+
+  // TODO Buttons
+  return;
+
 #ifdef JOYSTICK_DEBUG
   std::cout << "Got js callback! buttons: " << buttons 
     << "\tx: " << x 
@@ -194,40 +202,6 @@ void joystick(unsigned int buttons, int x, int y, int z)
     move |= ((buttons & 0x0fff) << 4); // copy button mask into move, shifted up 4 bits
     prev_buttons = buttons;
   }
-
-  static const int DEAD_ZONE = 500; // glut-specific: axis values go -1000..1000
-
-  if (x != prev_x)
-  {
-    clear(move, MOVE_RIGHT);
-    clear(move, MOVE_LEFT);
-    if (x < -DEAD_ZONE)
-    {
-      set(move, MOVE_LEFT);
-    }
-    if (x > DEAD_ZONE)
-    {
-      set(move, MOVE_RIGHT);
-    }
-    prev_x = x;
-  }
-
-  if (y != prev_y)
-  {
-    clear(move, MOVE_UP);
-    clear(move, MOVE_DOWN);
-    if (y < -DEAD_ZONE)
-    {
-      set(move, MOVE_UP); 
-    }
-    if (y > DEAD_ZONE)
-    {
-      set(move, MOVE_DOWN);
-    }
-    prev_y = y;
-  }
-
-  jgs->on_input(move);
 }
 
 int main(int argc, char** argv)

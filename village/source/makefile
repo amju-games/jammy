@@ -44,9 +44,11 @@ resources.cpp \
 rock.cpp \
 splash_state.cpp \
 universe.cpp \
+vel_controller.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/image_32.cpp \
 ../../../lo-res/image_colour_xform.cpp \
+../../../lo-res/image_scale.cpp \
 ../../../lo-res/palette.cpp \
 ../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \

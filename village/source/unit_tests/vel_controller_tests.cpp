@@ -63,3 +63,8 @@ TEST_CASE("left and right button outputs expected vel", "[vel_controller_buttons
   REQUIRE(vc.get_vel() == vec2(0, 0));
 }
 
+TEST_CASE("joystick input outputs expected vel", "[vel_controller_flying]")
+{
+}
+
+

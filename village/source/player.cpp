@@ -107,8 +107,12 @@ void player::update_anim(float dt)
 void player::update_vel(float dt)
 {
   auto& vc = get_vel_controller();
-  vc.update(dt);
+
+  vc.set_vel(get_vel());
+  vc.set_acc(get_acc());
+  vc.update(dt); // updates vel, set it back in player
   set_vel(vc.get_vel());
+  set_acc(vc.get_acc());
 
   // Hmm, need this for firing laser.
   // TODO Get the dir from the current anim_info?
