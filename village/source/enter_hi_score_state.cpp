@@ -51,8 +51,21 @@ void enter_hi_score_state::draw()
   the_font.draw<jb_font_mask>(the_screen, 63 - (6 + str.length()) * CHAR_W / 2, 80, "SCORE: " + str);
 }
 
-void enter_hi_score_state::on_input(int input) 
+void enter_hi_score_state::on_keyboard_action(const keyboard_action& ka)
 {
-  the_game.set_game_state(the_splash_state);
+  auto [key, value](ka);
+  if (value == button_value::down)
+  {
+    the_game.set_game_state(the_splash_state);
+  }
 }
-  
+
+void enter_hi_score_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
+{
+  auto [button, value](gcba);
+  if (value == button_value::down)
+  {
+    the_game.set_game_state(the_splash_state);
+  }
+}
+ 

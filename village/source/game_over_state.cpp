@@ -78,12 +78,3 @@ void game_over_state::draw()
 
 }
 
-void game_over_state::on_input(int input) 
-{
-  // Prevent accidentally clicking through
-  if (t > 3.f)
-  { 
-    t += WAIT_TIME; // so we go to next state on update
-  }
-}
-  

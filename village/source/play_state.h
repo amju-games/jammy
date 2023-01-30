@@ -19,7 +19,6 @@ public:
   play_state();
   void update(float dt) override;
   void draw() override;
-  void on_input(int input) override;
   void on_active() override;
   void on_deactive() override;
 

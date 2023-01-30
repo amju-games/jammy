@@ -49,11 +49,18 @@ level& play_state::get_level()
 
 void play_state::on_keyboard_action(const keyboard_action& ka) 
 {
+  auto [key, value](ka);
+  // TODO Remappable controls
+  if (key == ' ' && value == button_value::down)
+  {
+    get_level().add_player_bullet();
+  }
 }
 
 void play_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
 {
   auto [button, state] (gcba);
+  // TODO Remappable controls
   if (button == 0 && state == button_value::down)
   {
     get_level().add_player_bullet();
@@ -68,14 +75,6 @@ void play_state::on_dir_button_action(const dir_button_action& dba)
 void play_state::on_joystick_action(const joystick_action& ja)
 {
   get_level().get_player().get_vel_controller().on_joystick_action(ja);
-}
-
-void play_state::on_input(int input)
-{
-  if (input & BUTTON_A)
-  {
-    get_level().add_player_bullet();
-  }
 }
 
 void play_state::on_active() 

@@ -10,7 +10,6 @@ public:
   game_over_state();
   void update(float dt) override;
   void draw() override;
-  void on_input(int input) override;
   void on_active() override;
   
 private:
