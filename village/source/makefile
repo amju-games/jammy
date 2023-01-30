@@ -33,6 +33,7 @@ human.cpp \
 human_list.cpp \
 jammy_collision_mgr.cpp \
 jammy_game_object.cpp \
+jammy_game_state.cpp \
 level.cpp \
 load_level_state.cpp \
 main.cpp \

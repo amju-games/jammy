@@ -47,6 +47,19 @@ level& play_state::get_level()
   return lev;
 }
 
+void play_state::on_keyboard_action(const keyboard_action& ka) 
+{
+}
+
+void play_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
+{
+  auto [button, state] (gcba);
+  if (button == 0 && state == button_value::down)
+  {
+    get_level().add_player_bullet();
+  }
+}
+
 void play_state::on_dir_button_action(const dir_button_action& dba)
 {
   get_level().get_player().get_vel_controller().on_dir_button_action(dba);

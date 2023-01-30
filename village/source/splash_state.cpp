@@ -33,8 +33,21 @@ void splash_state::draw()
   the_font.draw<jb_font_mask>(the_screen, 1, 120, "ARROW KEYS TO MOVE, ESC TO QUIT!");
 }
 
-void splash_state::on_input(int input) 
+void splash_state::on_keyboard_action(const keyboard_action& ka)
 {
-  the_game.set_game_state(the_load_level_state);
+  auto [key, value](ka);
+  if (value == button_value::down)
+  {
+    the_game.set_game_state(the_load_level_state);
+  }
+}
+
+void splash_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
+{
+  auto [button, value](gcba);
+  if (value == button_value::down)
+  {
+    the_game.set_game_state(the_load_level_state);
+  }
 }
 

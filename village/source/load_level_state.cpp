@@ -38,8 +38,22 @@ void load_level_state::draw()
   m_big_font.draw<jb_font_mask>(the_screen, 20, 2, "LEVEL " + std::to_string(level_num));
 }
 
-void load_level_state::on_input(int input)
+void load_level_state::on_keyboard_action(const keyboard_action& ka) 
 {
-  the_game.set_game_state(the_play_state);
+  auto [key, value](ka);
+  if (value == button_value::down)
+  {
+    the_game.set_game_state(the_play_state);
+  }
 }
+
+void load_level_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
+{
+  auto [button, value](gcba);
+  if (value == button_value::down)
+  {
+    the_game.set_game_state(the_play_state);
+  }
+}
+
 

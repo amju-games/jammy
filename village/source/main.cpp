@@ -60,27 +60,13 @@ void draw_and_update()
   update();
 }
 
-static int move = 0;
-
 void key_down(unsigned char c, int, int)
 {
 #ifdef KEY_DEBUG
   std::cout << "Got key down: '" << c << "'\n"; 
 #endif
 
-  // Space bar => button
-  if (c == ' ')
-  {
-    game_state* gs = the_game.get_game_state();
-    jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
-    assert(jgs);
-    jgs->on_input(BUTTON_A);
-  }
-  else if (c == 'R' || c == 'r')
-  {
-std::cout << "HOT RELOAD!\n";
-    resources().reload();
-  }
+  the_game.on_keyboard_action(keyboard_action(c, button_value::down));
 }
 
 void key_up(unsigned char c, int, int)
@@ -89,20 +75,7 @@ void key_up(unsigned char c, int, int)
   std::cout << "Got key up: '" << c << "'\n"; 
 #endif
 
-  // Escape -> quit immediately
-  // OH NO IT CRASHES
-
-  if (c == 27)
-  {
-    the_sound_player.reset();
-
-    if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
-    {
-      glutLeaveGameMode();
-    }
-    exit(0);
-  }
-
+  the_game.on_keyboard_action(keyboard_action(c, button_value::up));
 }
 
 void special_key_down(int c, int, int)
@@ -154,44 +127,38 @@ void special_key_up(int c, int, int)
 
 }
 
+game_controller_button_action glut_button_bitfield_to_button_action(unsigned int buttons)
+{
+  static unsigned int  prev_value = 0;
+  unsigned int changed = buttons ^ prev_value;
+  prev_value = buttons;
+
+  int bit = 1;
+  int button = 0;
+  while (changed)
+  {
+    if (changed & bit) 
+    {
+      button_value bv = (buttons & bit) ? button_value::down : button_value::up;
+std::cout << "Button " << button << ((bv == button_value::down) ? "down" : "up") << "\n";
+      return game_controller_button_action{button, bv};
+    }
+    bit <<= 1;
+    button++;
+  }
+
+  return game_controller_button_action{};
+}
+
 void joystick(unsigned int buttons, int x, int y, int z)
 {
   the_game.on_joystick_action(joystick_action(
     static_cast<float>(x) / 1024.f,
     static_cast<float>(y) / 1024.f));
 
-  // TODO Buttons
-  return;
-
-#ifdef JOYSTICK_DEBUG
-  std::cout << "Got js callback! buttons: " << buttons 
-    << "\tx: " << x 
-    << "\ty: " << y 
-    << "\tz: " << z 
-    << "\n";
-#endif
-
-  // Initialise to first values, so we don't do anything on first call.
-  static unsigned int prev_buttons = buttons;
-  static int prev_x = x;
-  static int prev_y = y;
-
-  if (buttons == prev_buttons && x == prev_x && y == prev_y)
-  {
-    return;
-  }
-
-  game_state* gs = the_game.get_game_state();
-  jammy_game_state* jgs = dynamic_cast<jammy_game_state*>(gs);
-  assert(jgs);
-
-  if (buttons != prev_buttons)
-  {
-    // Lowest 4 bits of move are movement directions. Shift button mask up.
-    move &= 0x0f; // Save directions
-    move |= ((buttons & 0x0fff) << 4); // copy button mask into move, shifted up 4 bits
-    prev_buttons = buttons;
-  }
+  // TODO we could have multiple button actions, for every changed bit
+  auto gcba = glut_button_bitfield_to_button_action(buttons);
+  the_game.on_game_controller_button_action(gcba);
 }
 
 int main(int argc, char** argv)
