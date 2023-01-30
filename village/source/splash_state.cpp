@@ -35,6 +35,6 @@ void splash_state::draw()
 
 void splash_state::on_input(int input) 
 {
-  the_game.set_game_state(the_play_state);
+  the_game.set_game_state(the_load_level_state);
 }
 

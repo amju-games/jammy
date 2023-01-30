@@ -276,6 +276,7 @@ int main(int argc, char** argv)
 
   // Init game states
   the_play_state.reset(new play_state);
+  the_load_level_state.reset(new load_level_state);
   the_splash_state.reset(new splash_state);
   the_game_over_state.reset(new game_over_state);
   the_enter_hi_score_state.reset(new enter_hi_score_state);

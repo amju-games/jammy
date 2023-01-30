@@ -4,11 +4,10 @@
 #include "circular_buffer.h"
 #include "jammy_collision_mgr.h"
 #include "jammy_game_state.h"
+#include "level.h"
 #include "player.h"
 #include "player_bullet.h"
 
-class hq;
-class human;
 class jammy_game_object;
 class player;
 class player_bullet;
@@ -25,36 +24,18 @@ public:
   void on_deactive() override;
 
   void on_dir_button_action(const dir_button_action&) override;
+  void on_joystick_action(const joystick_action&) override;
 
-  std::shared_ptr<player> get_player() { return m_player; }
-
-  // TODO Should be in a level class
-  void dec_num_rocks();
+  // TODO level manager?
+  level& get_level();
 
 protected:
-  void add_player_bullet();
-
-  // Recursively add rocks
-  std::shared_ptr<rock> add_rock_and_descendants(int level, int child_index);
-
   void col_det();
   void draw_radar();
   void draw_lives();
   void draw_blip(jammy_game_object* h, int cell);
 
 protected:
-  std::shared_ptr<player> m_player;
-  hq* m_hq = nullptr;
-
-  std::unique_ptr<circular_buffer<player_bullet>> m_player_bullets;
-  std::vector<human*> m_humans;
-  std::vector<human*> m_rescued_humans;
-
-  std::vector<std::shared_ptr<rock>> m_rocks;
-  // This is the number of rocks still alive in the level - when it hits zero,
-  //  the level is complete (if we only care about rocks)
-  int m_num_rocks_in_level = 0;
-
   p_image m_radar;
   sprite_sheet m_blips;
   p_image m_life_empty;
