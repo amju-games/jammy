@@ -1,6 +1,5 @@
 #include <iostream>
 #include "directory.h"
-#include "input.h"
 #include "globals.h"
 #include "jammy_blend.h"
 #include "player.h"

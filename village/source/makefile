@@ -31,6 +31,7 @@ hi_scores.cpp \
 hq.cpp \
 human.cpp \
 human_list.cpp \
+init_state.cpp \
 jammy_collision_mgr.cpp \
 jammy_game_object.cpp \
 jammy_game_state.cpp \

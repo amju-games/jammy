@@ -1,7 +1,13 @@
 #include <iostream>
 
+#include "fps_counter.h"
+#include "globals.h"
+#include "jammy_blend.h"
 #include "jammy_game_state.h"
 #include "resources.h"
+
+fps_counter the_fps_counter;
+
 
 void jammy_game_state::on_keyboard_action(const keyboard_action& ka)
 {
@@ -18,4 +24,14 @@ std::cout << "HOT RELOAD!\n";
     break;
   };
 } 
+
+void jammy_game_state::draw() 
+{
+  the_font.draw<jb_font_mask>(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
+}
+
+void jammy_game_state::update(float dt)
+{
+  the_fps_counter.update(dt);
+}
 

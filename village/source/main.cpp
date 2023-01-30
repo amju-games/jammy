@@ -2,35 +2,20 @@
 #include <iostream>
 #include <GLUT/glut.h>
 #include "auto_repeat_suppressor.h"
-#include "colour.h"
-#include "directory.h"
-#include "font.h"
-#include "fps_counter.h"
 #include "globals.h"
-#include "image_32.h"
-#include "input.h"
-#include "jammy_blend.h"
-#include "jammy_game_state.h"
-#include "load_level_state.h"
-#include "play_state.h"
+#include "init_state.h"
 #include "render_image_opengl.h"
-#include "sound_player_bass24.h"
-#include "splash_state.h"
-#include "resources.h"
 #include "universe.h"
 
 //#define KEY_DEBUG
 
-bool yes_full_screen = false;
+std::unique_ptr<init_state> the_init_state;
 
-fps_counter the_fps_counter;
+bool yes_full_screen = true;
 
 void draw()
 {
   the_game.draw();
-
-  the_font.draw<jb_font_mask>(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
-
 
   // Copy buffer to GL screen surface
   render_image_32_opengl(the_screen);
@@ -44,13 +29,9 @@ void update()
   the_timer.update();
   float dt = the_timer.get_dt();
 
-  the_fps_counter.update(dt);
- 
   the_game.update(dt);
 }
 
-// * draw_and_update *
-// Called every frame.
 void draw_and_update()
 {
   draw();
@@ -153,7 +134,11 @@ game_controller_button_action glut_button_bitfield_to_button_action(unsigned int
     if (changed & bit) 
     {
       button_value bv = (buttons & bit) ? button_value::down : button_value::up;
+
+#ifdef KEY_DEBUG
 std::cout << "Button " << button << ((bv == button_value::down) ? "down" : "up") << "\n";
+#endif
+
       return game_controller_button_action{button, bv};
     }
     bit <<= 1;
@@ -201,43 +186,12 @@ int main(int argc, char** argv)
   const int POLL_WITH_GLUT_FORCE_JOYSTICK_FUNC = -1;
   glutJoystickFunc(joystick, POLL_WITH_GLUT_FORCE_JOYSTICK_FUNC);
 
-  // Pretend screen size
-  //gluOrtho2D(0, PRETEND_SCREEN_W, 0, PRETEND_SCREEN_H);
- 
-  the_screen = std::make_shared<image_32>();
-  the_screen->set_size(PRETEND_SCREEN_W, PRETEND_SCREEN_H);
-
-  // Add black colour for space bg!
-  // This will be index 1, because index 0 is for transparent colour.
-  //image_8::get_palette().add_colour(colour(0, 0, 0));
-
-  // Add colour for rope - this is index 2.
-  //image_8::get_palette().add_colour(colour(255, 255, 0));
-
-  // Init font
-  the_font.set_image(resources().get<image>(get_data_dir() + "font1 - magenta.png"));
-  the_font.set_num_cells(16, 4);
-
-  // Init game states
-  the_play_state.reset(new play_state);
-  the_load_level_state.reset(new load_level_state);
-  the_splash_state.reset(new splash_state);
-  the_game_over_state.reset(new game_over_state);
-  the_enter_hi_score_state.reset(new enter_hi_score_state);
-
   // Initial state
-  the_game.set_game_state(the_splash_state);
+  the_init_state = std::make_unique<init_state>();
+  the_game.set_game_state(the_init_state);
 
   // Must update once before draw
   update();
-
-  the_sound_player.reset(new sound_player_bass24);
-
-  // Play background music
-  //const bool LOOP = true;
-  //the_sound_player->play_wav(get_data_dir() + "Visager_-_11_-_Eerie_Mausoleum.wav", LOOP);
-
-  //the_human_list.load();
 
   glutMainLoop();
 }

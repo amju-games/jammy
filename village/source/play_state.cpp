@@ -9,7 +9,6 @@
 #include "hq.h"
 #include "human.h"
 #include "human_list.h"
-#include "input.h"
 #include "jammy_blend.h"
 #include "jammy_game_object.h"
 #include "parallax_bg.h"
@@ -105,6 +104,8 @@ void play_state::update(float dt)
     the_game.set_game_state(the_game_over_state);
     the_sound_player->play_wav(get_data_dir() + "sounds/Shut_Down1.wav");
   }
+
+  jammy_game_state::update(dt);
 }
 
 void play_state::draw_blip(jammy_game_object* h, int cell)
@@ -161,5 +162,6 @@ void play_state::draw()
   the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", get_level().get_player().get_vel()));
   the_font.draw<jb_font_mask>(the_screen, 20, 24, concat("ACC: ", get_level().get_player().get_acc()));
 
+  jammy_game_state::draw();
 }
 
