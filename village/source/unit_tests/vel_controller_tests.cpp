@@ -63,8 +63,29 @@ TEST_CASE("left and right button outputs expected vel", "[vel_controller_flying]
   REQUIRE(vc.get_vel() == vec2(0, 0));
 }
 
-TEST_CASE("joystick input outputs expected vel", "[vel_controller_flying]")
+TEST_CASE("joystick right input outputs expected vel", "[vel_controller_flying]")
 {
+  vel_controller_flying vc;
+  vc.on_joystick_action(joystick_action(1, 0));
+  vc.update(some_dt_value);
+  REQUIRE(vc.get_vel() == vec2(1, 0));
+}
+
+TEST_CASE("joystick left input outputs expected vel", "[vel_controller_flying]")
+{
+  vel_controller_flying vc;
+  vc.on_joystick_action(joystick_action(-1, 0));
+  vc.update(some_dt_value);
+  REQUIRE(vc.get_vel() == vec2(-1, 0));
+}
+
+TEST_CASE("joystick right and button right input outputs expected vel", "[vel_controller_flying]")
+{
+  vel_controller_flying vc;
+  vc.on_joystick_action(joystick_action(1, 0));
+  vc.on_dir_button_action(dir_button_action(dir_button_name::right, button_value::down));
+  vc.update(some_dt_value);
+  REQUIRE(vc.get_vel() == vec2(1, 0));
 }
 
 

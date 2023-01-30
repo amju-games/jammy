@@ -62,16 +62,6 @@ void draw_and_update()
 
 static int move = 0;
 
-static void set(int& i, int b)
-{
-  i |= b;
-}
-
-static void clear(int& i, int b)
-{
-  i &= ~b; 
-}
-
 void key_down(unsigned char c, int, int)
 {
 #ifdef KEY_DEBUG

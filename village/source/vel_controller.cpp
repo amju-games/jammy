@@ -10,7 +10,6 @@ void vel_controller::on_dir_button_action(const dir_button_action& ba)
 
 void vel_controller::on_joystick_action(const joystick_action& ja) 
 {
-std::cout << "Joystick x: " << ja.first << " y: " << ja.second << "\n";
   m_joystick_action = ja;
 }
 
