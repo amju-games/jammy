@@ -24,7 +24,9 @@ void enter_hi_score_state::update(float dt)
   t += dt;
   if (t > WAIT_TIME)
   {
-    int score = the_play_state->get_player()->get_score();
+    // TODO player progress class
+    int score = the_play_state->get_level().get_player().get_score();
+
     if (the_hi_score_table.is_hi_score(score))
     {
       the_game.set_game_state(the_enter_hi_score_state);
@@ -42,7 +44,8 @@ void enter_hi_score_state::draw()
   
   the_font.draw<jb_font_mask>(the_screen, 46, 30, "GAME OVER");
 
-  int score = the_play_state->get_player()->get_score();
+  // TODO player progress class
+  int score = the_play_state->get_level().get_player().get_score();
   std::string str = std::to_string(score);
   const float CHAR_W = 4;
   the_font.draw<jb_font_mask>(the_screen, 63 - (6 + str.length()) * CHAR_W / 2, 80, "SCORE: " + str);

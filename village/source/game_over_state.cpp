@@ -34,7 +34,8 @@ void game_over_state::update(float dt)
   t += dt;
   if (t > WAIT_TIME)
   {
-    int score = the_play_state->get_player()->get_score();
+    // TODO player progress class
+    int score = the_play_state->get_level().get_player().get_score();
     if (the_hi_score_table.is_hi_score(score))
     {   
       the_game.set_game_state(the_splash_state);
@@ -53,7 +54,7 @@ void game_over_state::draw()
   
   the_font.draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
 
-  int saved = the_play_state->get_player()->get_num_humans_saved();
+  int saved = 0; //the_play_state->get_player()->get_num_humans_saved();
   std::string str = std::to_string(saved);
  
   if (t > 1.2f) 
@@ -67,7 +68,7 @@ void game_over_state::draw()
     }
   }
 
-  int score = the_play_state->get_player()->get_score();
+  int score = 0; //the_play_state->get_player()->get_score();
   str = std::to_string(score);
 
   if (t > .5f)
