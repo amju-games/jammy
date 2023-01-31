@@ -35,7 +35,7 @@ void game_over_state::update(float dt)
   if (t > WAIT_TIME)
   {
     // TODO player progress class
-    int score = the_play_state->get_level().get_player().get_score();
+    int score = the_level_manager.get_level().get_player().get_score();
     if (the_hi_score_table.is_hi_score(score))
     {   
       the_game.set_game_state(the_splash_state);

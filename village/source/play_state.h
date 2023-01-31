@@ -1,17 +1,11 @@
 #pragma once
 
 #include <vector>
-#include "circular_buffer.h"
 #include "jammy_collision_mgr.h"
 #include "jammy_game_state.h"
 #include "level.h"
-#include "player.h"
-#include "player_bullet.h"
 
 class jammy_game_object;
-class player;
-class player_bullet;
-class rock;
 
 class play_state : public jammy_game_state
 {
@@ -26,9 +20,6 @@ public:
   void on_joystick_action(const joystick_action&) override;
   void on_keyboard_action(const keyboard_action&) override;
   void on_game_controller_button_action(const game_controller_button_action&) override;
-
-  // TODO level manager?
-  level& get_level();
 
 protected:
   void col_det();

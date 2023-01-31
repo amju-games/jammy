@@ -27,10 +27,12 @@ anim_controller_tests.cpp \
 auto_repeat_suppressor_tests.cpp \
 brute_force_tests.cpp \
 catch_test_main.cpp \
+level_manager_tests.cpp \
 level_tests.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \
+../level_manager.cpp \
 ../resources.cpp \
 ../vel_controller.cpp \
 ../../../../lo-res/image_8.cpp \

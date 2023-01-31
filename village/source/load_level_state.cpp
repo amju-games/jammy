@@ -25,7 +25,10 @@ void load_level_state::on_active()
 {
   the_screen->clear(colour(0xff, 0x80, 0));
 
-  the_play_state->get_level().load(); // TODO for so many reasons
+  // TODO: initialise loading level.
+  // Call partial load each update; draw progress.
+  // End state when level loaded
+  the_level_manager.get_level().load(); 
 }
 
 void load_level_state::update(float dt) 

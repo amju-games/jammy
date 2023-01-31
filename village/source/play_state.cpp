@@ -39,20 +39,13 @@ play_state::play_state()
   m_blips.set_num_cells(3, 2);
 }
 
-// TODO level manager
-level& play_state::get_level()
-{
-  static level lev;
-  return lev;
-}
-
 void play_state::on_keyboard_action(const keyboard_action& ka) 
 {
   auto [key, value](ka);
   // TODO Remappable controls
   if (key == ' ' && value == button_value::down)
   {
-    get_level().add_player_bullet();
+    the_level_manager.get_level().add_player_bullet();
   }
 }
 
@@ -62,18 +55,18 @@ void play_state::on_game_controller_button_action(const game_controller_button_a
   // TODO Remappable controls
   if (button == 0 && state == button_value::down)
   {
-    get_level().add_player_bullet();
+    the_level_manager.get_level().add_player_bullet();
   }
 }
 
 void play_state::on_dir_button_action(const dir_button_action& dba)
 {
-  get_level().get_player().get_vel_controller().on_dir_button_action(dba);
+  the_level_manager.get_level().get_player().get_vel_controller().on_dir_button_action(dba);
 }
 
 void play_state::on_joystick_action(const joystick_action& ja)
 {
-  get_level().get_player().get_vel_controller().on_joystick_action(ja);
+  the_level_manager.get_level().get_player().get_vel_controller().on_joystick_action(ja);
 }
 
 void play_state::on_active() 
@@ -98,7 +91,7 @@ void play_state::update(float dt)
 
   col_det();
 
-  player& p = get_level().get_player();
+  player& p = the_level_manager.get_level().get_player();
   if (!p.is_immune() && p.get_num_lives() < 1)
   {
     the_game.set_game_state(the_game_over_state);
@@ -110,7 +103,7 @@ void play_state::update(float dt)
 
 void play_state::draw_blip(jammy_game_object* h, int cell)
 {
-  vec2 d = h->get_pos() - get_level().get_player().get_pos();
+  vec2 d = h->get_pos() - the_level_manager.get_level().get_player().get_pos();
   const float MAX_DIST = 200.f;
   float dist_sq = squared_length(d);
   if (dist_sq < MAX_DIST * MAX_DIST)
@@ -128,11 +121,11 @@ void play_state::draw_radar()
  
 void play_state::draw_lives()
 {
-  int lives = get_level().get_player().get_num_lives();
+  int lives = the_level_manager.get_level().get_player().get_num_lives();
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
-    blit<jb_mask>(m_life_full, the_screen, PRETEND_SCREEN_W- (i + 1) * HEART_W, 2);
+    blit<jb_mask>(m_life_full, the_screen, PRETEND_SCREEN_W - (i + 1) * HEART_W, 2);
   }
 }
  
@@ -149,18 +142,11 @@ void play_state::draw()
   draw_lives();
   
   // Draw score
-  the_font.draw<jb_font_mask>(the_screen, 1, 1, std::to_string(get_level().get_player().get_score()));
+  the_font.draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_level_manager.get_level().get_player().get_score()));
 
-  // Draw human bio
-//  if (human_timer > 0)
-//  {
-//    the_human_list.draw_human_bio(human_to_display);
-//  } 
-
-//  the_font.draw<jb_font_mask>(the_screen, 20, 8,  concat("PLR: ", get_level().get_player().get_pos()));
-//  the_font.draw<jb_font_mask>(the_screen, 20, 16,  concat("HQ:  ", m_hq->get_pos()));
-  the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", get_level().get_player().get_vel()));
-  the_font.draw<jb_font_mask>(the_screen, 20, 24, concat("ACC: ", get_level().get_player().get_acc()));
+//  the_font.draw<jb_font_mask>(the_screen, 20, 8,  concat("POS: ", the_level_manager.get_level().get_player().get_pos()));
+  the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", the_level_manager.get_level().get_player().get_vel()));
+  the_font.draw<jb_font_mask>(the_screen, 20, 24, concat("ACC: ", the_level_manager.get_level().get_player().get_acc()));
 
   jammy_game_state::draw();
 }

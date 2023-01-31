@@ -97,9 +97,9 @@ std::cout << "Rock already exploding!\n";
   the_sound_player->play_wav(get_data_dir() + "sounds/Explosion2.wav");
 
   // TODO This should be in player progress
-  the_play_state->get_level().get_player().add_score(get_score());
+  the_level_manager.get_level().get_player().add_score(get_score());
 
-  the_play_state->get_level().dec_num_rocks();
+  the_level_manager.get_level().dec_num_rocks();
 
   //set_is_alive(false); // wait until explosion finishes
   set_is_exploding(true);

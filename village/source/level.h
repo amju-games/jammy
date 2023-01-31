@@ -31,7 +31,6 @@ protected:
 
   std::unique_ptr<circular_buffer<player_bullet>> m_player_bullets;
 
-  std::vector<std::shared_ptr<rock>> m_rocks;
   // This is the number of rocks still alive in the level - when it hits zero,
   //  the level is complete (if we only care about rocks)
   int m_num_rocks_in_level = 0;

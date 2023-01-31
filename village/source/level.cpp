@@ -52,7 +52,6 @@ std::shared_ptr<rock> level::add_rock_and_descendants(int level, int child_index
 {
   auto r = std::make_shared<rock>(level, child_index);
   the_game.add_game_object(r);
-//  m_rocks.push_back(r);
   m_num_rocks_in_level++;
 
   if (level < 2)

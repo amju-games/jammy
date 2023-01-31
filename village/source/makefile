@@ -36,6 +36,7 @@ jammy_collision_mgr.cpp \
 jammy_game_object.cpp \
 jammy_game_state.cpp \
 level.cpp \
+level_manager.cpp \
 load_level_state.cpp \
 main.cpp \
 parallax_bg.cpp \
