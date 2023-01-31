@@ -90,6 +90,15 @@ void play_state::update(float dt)
     the_sound_player->play_wav(get_data_dir() + "sounds/Shut_Down1.wav");
   }
 
+  // Check for level complete
+  if (the_level_manager.get_level().is_level_completed())
+  {
+    // TODO make player immune, set timer to go to next level state
+    the_game.set_game_state(the_load_level_state);
+    
+    // the_player_progress.go_to_next_level(); // TODO level hopping 
+  }
+
   jammy_game_state::update(dt); // update fps counter
 }
 

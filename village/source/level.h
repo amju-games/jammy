@@ -8,6 +8,8 @@
 class level
 {
 public:
+  bool is_level_completed() const;
+
   void col_det();
 
   // Used to procedurally create levels

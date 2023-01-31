@@ -5,6 +5,11 @@
 #include "parallax_bg.h"
 #include "sound_player.h"
 
+bool level::is_level_completed() const
+{
+  return m_num_rocks_in_level == 0;
+}
+
 void level::col_det()
 {
   m_collision_mgr.check_for_collisions();
