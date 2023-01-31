@@ -1,4 +1,5 @@
 #include "collision_player_rock.h"
+#include "globals.h"
 
 void collision_player_rock(player* p, rock* r)
 {
@@ -8,7 +9,9 @@ void collision_player_rock(player* p, rock* r)
   }
   else
   {
-    p->lose_life();
+    p->keep_immune();
+    the_player_progress.dec_lives();
+
     // Destroy rock?
     r->explode();
 

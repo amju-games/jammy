@@ -84,19 +84,21 @@ void play_state::update(float dt)
 
   // Check for game over. Should be in player progress?
   player& p = the_level_manager.get_level().get_player();
-  if (!p.is_immune() && p.get_num_lives() < 1)
+  if (!p.is_immune() && the_player_progress.get_lives() < 1)
   {
     the_game.set_game_state(the_game_over_state);
     the_sound_player->play_wav(get_data_dir() + "sounds/Shut_Down1.wav");
   }
 
-  // Check for level complete
-  if (the_level_manager.get_level().is_level_completed())
+  // Check for level completed
+  if (the_level_manager.get_level().is_level_completed() &&
+      the_player_progress.get_lives() > 0)
   {
+    int level = the_player_progress.get_level();
+    the_player_progress.set_level(level + 1); // TODO level hopping 
+
     // TODO make player immune, set timer to go to next level state
     the_game.set_game_state(the_load_level_state);
-    
-    // the_player_progress.go_to_next_level(); // TODO level hopping 
   }
 
   jammy_game_state::update(dt); // update fps counter
@@ -122,7 +124,7 @@ void play_state::draw_radar()
  
 void play_state::draw_lives()
 {
-  int lives = the_level_manager.get_level().get_player().get_num_lives();
+  int lives = the_player_progress.get_lives();
   for (int i = 0; i < lives; i++)
   {
     const int HEART_W = 10;
@@ -143,7 +145,7 @@ void play_state::draw()
   draw_lives();
   
   // Draw score
-  the_font.draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_level_manager.get_level().get_player().get_score()));
+  the_font.draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_player_progress.get_score()));
 
 //  the_font.draw<jb_font_mask>(the_screen, 20, 8,  concat("POS: ", the_level_manager.get_level().get_player().get_pos()));
   the_font.draw<jb_font_mask>(the_screen, 20, 16, concat("VEL: ", the_level_manager.get_level().get_player().get_vel()));

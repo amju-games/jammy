@@ -39,6 +39,7 @@ level.cpp \
 level_manager.cpp \
 load_level_state.cpp \
 main.cpp \
+new_game_state.cpp \
 parallax_bg.cpp \
 player.cpp \
 player_bullet.cpp \

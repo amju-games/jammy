@@ -37,7 +37,7 @@ void load_level_state::update(float dt)
 
 void load_level_state::draw() 
 {
-  int level_num = 1; // TODO
+  int level_num = the_player_progress.get_level();
   m_big_font.draw<jb_font_mask>(the_screen, 20, 2, "LEVEL " + std::to_string(level_num));
 }
 

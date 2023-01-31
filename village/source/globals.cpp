@@ -1,5 +1,7 @@
 #include "globals.h"
 
+std::unique_ptr<new_game_state> the_new_game_state;
+player_progress the_player_progress;
 level_manager the_level_manager;
 p_image the_screen;
 std::unique_ptr<sound_player> the_sound_player;

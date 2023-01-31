@@ -15,6 +15,7 @@ void init_state::on_active()
   the_font.set_num_cells(16, 4);
 
   // Init game states
+  the_new_game_state.reset(new new_game_state);
   the_play_state.reset(new play_state);
   the_load_level_state.reset(new load_level_state);
   the_splash_state.reset(new splash_state);

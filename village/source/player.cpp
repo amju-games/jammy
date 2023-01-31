@@ -31,7 +31,6 @@ player::player()
 
   m_is_immune = false;
   m_immune_time = 0;
-  m_lives = 5;
 
   m_anim_controller = std::make_unique<anim_controller_flying>();
   m_vel_controller = std::make_unique<vel_controller_flying>();
@@ -44,18 +43,6 @@ void player::keep_immune()
 {
   m_immune_time = MAX_IMMUNE_TIME;
   m_is_immune = true;
-}
-
-int player::lose_life()
-{
-  if (m_lives > 0)
-  {
-    m_lives--;
-  }
-
-  keep_immune();
-
-  return m_lives;
 }
 
 static float flasher = 0;

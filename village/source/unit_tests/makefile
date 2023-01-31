@@ -29,6 +29,7 @@ brute_force_tests.cpp \
 catch_test_main.cpp \
 level_manager_tests.cpp \
 level_tests.cpp \
+player_progress_tests.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \

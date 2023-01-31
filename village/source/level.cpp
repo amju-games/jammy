@@ -35,6 +35,7 @@ void level::load()
   // Add asteroids
   const int NUM_ROCKS = 1;
 
+  m_num_rocks_in_level = 0;
   for (int i = 0; i < NUM_ROCKS; i++)
   {
     // Rocks break up into child rocks. Let's do this recursively.

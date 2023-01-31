@@ -96,8 +96,7 @@ std::cout << "Rock already exploding!\n";
 
   the_sound_player->play_wav(get_data_dir() + "sounds/Explosion2.wav");
 
-  // TODO This should be in player progress
-  the_level_manager.get_level().get_player().add_score(get_score());
+  the_player_progress.add_score(get_score());
 
   the_level_manager.get_level().dec_num_rocks();
 

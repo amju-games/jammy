@@ -11,7 +11,7 @@
 
 std::unique_ptr<init_state> the_init_state;
 
-bool yes_full_screen = true;
+bool yes_full_screen = false;
 
 void draw()
 {
