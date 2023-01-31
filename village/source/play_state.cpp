@@ -29,8 +29,6 @@ int human_to_display = 0;
 
 play_state::play_state()
 {
-  populate_collision_funcs(m_collision_mgr);
-
   m_life_empty = resources().get<image>(get_data_dir() + "life_empty.png");
   m_life_full = resources().get<image>(get_data_dir() + "life_full.png");
 
@@ -72,25 +70,19 @@ void play_state::on_joystick_action(const joystick_action& ja)
 void play_state::on_active() 
 {
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
-
-  m_collision_mgr.set_game_objects(the_game.get_game_objects());
 }
 
 void play_state::on_deactive() 
 {
 }
 
-void play_state::col_det()
-{
-  m_collision_mgr.check_for_collisions();
-}
-
 void play_state::update(float dt)
 {
   the_game.update_game_objects(dt); 
 
-  col_det();
+  the_level_manager.get_level().col_det();
 
+  // Check for game over. Should be in player progress?
   player& p = the_level_manager.get_level().get_player();
   if (!p.is_immune() && p.get_num_lives() < 1)
   {
@@ -98,7 +90,7 @@ void play_state::update(float dt)
     the_sound_player->play_wav(get_data_dir() + "sounds/Shut_Down1.wav");
   }
 
-  jammy_game_state::update(dt);
+  jammy_game_state::update(dt); // update fps counter
 }
 
 void play_state::draw_blip(jammy_game_object* h, int cell)

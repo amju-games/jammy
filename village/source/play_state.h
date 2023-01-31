@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-#include "jammy_collision_mgr.h"
 #include "jammy_game_state.h"
 #include "level.h"
 
@@ -22,7 +20,6 @@ public:
   void on_game_controller_button_action(const game_controller_button_action&) override;
 
 protected:
-  void col_det();
   void draw_radar();
   void draw_lives();
   void draw_blip(jammy_game_object* h, int cell);
@@ -32,7 +29,5 @@ protected:
   sprite_sheet m_blips;
   p_image m_life_empty;
   p_image m_life_full;
-
-  jammy_collision_mgr m_collision_mgr;
 };
 

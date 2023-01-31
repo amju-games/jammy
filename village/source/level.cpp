@@ -5,8 +5,15 @@
 #include "parallax_bg.h"
 #include "sound_player.h"
 
+void level::col_det()
+{
+  m_collision_mgr.check_for_collisions();
+}
+
 void level::load()
 {
+  populate_collision_funcs(m_collision_mgr);
+
   const int MAX_PLAYER_BULLETS = 10;
   m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
 
@@ -28,6 +35,9 @@ void level::load()
     // Rocks break up into child rocks. Let's do this recursively.
     add_rock_and_descendants(0, 0); // level 0: largest rock; index 0
   }
+
+  // At end of load. We copy all game objects? Or copy ptr to container?
+  m_collision_mgr.set_game_objects(the_game.get_game_objects());
 }
 
 player& level::get_player()

@@ -1,12 +1,15 @@
 #pragma once
 
 #include "circular_buffer.h"
+#include "jammy_collision_mgr.h"
 #include "player_bullet.h"
 #include "rock.h"
 
 class level
 {
 public:
+  void col_det();
+
   // Used to procedurally create levels
   void set_level_num(int level_num) { m_level_num = level_num; }
   
@@ -35,6 +38,7 @@ protected:
   //  the level is complete (if we only care about rocks)
   int m_num_rocks_in_level = 0;
 
+  jammy_collision_mgr m_collision_mgr;
 };
 
 
