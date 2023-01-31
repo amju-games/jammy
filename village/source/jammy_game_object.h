@@ -9,6 +9,9 @@ class jammy_game_object : public game_object
 public:
   // TODO load
 
+  jammy_game_object();
+  ~jammy_game_object();
+
   static void set_cam_pos(const vec2& pos);
 
   virtual void draw(ref_image dest);

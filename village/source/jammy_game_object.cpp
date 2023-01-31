@@ -1,3 +1,8 @@
+//#define COUNT_GAME_OBJECTS
+
+#ifdef COUNT_GAME_OBJECTS
+#include <iostream>
+#endif
 
 #include "jammy_blend.h"
 #include "jammy_game_object.h"
@@ -5,6 +10,26 @@
 #include "universe.h"
 
 vec2 jammy_game_object::s_cam_pos;
+
+static int num_game_objects = 0;
+
+jammy_game_object::jammy_game_object()
+{
+  num_game_objects++;
+
+#ifdef COUNT_GAME_OBJECTS
+std::cout << "Num game objects: " << num_game_objects << "\n";
+#endif
+}
+
+jammy_game_object::~jammy_game_object()
+{
+  num_game_objects--;
+
+#ifdef COUNT_GAME_OBJECTS
+std::cout << "Num game objects: " << num_game_objects << "\n";
+#endif
+}
 
 bool sprite_collision(
   jammy_game_object* jgo1, jammy_game_object* jgo2)
