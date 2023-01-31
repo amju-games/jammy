@@ -28,7 +28,10 @@ void load_level_state::on_active()
   // TODO: initialise loading level.
   // Call partial load each update; draw progress.
   // End state when level loaded
-  the_level_manager.get_level().load(); 
+
+  level& lev = the_level_manager.get_level(); 
+  lev.set_level_num(the_player_progress.get_level());
+  lev.load(); 
 }
 
 void load_level_state::update(float dt) 

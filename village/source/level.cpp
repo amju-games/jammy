@@ -31,16 +31,20 @@ void level::load()
   // Add player
   m_player = std::make_shared<player>();
   the_game.add_game_object(m_player);
+  jammy_game_object::set_cam_pos(m_player->get_pos());
 
   // Add asteroids
-  const int NUM_ROCKS = 1;
+  // TODO good formula for this
+  const int MAX_NUM_ROCKS = 15;
+  int num_rocks = std::min(MAX_NUM_ROCKS, m_level_num + 3);
 
   m_num_rocks_in_level = 0;
-  for (int i = 0; i < NUM_ROCKS; i++)
+  for (int i = 0; i < num_rocks; i++)
   {
     // Rocks break up into child rocks. Let's do this recursively.
     add_rock_and_descendants(0, 0); // level 0: largest rock; index 0
   }
+std::cout << "This many rocks in level: " << m_num_rocks_in_level << "\n";
 
   // At end of load. We copy all game objects? Or copy ptr to container?
   m_collision_mgr.set_game_objects(the_game.get_game_objects());
