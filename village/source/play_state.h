@@ -1,14 +1,12 @@
 #pragma once
 
 #include "jammy_game_state.h"
-#include "level.h"
 
 class jammy_game_object;
 
 class play_state : public jammy_game_state
 {
 public:
-  play_state();
   void update(float dt) override;
   void draw() override;
   void on_active() override;
@@ -20,14 +18,13 @@ public:
   void on_game_controller_button_action(const game_controller_button_action&) override;
 
 protected:
-  void draw_radar();
-  void draw_lives();
-  void draw_blip(jammy_game_object* h, int cell);
+  virtual void draw_game_objects();
+  virtual void draw_hud();
 
-protected:
-  p_image m_radar;
-  sprite_sheet m_blips;
-  p_image m_life_empty;
-  p_image m_life_full;
+  virtual void check_for_game_over();
+  virtual void check_for_level_completed();
+
+  virtual void go_to_next_level();
+
 };
 

@@ -28,9 +28,7 @@ enter_hi_score_state.cpp \
 game_over_state.cpp \
 globals.cpp \
 hi_scores.cpp \
-hq.cpp \
-human.cpp \
-human_list.cpp \
+hud.cpp \
 init_state.cpp \
 jammy_collision_mgr.cpp \
 jammy_game_object.cpp \

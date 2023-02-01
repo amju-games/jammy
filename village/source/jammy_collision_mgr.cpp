@@ -1,4 +1,3 @@
-#include "collision_player_human.h"
 #include "collision_player_rock.h"
 #include "collision_player_bullet_rock.h"
 #include "jammy_collision_mgr.h"
@@ -10,7 +9,6 @@ void populate_collision_funcs(jammy_collision_mgr& cm)
 {
   cm.add_handler<player, rock>(collision_player_rock);
   cm.add_handler<player_bullet, rock>(collision_player_bullet_rock);
-  cm.add_handler<player, human>(collision_player_human);
 }
 
 
