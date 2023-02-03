@@ -5,10 +5,12 @@
 #include "double_dispatcher.h"
 #include "narrow_phase_pixel_perfect.h"
 
+using dd = double_dispatcher<jammy_game_object>;
+
 using jammy_collision_mgr = 
   collision_mgr<
-    double_dispatcher<jammy_game_object>,
-    brute_force<jammy_game_object>,
+    dd,
+    brute_force<jammy_game_object, dd>,
     narrow_phase_pixel_perfect<jammy_game_object>
   >;
 

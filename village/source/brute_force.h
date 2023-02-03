@@ -11,7 +11,7 @@
 //  collection when the game objects change.
 // This doesn't scale well (n^2) but is a good comparision with other algorithms,
 //  i.e. sweep and prune.
-template <class DERIVED_TYPE>
+template <class DERIVED_TYPE, class DOUBLE_DISPATCHER>
 class brute_force
 {
 public:
@@ -22,7 +22,7 @@ public:
     m_game_objects = gos;
   }
 
-  collision_vec broad_phase()
+  collision_vec broad_phase(const DOUBLE_DISPATCHER& dd)
   {
     assert(m_game_objects);
  
@@ -39,13 +39,17 @@ public:
       {
         if ((*m_game_objects)[j]->is_collidable())
         {
-          ret.push_back(std::array<DERIVED_TYPE*, 2>{
-            dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[i].get()),
-            dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[j].get()) 
-          });
+          DERIVED_TYPE* obj1 = dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[i].get());
+          DERIVED_TYPE* obj2 = dynamic_cast<DERIVED_TYPE*>((*m_game_objects)[j].get());
+
+          if (dd.has_handler(obj1, obj2))
+          {
+            ret.push_back(std::array<DERIVED_TYPE*, 2>{ obj1, obj2 });
+          }
         }
       }
     }
+
     return ret;
   };
 
