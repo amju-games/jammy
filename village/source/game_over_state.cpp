@@ -35,7 +35,7 @@ void game_over_state::update(float dt)
   if (t > WAIT_TIME)
   {
     int score = the_player_progress.get_score();
-    if (the_hi_score_table.is_hi_score(score))
+    if (the_hi_scores.is_hi_score(score))
     {   
       the_game.set_game_state(the_splash_state);
       //the_game.set_game_state(the_enter_hi_score_state);

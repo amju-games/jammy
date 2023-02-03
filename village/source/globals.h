@@ -28,7 +28,7 @@ extern level_manager the_level_manager;
 extern player_progress the_player_progress;
 
 // Hmm
-extern hi_scores the_hi_score_table;
+extern hi_scores the_hi_scores;
 
 // Game states. Should these be stored, e.g. in game?
 extern std::unique_ptr<game_over_state> the_game_over_state;
