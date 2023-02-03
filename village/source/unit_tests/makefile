@@ -19,7 +19,8 @@ INCLUDES=\
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++2a -DMACOSX -DUNIT_TEST
 
-LDFLAGS=-framework OpenGL -framework GLUT
+LDFLAGS=-framework Carbon
+#-framework OpenGL -framework GLUT
 
 # (some code is just in .h files as templated, so not many .cpp files!)
 SOURCES= \
@@ -27,12 +28,14 @@ anim_controller_tests.cpp \
 auto_repeat_suppressor_tests.cpp \
 brute_force_tests.cpp \
 catch_test_main.cpp \
+hi_scores_tests.cpp \
 level_manager_tests.cpp \
 level_tests.cpp \
 player_progress_tests.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \
+../hi_scores.cpp \
 ../level_manager.cpp \
 ../resources.cpp \
 ../vel_controller.cpp \
@@ -40,6 +43,8 @@ vel_controller_tests.cpp \
 ../../../../lo-res/image_32.cpp \
 ../../../../lo-res/palette.cpp \
 ../../../../lo-res/third_party/lodepng.cpp \
+../../../../microlib/directory.cpp \
+../../../../microlib/file.cpp \
 ../../../../microlib/file_string_utils.cpp \
 ../../../../microlib/game.cpp \
 ../../../../microlib/game_object.cpp

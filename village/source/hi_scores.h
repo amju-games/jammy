@@ -6,10 +6,10 @@
 class hi_scores
 {
 public:
-  static const int MAX_NUM_HI_SCORES = 10;
+  void set_max_num_hi_scores(int max) { m_max_num_hi_scores = max; }
 
-  bool load();
-  bool save();
+  bool load(const std::string& filename);
+  bool save(const std::string& filename);
 
   bool is_hi_score(int score);
   void store(int score, const std::string& name);
@@ -22,5 +22,7 @@ private:
   // Store hi scores in a map to keep them in order. 
   // Ascending order
   std::multimap<int, std::string> m_map;
+
+  int m_max_num_hi_scores = 10;
 };
 
