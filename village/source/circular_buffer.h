@@ -4,6 +4,7 @@
 #include <iostream>
 #endif
 
+#include <cassert>
 #include <memory>
 #include <vector>
 #include "game.h"
@@ -16,9 +17,9 @@ class circular_buffer
 public:
   circular_buffer(game& the_game, int max_buffer_size) : m_game(the_game), m_max_buffer_size(max_buffer_size) {}
 
-  std::shared_ptr<T> get_next_element()
+  void pre_populate_buffer()
   {
-    if (m_buffer.size() < m_max_buffer_size)
+    for (int i = 0; i < m_max_buffer_size; i++)
     {
 #ifdef CIRC_BUFF_DEBUG
 std::cout << "Making a new " << typeid(T).name() << "\n";
@@ -27,24 +28,23 @@ std::cout << "Making a new " << typeid(T).name() << "\n";
       auto t = std::make_shared<T>();
       m_buffer.push_back(t);
       m_game.add_game_object(t);
-      return t;
     }
-    else
-    {
+  }
+
+  std::shared_ptr<T> get_next_element()
+  {
+    assert(m_buffer.size() == m_max_buffer_size && "use pre_populate_buffer() before use! :)");
 #ifdef CIRC_BUFF_DEBUG
 std::cout << "Reusing old" << typeid(T).name() << " " << m_index << "\n";
 #endif
 
-      auto t = m_buffer[m_index];
-
-      ++m_index;
-      if (m_index >= m_buffer.size())
-      {
-        m_index = 0;
-      }
-
-      return t;
+    ++m_index;
+    if (m_index >= m_buffer.size())
+    {
+      m_index = 0;
     }
+
+    return m_buffer[m_index];
   }
 
 private:

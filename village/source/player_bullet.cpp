@@ -13,6 +13,7 @@ player_bullet::player_bullet()
   m_sprite.set_image(m_colour_decorator);
   m_sprite.set_num_cells(1, 32);
   m_sprite.set_cell_time(0.05f);
+  set_is_alive(false);
 }
 
 void player_bullet::fire(std::shared_ptr<player>& player)
@@ -62,7 +63,6 @@ void player_bullet::fire(std::shared_ptr<player>& player)
     index = 0;
   }
 }
-
 
 void player_bullet::update(float dt)
 {

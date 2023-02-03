@@ -17,16 +17,17 @@ void level::col_det()
 
 void level::load()
 {
+  m_player = nullptr;
+  the_game.clear_game_objects();
+
+  // Add background: do first, so drawn first, until we have some kind of z-ordering
+  the_game.add_game_object(std::make_shared<parallax_bg>());
+
   populate_collision_funcs(m_collision_mgr);
 
   const int MAX_PLAYER_BULLETS = 10;
   m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
-
-  m_player = nullptr;
-  the_game.clear_game_objects();
-
-  // Add background
-  the_game.add_game_object(std::make_shared<parallax_bg>());
+  m_player_bullets->pre_populate_buffer();
 
   // Add player
   m_player = std::make_shared<player>();
@@ -35,8 +36,8 @@ void level::load()
 
   // Add asteroids
   // TODO good formula for this
-  const int MAX_NUM_ROCKS = 15;
-  int num_rocks = std::min(MAX_NUM_ROCKS, m_level_num + 3);
+  const int MAX_NUM_ROCKS = 1000; //15;
+  int num_rocks = std::min(MAX_NUM_ROCKS, m_level_num * 100);
 
   m_num_rocks_in_level = 0;
   for (int i = 0; i < num_rocks; i++)
