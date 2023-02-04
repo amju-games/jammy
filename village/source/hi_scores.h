@@ -26,3 +26,6 @@ private:
   int m_max_num_hi_scores = 10;
 };
 
+std::string hi_scores_filename();
+
+

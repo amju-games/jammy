@@ -1,23 +1,33 @@
+#include <iostream>
+
 #include <cassert>
 #include "file.h"
 #include "directory.h"
 #include "hi_scores.h"
 
+std::string hi_scores_filename()
+{
+  return get_save_dir() + "/hi_scores";
+}
+
 bool hi_scores::load(const std::string& filename)
 {
   if (!file_exists(filename))
   {
+std::cout << "Hi scores: no file " << filename << "\n";
     return false;
   }
   text_file f;
   if (!f.open_for_reading(filename))
   {
+std::cout << "Hi scores: file " << filename << " exists, but failed to open for reading\n";
     return false;
   }
 
   int num_scores = 0;
   if (!f.read_int(num_scores))
   {
+std::cout << "Hi scores: file " << filename << " exists, but failed to read number of hi scores\n";
     return false;
   }
   for (int i = 0; i < num_scores; i++)
@@ -27,10 +37,12 @@ bool hi_scores::load(const std::string& filename)
     std::string name;
     if (!f.read_int(score))
     {
+std::cout << "Hi scores: file " << filename << " exists, but failed to read score " << i << "\n";
       return false;
     }
     if (!f.read_string(name))
     {
+std::cout << "Hi scores: file " << filename << " exists, but failed to read name " << i << "\n";
       return false;
     }
     m_map.insert(std::make_pair(score, name));
@@ -44,16 +56,19 @@ bool hi_scores::save(const std::string& filename)
   text_file f;
   if (!f.open_for_writing(filename))
   {
+std::cout << "Hi scores: failed to open " << filename << " for writing\n";
     return false;
   }
   if (!f.write_int(m_map.size()))
   {
+std::cout << "Hi scores: opened " << filename << " for writing but failed to write num hi scores\n";
     return false;
   }
   for (auto [score, name] : m_map)
   {
     if (!f.write_int(score) || !f.write_string(name))
     {
+std::cout << "Hi scores: opened " << filename << " for writing but failed to write\n";
       return false;
     }
   }

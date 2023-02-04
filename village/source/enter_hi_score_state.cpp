@@ -8,7 +8,7 @@
 
 enter_hi_score_state::enter_hi_score_state()
 {
-  m_image = resources().get<image>(get_data_dir() + "Background.png");
+  m_image = resources().get<image>(get_data_dir() + "Splash_Screen.png");
 }
 
 static float t = 0;
@@ -17,6 +17,12 @@ static const float WAIT_TIME = 5.f;
 void enter_hi_score_state::on_active()
 {
   t = 0;
+
+  // Set the high score in the high score table, save it out.
+  int score = the_player_progress.get_score();
+  std::string name = "JULIET";
+  the_hi_scores.store(score, name);
+  the_hi_scores.save(hi_scores_filename());
 }
 
 void enter_hi_score_state::update(float dt)
@@ -24,17 +30,7 @@ void enter_hi_score_state::update(float dt)
   t += dt;
   if (t > WAIT_TIME)
   {
-    // TODO player progress class
-    int score = the_player_progress.get_score();
-
-    if (the_hi_scores.is_hi_score(score))
-    {
-      the_game.set_game_state(the_enter_hi_score_state);
-    }
-    else
-    {
-      the_game.set_game_state(the_splash_state);
-    }
+    the_game.set_game_state(the_splash_state);
   }
 }
 
@@ -42,9 +38,8 @@ void enter_hi_score_state::draw()
 {
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
-  the_font.draw<jb_font_mask>(the_screen, 46, 30, "GAME OVER");
+  the_font.draw<jb_font_mask>(the_screen, 46, 30, "HI SCORE");
 
-  // TODO player progress class
   int score = the_player_progress.get_score();
   std::string str = std::to_string(score);
   const float CHAR_W = 4;
