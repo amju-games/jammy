@@ -25,6 +25,8 @@ void init_state::on_active()
   the_sound_player.reset(new sound_player_bass24);
 
   the_game.set_game_state(the_splash_state);
+
+  the_hi_scores.load(hi_scores_filename());
 }
 
 
