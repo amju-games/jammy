@@ -7,7 +7,9 @@
 
 std::string hi_scores_filename()
 {
-  return get_save_dir() + "/hi_scores";
+  std::string res = get_save_dir() + "/hi_scores";
+std::cout << "Hi scores filename: " << res << "\n";
+  return res;
 }
 
 bool hi_scores::load(const std::string& filename)

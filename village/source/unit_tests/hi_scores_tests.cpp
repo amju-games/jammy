@@ -1,4 +1,5 @@
 #include "catch.hpp"
+#include "directory.h"
 #include "hi_scores.h"
 
 TEST_CASE("populate hi scores", "[hi_scores]")
@@ -13,16 +14,18 @@ TEST_CASE("populate hi scores", "[hi_scores]")
   REQUIRE(hi.get_num_hi_scores() == 3);
 }
 
-TEST_CASE("save hi scores then load", "[hi_scores]")
+void test_save_load_hi_scores(const std::string& path)
 {
+  REQUIRE(make_dir(path));
+
   hi_scores hi;
   hi.store(3, "ccc");
   hi.store(1, "aaa");
   hi.store(2, "bbb");
-  REQUIRE(hi.save("hi_score_test"));
+  REQUIRE(hi.save(path + "hi_score_test"));
 
   hi_scores hi2;
-  REQUIRE(hi2.load("hi_score_test"));
+  REQUIRE(hi2.load(path + "hi_score_test"));
   REQUIRE(hi2.get_num_hi_scores() == 3);
   int score = -1;
   std::string name;
@@ -31,6 +34,16 @@ TEST_CASE("save hi scores then load", "[hi_scores]")
   // Stored in ascending order of score
   REQUIRE(score == 1);
   REQUIRE(name == "aaa");
+}
+
+TEST_CASE("save then load hi scores 1", "[hi_scores]")
+{
+  test_save_load_hi_scores("");
+}
+
+TEST_CASE("save then load hi scores 2", "[hi_scores]")
+{
+  test_save_load_hi_scores("path/to/hi/scores/");
 }
 
 TEST_CASE("is score a hi score", "[hi_scores]")
