@@ -28,6 +28,16 @@ void game_over_state::on_active()
 
 void game_over_state::update(float dt)
 {
+  // play_state::update(dt) does stuff we don't want/need.
+  the_game.update_game_objects(dt);
+  // Maybe coll det?
+  jammy_game_state::update(dt); // update fps counter
+
+  update_time_to_next_state(dt);
+}
+
+void game_over_state::update_time_to_next_state(float dt)
+{
   t += dt;
   if (t > WAIT_TIME)
   {
@@ -45,6 +55,8 @@ void game_over_state::update(float dt)
 
 void game_over_state::draw()
 {
+  play_state::draw();
+
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
   the_font.draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");

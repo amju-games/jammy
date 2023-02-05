@@ -26,8 +26,11 @@ protected:
   template<class BLENDER>
   void draw_sprite(const sprite& spr, ref_image dest) const
   {
-    vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
-    spr.draw<BLENDER>(dest, rel_pos.x, rel_pos.y);
+    if (is_visible())
+    {
+      vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
+      spr.draw<BLENDER>(dest, rel_pos.x, rel_pos.y);
+    }
   }
 
 protected:

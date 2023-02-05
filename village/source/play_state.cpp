@@ -58,9 +58,10 @@ void play_state::on_deactive()
 void play_state::check_for_game_over()
 {
   // Check for game over. Should be in player progress?
-  player& p = the_level_manager.get_level().get_player();
-  if (!p.is_immune() && the_player_progress.get_lives() < 1)
+  if (the_player_progress.get_lives() < 1)
   {
+    the_level_manager.get_level().get_player().set_is_visible(false); 
+    
     the_game.set_game_state(the_game_over_state);
     the_sound_player->play_wav(get_data_dir() + "sounds/Shut_Down1.wav");
   }
