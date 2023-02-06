@@ -48,6 +48,9 @@ private:
   int m_humans_saved = 0;
   player_dir m_player_dir = player_dir::RIGHT;
 
+  // Head drawn separately from body
+  sprite m_head;
+
   sprite m_flames;
   bool m_flame_on = false;
 };

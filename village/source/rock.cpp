@@ -34,11 +34,24 @@ rock::rock(int size_level, int child_index)
 
   // TODO Variants.
   // TODO Use child_index so we don't have two children with the same sprite sheet.
-  std::string s = "rock_" + std::to_string(size_level) + ".png";
+  static const std::array<std::string, 3> filenames = 
+  {
+    "rotating_rock_0.png", "rock_1.png", "rock_2.png"
+  };
+
+  std::string s = filenames[size_level];
+ //"rock_" + std::to_string(size_level) + ".png";
 
   m_sprite.set_image(resources().get<image>(get_data_dir() + s));
   m_sprite.set_num_cells(1, 1);
   m_sprite.set_cell_range(0, 0); 
+  m_sprite.set_cell_time(0.1f); // TODO some randomness?
+
+  if (size_level == 0)
+  {
+    m_sprite.set_num_cells(4, 4);
+    m_sprite.set_cell_range(0, 15); 
+  }
 
   m_explosion.set_image(resources().get<image>(get_data_dir() + "explosion1_64.png"));
 

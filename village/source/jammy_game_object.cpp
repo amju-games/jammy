@@ -53,7 +53,7 @@ void jammy_game_object::set_cam_pos(const vec2& pos)
 
 void jammy_game_object::draw(ref_image dest)
 {
-  if (!is_alive())
+  if (!is_alive() || !is_visible())
   {
     return;
   }

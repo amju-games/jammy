@@ -20,8 +20,13 @@ player::player()
 {
   m_is_collidable = true;
 
-  m_sprite.set_image(resources().get<image>(get_data_dir() + "player1.png"));
-  m_sprite.set_num_cells(3, 2);
+  m_head.set_image(resources().get<image>(get_data_dir() + "player_heads.png"));
+  m_head.set_num_cells(8, 2);
+  m_head.set_cell_range(0, 15);
+  m_head.set_cell_time(0.3f);
+
+  m_sprite.set_image(resources().get<image>(get_data_dir() + "player_flying_2.png"));
+  m_sprite.set_num_cells(4, 2);
 
   m_flames.set_image(resources().get<image>(get_data_dir() + "flames.png"));
   m_flames.set_num_cells(4, 6); // 4 frames * 6 directions
@@ -60,6 +65,8 @@ void player::draw(ref_image dest)
 
   jammy_game_object::draw(dest);
 
+  draw_sprite<jb_mask>(m_head, dest, vec2(6, 3));
+
   // Draw jet pac flame
   if (m_flame_on)
   {
@@ -70,10 +77,10 @@ void player::draw(ref_image dest)
 void player::set_up_anims()
 {
   const float cell_time = 0.1f; // TODO
-  m_anim_controller->set_anim_info(anim_state::idle_right, anim_info { 0, 0, true, cell_time });
-  m_anim_controller->set_anim_info(anim_state::idle_left, anim_info { 3, 3, true, cell_time });
-  m_anim_controller->set_anim_info(anim_state::face_right, anim_info { 0, 0, true, cell_time });
-  m_anim_controller->set_anim_info(anim_state::face_left, anim_info { 3, 3, true, cell_time });
+  m_anim_controller->set_anim_info(anim_state::idle_right, anim_info { 0, 3, true, cell_time });
+  m_anim_controller->set_anim_info(anim_state::idle_left, anim_info { 4, 7, true, cell_time });
+  m_anim_controller->set_anim_info(anim_state::face_right, anim_info { 0, 3, true, cell_time });
+  m_anim_controller->set_anim_info(anim_state::face_left, anim_info { 4, 7, true, cell_time });
 }
 
 void player::update_anim(float dt)
@@ -88,6 +95,8 @@ void player::update_anim(float dt)
   // Anim transitioner takes care of same/different cell range
   int cell = ai.m_cell_min; //m_anim_controller->get_cell();
   m_sprite.set_cell(cell);
+
+  m_head.update(dt);
 }
 
 void player::update_vel(float dt)

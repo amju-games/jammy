@@ -24,11 +24,11 @@ public:
 
 protected:
   template<class BLENDER>
-  void draw_sprite(const sprite& spr, ref_image dest) const
+  void draw_sprite(const sprite& spr, ref_image dest, const vec2& offset = vec2(0, 0)) const
   {
     if (is_visible())
     {
-      vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN;
+      vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN + offset;
       spr.draw<BLENDER>(dest, rel_pos.x, rel_pos.y);
     }
   }
