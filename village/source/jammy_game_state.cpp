@@ -8,6 +8,10 @@
 
 fps_counter the_fps_counter;
 
+void jammy_game_state::on_active()
+{
+  m_time_in_state = 0;
+}
 
 void jammy_game_state::on_keyboard_action(const keyboard_action& ka)
 {
@@ -33,5 +37,7 @@ void jammy_game_state::draw()
 void jammy_game_state::update(float dt)
 {
   the_fps_counter.update(dt);
+
+  m_time_in_state += dt;
 }
 
