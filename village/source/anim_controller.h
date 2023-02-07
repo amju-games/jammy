@@ -28,8 +28,6 @@ struct anim_info
   int m_cell_max = 0; // inclusive
   bool m_is_looping = false;
   float m_cell_max_time;
-  // Should we point to the sprite sheet here? I think so
-  
 };
 
 
@@ -38,10 +36,26 @@ class anim_controller
 public:
   virtual ~anim_controller() = default;
 
+  virtual void set_anim_state(anim_state) = 0;
   virtual anim_state get_anim_state() = 0;
   virtual void update(float dt) = 0;
   virtual void set_vel(const vec2& vel) = 0;
+
+  // Return the cell, which will be in the range of the currently active
+  //  anim state/transition.
+  virtual int get_cell() const = 0;
+
+  // Store info for one animation
   virtual void set_anim_info(anim_state, const anim_info&) = 0;
+
+  // Set a transitional state - doesn't loop?
+//  virtual void set_transition(anim_state, anim_state, const anim_info&) = 0;
+
+  // Return true if a transition between two anim states has been defined.
+  // If there is one, we go through it when changing state, otherwise we immediately
+  //  go to the new state. 
+//  virtual bool has_transition(anim_state, anim_state) const = 0;
+
   virtual const anim_info& get_anim_info() const = 0;
 };
 
@@ -62,6 +76,12 @@ protected:
 class anim_controller_flying : public anim_controller_stores_anim_info
 {
 public:
+  void set_anim_state(anim_state as) override
+  {
+    // TODO Set future state to as, so we transition to it
+    m_anim_state = as;
+  }
+ 
   anim_state get_anim_state() override
   {
     return m_anim_state;
@@ -72,24 +92,14 @@ public:
     return m_anim_info[static_cast<int>(m_anim_state)];
   }
  
-  void update(float dt) override
+  int get_cell() const override
   {
-    const float DEAD_ZONE = 0; //0.5f;
-
-    anim_state new_anim_state = anim_state::idle;
-    if (m_vel.x < -DEAD_ZONE)
-    {
-      new_anim_state = anim_state::face_left;
-    }
-    else if (m_vel.x > DEAD_ZONE)
-    {
-      new_anim_state = anim_state::face_right;
-    }
-    // If we change anim_state, we can set the start cell in the new range to match
-    //  the cell we were at in the previous range.
-
-    m_anim_state = new_anim_state;
+    return m_cell;
   }
+
+  void update(float dt) override;
+
+  void update_cell(float dt);
 
   void set_vel(const vec2& vel) override
   {
@@ -98,6 +108,9 @@ public:
 
 private:
   anim_state m_anim_state = anim_state::idle;
+  anim_state m_next_anim_state = anim_state::idle;
   vec2 m_vel;
+  int m_cell = 0;
+  float m_cell_time = 0.f;
 };
 
