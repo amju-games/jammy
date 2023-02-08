@@ -56,6 +56,7 @@ vel_controller.cpp \
 ../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \
 ../../../lo-res/third_party/lodepng.cpp \
+../../../microlib/config_file.cpp \
 ../../../microlib/directory.cpp \
 ../../../microlib/file.cpp \
 ../../../microlib/file_string_utils.cpp \
