@@ -10,10 +10,9 @@ public:
   game_over_state();
   void update(float dt) override;
   void draw() override;
-  void on_active() override;
 
 private:
-  void update_time_to_next_state(float dt);
+  void update_time_to_next_state();
   
 private:
   p_image m_image;

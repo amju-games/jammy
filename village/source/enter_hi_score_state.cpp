@@ -51,7 +51,7 @@ void enter_hi_score_state::on_keyboard_action(const keyboard_action& ka)
   auto [key, value](ka);
   if (value == button_value::down)
   {
-    the_game.set_game_state(the_splash_state);
+    the_game.set_game_state(the_show_hi_scores_state);
   }
 }
 
@@ -60,7 +60,7 @@ void enter_hi_score_state::on_game_controller_button_action(const game_controlle
   auto [button, value](gcba);
   if (value == button_value::down)
   {
-    the_game.set_game_state(the_splash_state);
+    the_game.set_game_state(the_show_hi_scores_state);
   }
 }
  
