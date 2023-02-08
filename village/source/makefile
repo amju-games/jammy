@@ -40,11 +40,13 @@ load_level_state.cpp \
 main.cpp \
 new_game_state.cpp \
 parallax_bg.cpp \
+play_state.cpp \
 player.cpp \
 player_bullet.cpp \
-play_state.cpp \
+player_progress.cpp \
 resources.cpp \
 rock.cpp \
+show_hi_scores_state.cpp \
 splash_state.cpp \
 universe.cpp \
 vel_controller.cpp \

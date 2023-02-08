@@ -1,0 +1,10 @@
+# config for jammy game
+
+# Show hi scores layout
+show_hi_score_state::m_y_spacing = 10
+show_hi_score_state::m_y_start = 20
+
+# Initial player progress
+player_progress::lives = 1
+player_progress::level = 5
+

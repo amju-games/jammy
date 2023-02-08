@@ -25,6 +25,8 @@ void jammy_game_state::on_keyboard_action(const keyboard_action& ka)
   case 'r':
 std::cout << "HOT RELOAD!\n";
     resources().reload();
+    the_game.get_game_state()->on_deactive(); 
+    the_game.get_game_state()->on_active(); // reload configs
     break;
   };
 } 
