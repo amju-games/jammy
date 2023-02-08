@@ -45,7 +45,10 @@ void level::load()
     // Rocks break up into child rocks. Let's do this recursively.
     add_rock_and_descendants(0, 0); // level 0: largest rock; index 0
   }
+
+#ifdef ROCK_COUNT_DEBUG
 std::cout << "This many rocks in level: " << m_num_rocks_in_level << "\n";
+#endif
 
   // At end of load. We copy all game objects? Or copy ptr to container?
   m_collision_mgr.set_game_objects(the_game.get_game_objects());
@@ -61,7 +64,9 @@ void level::dec_num_rocks()
   assert(m_num_rocks_in_level > 0);
   m_num_rocks_in_level--;
 
+#ifdef ROCK_COUNT_DEBUG
 std::cout << "This many rocks left in level: " << m_num_rocks_in_level << "\n";
+#endif
 
   if (m_num_rocks_in_level == 0)
   {
