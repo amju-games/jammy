@@ -9,7 +9,7 @@ run:
 
 CC=clang++
 
-WARNINGS=-Wall -Wno-deprecated-declarations
+WARNINGS=-Wall -Wextra -Werror -Wno-deprecated-declarations
 
 INCLUDES=\
   -I.. \

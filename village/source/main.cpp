@@ -148,7 +148,7 @@ std::cout << "Button " << button << ((bv == button_value::down) ? "down" : "up")
   return game_controller_button_action{};
 }
 
-void joystick(unsigned int buttons, int x, int y, int z)
+void joystick(unsigned int buttons, int x, int y, [[maybe_unused]] int z)
 {
   the_game.on_joystick_action(joystick_action(
     static_cast<float>(x) / 1024.f,

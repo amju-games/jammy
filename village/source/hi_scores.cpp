@@ -84,7 +84,7 @@ bool hi_scores::is_hi_score(int score)
     return true;
   }
 
-  if (m_map.size() < m_max_num_hi_scores)
+  if (static_cast<int>(m_map.size()) < m_max_num_hi_scores)
   {
     return true;
   }
@@ -100,7 +100,7 @@ void hi_scores::store(int score, const std::string& name)
     return;
   }
 
-  while (m_map.size() >= m_max_num_hi_scores)
+  while (static_cast<int>(m_map.size()) >= m_max_num_hi_scores)
   {
     m_map.erase(m_map.begin()); // remove lowest score
   }
@@ -114,7 +114,7 @@ int hi_scores::get_num_hi_scores() const
 
 void hi_scores::get_hi_score(int n, int& score, std::string& name)
 {
-  assert(n < m_map.size());
+  assert(n < static_cast<int>(m_map.size()));
   auto it = m_map.begin();
   std::advance(it, n);
   score = it->first;

@@ -108,7 +108,7 @@ public:
 
 private:
   anim_state m_anim_state = anim_state::idle;
-  anim_state m_next_anim_state = anim_state::idle;
+  [[maybe_unused]] anim_state m_next_anim_state = anim_state::idle;
   vec2 m_vel;
   int m_cell = 0;
   float m_cell_time = 0.f;

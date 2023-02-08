@@ -26,7 +26,7 @@ namespace
   }
 }
 
-rock::rock(int size_level, int child_index)
+rock::rock(int size_level, [[maybe_unused]] int child_index)
 {
   m_size_level = size_level;
   set_is_alive(size_level == 0);
