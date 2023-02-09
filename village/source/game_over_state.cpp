@@ -15,6 +15,7 @@ void draw_centred(int y, const std::string& str)
 game_over_state::game_over_state()
 {
   // TODO proper image/animated scene
+  // TODO Load anything configurable in on_active
   m_image = resources().get<image>(get_data_dir() + "doodles.png");
 }
 
@@ -52,14 +53,5 @@ void game_over_state::draw()
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
   the_font.draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
-
-  int score = the_player_progress.get_score();
-  std::string str = std::to_string(score);
-
-  if (get_time_in_state() > .5f)
-  {
-    draw_centred(35, "SCORE: " + str);
-  }
-
 }
 
