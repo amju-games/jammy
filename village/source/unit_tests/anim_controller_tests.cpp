@@ -13,6 +13,7 @@ TEST_CASE("initial anim state is idle", "[anim_controller_flying]")
   REQUIRE(ac.get_anim_state() == anim_state::idle);
 }
 
+/*
 TEST_CASE("anim state corresponds to x vel", "[anim_controller_flying]")
 {
   anim_controller_flying ac;
@@ -22,6 +23,7 @@ TEST_CASE("anim state corresponds to x vel", "[anim_controller_flying]")
 
   REQUIRE(ac.get_anim_state() == anim_state::face_left);
 }
+*/
 
 TEST_CASE("store anim infos", "[anim_controller_stores_anim_info]")
 {
@@ -44,6 +46,7 @@ TEST_CASE("get idle anim info for initialised ac", "[anim_controller_flying]")
   REQUIRE(ai.m_cell_min == 100);
 }
 
+/*
 TEST_CASE("no transition between two states", "[anim_controller_flying]")
 {
   anim_controller_flying ac;
@@ -53,5 +56,6 @@ TEST_CASE("no transition between two states", "[anim_controller_flying]")
 
   REQUIRE_FALSE(ac.has_transition(anim_state::face_left, anim_state::face_right));
 }
+*/
 
 

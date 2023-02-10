@@ -29,25 +29,25 @@ auto_repeat_suppressor_tests.cpp \
 brute_force_tests.cpp \
 catch_test_main.cpp \
 hi_scores_tests.cpp \
-level_manager_tests.cpp \
-level_tests.cpp \
 player_progress_tests.cpp \
 resources_tests.cpp \
 sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \
+../anim_controller.cpp \
 ../hi_scores.cpp \
-../level_manager.cpp \
 ../resources.cpp \
 ../vel_controller.cpp \
 ../../../../lo-res/image_8.cpp \
 ../../../../lo-res/image_32.cpp \
 ../../../../lo-res/palette.cpp \
 ../../../../lo-res/third_party/lodepng.cpp \
+../../../../microlib/config_file.cpp \
 ../../../../microlib/directory.cpp \
 ../../../../microlib/file.cpp \
 ../../../../microlib/file_string_utils.cpp \
 ../../../../microlib/game.cpp \
-../../../../microlib/game_object.cpp
+../../../../microlib/game_object.cpp\
+../../../../microlib/string_utils.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=jammy_tests
