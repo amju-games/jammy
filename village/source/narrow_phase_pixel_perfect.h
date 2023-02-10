@@ -13,7 +13,7 @@ template<class DERIVED_TYPE>
 class narrow_phase_pixel_perfect
 {
 public:
-  using collision_vec = std::vector<std::array<DERIVED_TYPE*, 2>>;
+  using collision_vec = std::vector<std::pair<DERIVED_TYPE*, DERIVED_TYPE*>>;
 
   collision_vec narrow_phase(const collision_vec& poss_colliders) const
   {
@@ -26,9 +26,9 @@ public:
       [](const auto& p) 
       {
 #ifdef NARROW_PHASE_DEBUG
-        std::cout << "Narrow check: (" << p[0]->print() << ") and (" << p[1]->print() << ")\n";
+        std::cout << "Narrow check: (" << p.first->print() << ") and (" << p.second->print() << ")\n";
 #endif
-        return sprite_collision(p[0], p[1]); 
+        return sprite_collision(p.first, p.second); 
       });
 
     return ret;

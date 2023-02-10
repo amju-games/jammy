@@ -33,13 +33,15 @@ std::cout << "Making a new " << typeid(T).name() << "\n";
 
   std::shared_ptr<T> get_next_element()
   {
-    assert(m_buffer.size() == m_max_buffer_size && "use pre_populate_buffer() before use! :)");
+    assert(   static_cast<int>(m_buffer.size()) == m_max_buffer_size 
+           && "use pre_populate_buffer() before use! :)");
+
 #ifdef CIRC_BUFF_DEBUG
 std::cout << "Reusing old" << typeid(T).name() << " " << m_index << "\n";
 #endif
 
     ++m_index;
-    if (m_index >= m_buffer.size())
+    if (m_index >= static_cast<int>(m_buffer.size()))
     {
       m_index = 0;
     }

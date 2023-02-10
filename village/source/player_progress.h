@@ -3,6 +3,8 @@
 class player_progress
 {
 public:
+  bool initialise();
+
   int get_score() const { return m_score; }
   int get_level() const { return m_level; }
   int get_lives() const { return m_lives; }

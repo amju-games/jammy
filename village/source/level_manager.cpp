@@ -2,7 +2,12 @@
 
 level& level_manager::get_level()
 {
-  static level lev;
-  return lev;
+  return *m_level;
 }
+
+void level_manager::make_new_level()
+{
+  m_level = std::make_unique<level>();
+}
+
 

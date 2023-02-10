@@ -12,6 +12,7 @@ hi_scores the_hi_scores;
 font the_font;
 std::unique_ptr<load_level_state> the_load_level_state;
 std::unique_ptr<play_state> the_play_state;
+std::unique_ptr<show_hi_scores_state> the_show_hi_scores_state;
 std::unique_ptr<splash_state> the_splash_state;
 timer the_timer;
 

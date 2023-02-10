@@ -9,7 +9,7 @@ run:
 
 CC=clang++
 
-WARNINGS=-Wall -Wno-deprecated-declarations
+WARNINGS=-Wall -Wextra -Werror -Wno-deprecated-declarations
 
 INCLUDES=\
   -I.. \
@@ -22,6 +22,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -DMACOSX  -g -O0
 LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib 
 
 SOURCES=\
+anim_controller.cpp \
 collision_player_bullet_rock.cpp \
 collision_player_rock.cpp \
 enter_hi_score_state.cpp \
@@ -39,11 +40,13 @@ load_level_state.cpp \
 main.cpp \
 new_game_state.cpp \
 parallax_bg.cpp \
+play_state.cpp \
 player.cpp \
 player_bullet.cpp \
-play_state.cpp \
+player_progress.cpp \
 resources.cpp \
 rock.cpp \
+show_hi_scores_state.cpp \
 splash_state.cpp \
 universe.cpp \
 vel_controller.cpp \
@@ -55,6 +58,7 @@ vel_controller.cpp \
 ../../../lo-res/render_image_opengl.cpp \
 ../../../lo-res/sprite.cpp \
 ../../../lo-res/third_party/lodepng.cpp \
+../../../microlib/config_file.cpp \
 ../../../microlib/directory.cpp \
 ../../../microlib/file.cpp \
 ../../../microlib/file_string_utils.cpp \

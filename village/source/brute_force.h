@@ -15,7 +15,7 @@ template <class DERIVED_TYPE, class DOUBLE_DISPATCHER>
 class brute_force
 {
 public:
-  using collision_vec = std::vector<std::array<DERIVED_TYPE*, 2>>;
+  using collision_vec = std::vector<std::pair<DERIVED_TYPE*, DERIVED_TYPE*>>;
 
   void set_game_objects(const game_objects* gos)  
   {
@@ -44,7 +44,7 @@ public:
 
           if (dd.has_handler(obj1, obj2))
           {
-            ret.push_back(std::array<DERIVED_TYPE*, 2>{ obj1, obj2 });
+            ret.push_back({ obj1, obj2 });
           }
         }
       }

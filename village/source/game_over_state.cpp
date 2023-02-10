@@ -15,15 +15,8 @@ void draw_centred(int y, const std::string& str)
 game_over_state::game_over_state()
 {
   // TODO proper image/animated scene
+  // TODO Load anything configurable in on_active
   m_image = resources().get<image>(get_data_dir() + "doodles.png");
-}
-
-static float t = 0;
-static const float WAIT_TIME = 4.f;
-
-void game_over_state::on_active()
-{
-  t = 0;
 }
 
 void game_over_state::update(float dt)
@@ -33,13 +26,13 @@ void game_over_state::update(float dt)
   // Maybe coll det?
   jammy_game_state::update(dt); // update fps counter
 
-  update_time_to_next_state(dt);
+  update_time_to_next_state();
 }
 
-void game_over_state::update_time_to_next_state(float dt)
+void game_over_state::update_time_to_next_state()
 {
-  t += dt;
-  if (t > WAIT_TIME)
+  static const float WAIT_TIME = 4.f;
+  if (get_time_in_state() > WAIT_TIME)
   {
     int score = the_player_progress.get_score();
     if (the_hi_scores.is_hi_score(score))
@@ -48,7 +41,7 @@ void game_over_state::update_time_to_next_state(float dt)
     }   
     else
     {   
-      the_game.set_game_state(the_splash_state);
+      the_game.set_game_state(the_show_hi_scores_state);
     }   
   }
 }
@@ -60,14 +53,5 @@ void game_over_state::draw()
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
   the_font.draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
-
-  int score = the_player_progress.get_score();
-  std::string str = std::to_string(score);
-
-  if (t > .5f)
-  {
-    draw_centred(35, "SCORE: " + str);
-  }
-
 }
 

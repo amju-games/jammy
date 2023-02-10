@@ -1,6 +1,7 @@
 #pragma once
 
 #include "anim_controller.h"
+#include "image_sphere_map.h"
 #include "jammy_game_object.h"
 #include "vel_controller.h"
 
@@ -33,20 +34,28 @@ public:
 
 private:
   void set_up_anims();
-  void update_anim(float dt);
+  void update_body_anim(float dt);
+  void update_head_anim(float dt);
   void update_vel(float dt);
 
   // TODO: set_activity, switch between different vel/anim controllers
 
 private:
   // TODO Multiple controllers for different activities
-  std::unique_ptr<anim_controller> m_anim_controller;
+  std::unique_ptr<anim_controller> m_anim_controller_body_flying;
+  std::unique_ptr<anim_controller> m_anim_controller_head;
   std::unique_ptr<vel_controller> m_vel_controller;
 
   bool m_is_immune = false;
   float m_immune_time = 0;
   int m_humans_saved = 0;
   player_dir m_player_dir = player_dir::RIGHT;
+
+  // Head drawn separately from body
+  sprite m_head;
+
+  // Reflective helmet overlay
+  std::shared_ptr<image_sphere_map> m_reflect_helmet;
 
   sprite m_flames;
   bool m_flame_on = false;

@@ -5,11 +5,16 @@
 class jammy_game_state : public game_state
 {
 public:
+  void on_active() override;
+
   void draw() override;
   void update(float dt) override;
 
   void on_keyboard_action(const keyboard_action&) override; 
 
-protected:
+  float get_time_in_state() const { return m_time_in_state; }
+
+private:
+  float m_time_in_state = 0;
 };
 

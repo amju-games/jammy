@@ -3,6 +3,8 @@
 #include "brute_force.h"
 #include "double_dispatcher.h"
 
+namespace
+{
 class my_game_object : public game_object
 {
 public:
@@ -17,6 +19,7 @@ public:
   bool dispatch(my_game_object* obj1, my_game_object* obj2) const override { return true; }
   bool has_handler(my_game_object* obj1, my_game_object* obj2) const override { return true; }
 };
+}
 
 TEST_CASE("create, destroy", "[brute_force]")
 {

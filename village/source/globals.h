@@ -11,6 +11,7 @@
 #include "new_game_state.h"
 #include "player_progress.h"
 #include "play_state.h"
+#include "show_hi_scores_state.h"
 #include "sound_player.h"
 #include "splash_state.h"
 #include "timer.h"
@@ -36,5 +37,6 @@ extern std::unique_ptr<enter_hi_score_state> the_enter_hi_score_state;
 extern std::unique_ptr<load_level_state> the_load_level_state;
 extern std::unique_ptr<new_game_state> the_new_game_state;
 extern std::unique_ptr<play_state> the_play_state;
+extern std::unique_ptr<show_hi_scores_state> the_show_hi_scores_state;
 extern std::unique_ptr<splash_state> the_splash_state;
 
