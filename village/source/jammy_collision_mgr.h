@@ -1,18 +1,19 @@
 #pragma once
 
-#include "brute_force.h"
-#include "collision_mgr.h"
-#include "double_dispatcher.h"
-#include "narrow_phase_pixel_perfect.h"
+#include <memory>
 
-using dd = double_dispatcher<jammy_game_object>;
+class jammy_collision_mgr_impl;
 
-using jammy_collision_mgr = 
-  collision_mgr<
-    dd,
-    brute_force<jammy_game_object, dd>,
-    narrow_phase_pixel_perfect<jammy_game_object>
-  >;
+class jammy_collision_mgr 
+{
+public:
+  jammy_collision_mgr();
+  void check_for_collisions();
+  void set_game_objects(const game_objects*);
+  void populate_collision_funcs();
 
-void populate_collision_funcs(jammy_collision_mgr&);
+private:
+  jammy_collision_mgr_impl* m_pimpl;
+  //std::unique_ptr<jammy_collision_mgr_impl> m_pimpl;
+};
 
