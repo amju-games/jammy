@@ -23,7 +23,7 @@ void level::load()
   // Add background: do first, so drawn first, until we have some kind of z-ordering
   the_game.add_game_object(std::make_shared<parallax_bg>());
 
-  populate_collision_funcs(m_collision_mgr);
+  m_collision_mgr.populate_collision_funcs();
 
   const int MAX_PLAYER_BULLETS = 10;
   m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
@@ -36,7 +36,7 @@ void level::load()
 
   // Add asteroids
   // TODO good formula for this
-  const int MAX_NUM_ROCKS = 1000; //15;
+  const int MAX_NUM_ROCKS = 1; //000; //15;
   int num_rocks = std::min(MAX_NUM_ROCKS, m_level_num * 100);
 
   m_num_rocks_in_level = 0;
@@ -50,8 +50,13 @@ void level::load()
 std::cout << "This many rocks in level: " << m_num_rocks_in_level << "\n";
 #endif
 
+std::cout << "Populating collision manager...\n";
+
   // At end of load. We copy all game objects? Or copy ptr to container?
   m_collision_mgr.set_game_objects(the_game.get_game_objects());
+
+std::cout << "...done populating collision manager.\n";
+
 }
 
 player& level::get_player()
