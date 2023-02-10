@@ -33,9 +33,9 @@ std::cout << "HOT RELOAD!\n";
 
 void jammy_game_state::draw() 
 {
-  the_font.draw<jb_font_mask>(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
-  the_font.draw<jb_font_mask>(the_screen, 20, 10, "DRAW:   " + std::to_string(the_game.get_draw_time().count()));
-  the_font.draw<jb_font_mask>(the_screen, 20, 18, "UPDATE: " + std::to_string(the_game.get_update_time().count()));
+  the_font.draw<overwrite>(the_screen, 20, 2, std::to_string(the_fps_counter.get_fps()) + "FPS");
+  the_font.draw<overwrite>(the_screen, 20, 10, "DRAW:   " + std::to_string(the_game.get_draw_time().count()));
+  the_font.draw<overwrite>(the_screen, 20, 18, "UPDATE: " + std::to_string(the_game.get_update_time().count()));
 }
 
 void jammy_game_state::update(float dt)
