@@ -29,7 +29,7 @@ namespace
 rock::rock(int size_level, [[maybe_unused]] int child_index)
 {
   m_size_level = size_level;
-  set_is_alive(size_level == 0);
+  set_is_updatable(size_level == 0);
   set_is_collidable(size_level == 0);
 
   // TODO Variants.
@@ -83,7 +83,7 @@ void rock::update(float dt)
     m_explosion.update(dt);
     if (m_explosion.get_cell() == 15)
     {
-      set_is_alive(false);
+      set_is_updatable(false);
       m_is_exploding = false;
     }
   }
@@ -115,7 +115,7 @@ std::cout << "Rock already exploding!\n";
 
   the_level_manager.get_level().dec_num_rocks();
 
-  //set_is_alive(false); // wait until explosion finishes
+  //set_is_updatable(false); // wait until explosion finishes
   set_is_exploding(true);
   // Centre explosion sprite on position
 
@@ -124,7 +124,7 @@ std::cout << "Rock already exploding!\n";
   // Enable children
   for (auto& r : m_children)
   {
-    r->set_is_alive(true);
+    r->set_is_updatable(true);
     r->set_is_collidable(true);
 
     r->set_pos(get_pos()); // plus an offset

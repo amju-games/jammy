@@ -20,7 +20,7 @@ player_bullet::player_bullet()
 
 void player_bullet::fire(std::shared_ptr<player>& player)
 {
-  set_is_alive(true);
+  set_is_updatable(true);
   set_is_collidable(true);
 
   auto dir = player->get_player_dir();
@@ -68,7 +68,7 @@ void player_bullet::fire(std::shared_ptr<player>& player)
 
 void player_bullet::update(float dt)
 {
-  if (!is_alive())
+  if (!is_updatable())
   {
     return;
   }
@@ -79,7 +79,7 @@ void player_bullet::update(float dt)
   float dist = m_pos.x - get_cam_pos().x;
   if (fabs(dist) > PRETEND_SCREEN_W)
   {
-    set_is_alive(false);
+    set_is_updatable(false);
     set_is_collidable(false);
   }
 }
