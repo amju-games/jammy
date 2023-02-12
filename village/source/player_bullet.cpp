@@ -49,14 +49,14 @@ void player_bullet::fire(std::shared_ptr<player>& player)
 
   // Set colour on sprite.
   static int index = 0;
-  const std::array<alg3::vec4, 6> COLOURS = 
+  const std::array<f_colour, 6> COLOURS = 
   {
-    alg3::vec4{ 1, 1, 1, 1 },
-    alg3::vec4{ 1, 1, 0, 1 },
-    alg3::vec4{ 1, .1f, 1, 1 }, // yuck, pure magenta is treated as transparent here.
-    alg3::vec4{ 0, 1, 1, 1 },
-    alg3::vec4{ 1, 0, 0, 1 },
-    alg3::vec4{ 0, 1, 0, 1 }
+    f_colour{ 1, 1, 1, 1 },
+    f_colour{ 1, 1, 0, 1 },
+    f_colour{ 1, .1f, 1, 1 }, // yuck, pure magenta is treated as transparent here.
+    f_colour{ 0, 1, 1, 1 },
+    f_colour{ 1, 0, 0, 1 },
+    f_colour{ 0, 1, 0, 1 }
   };  
   m_colour_decorator->set_mult(COLOURS[index]);
   index++;
