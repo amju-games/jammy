@@ -21,7 +21,7 @@ void show_hi_scores_state::draw()
 {
   play_state_base::draw();
 
-  the_font.draw<jb_font_mask>(the_screen, 0, 50, "HI SCORES"); // TODO scale up font
+  get_font()->draw<jb_font_mask>(the_screen, 0, 50, "HI SCORES"); // TODO scale up font
 
   int num_scores = the_hi_scores.get_num_hi_scores();
 
@@ -32,9 +32,9 @@ void show_hi_scores_state::draw()
     the_hi_scores.get_hi_score(num_scores - i - 1, score, name);
     float y = i * m_y_spacing + m_y_start;
     std::string s = std::to_string(i + 1) + "."; 
-    the_font.draw<jb_font_mask>(the_screen, m_x_number, y, s);
-    the_font.draw<jb_font_mask>(the_screen, m_x_score, y, std::to_string(score));
-    the_font.draw<jb_font_mask>(the_screen, m_x_name, y, name);
+    get_font()->draw<jb_font_mask>(the_screen, m_x_number, y, s);
+    get_font()->draw<jb_font_mask>(the_screen, m_x_score, y, std::to_string(score));
+    get_font()->draw<jb_font_mask>(the_screen, m_x_name, y, name);
   }
 
   jammy_game_state::draw(); // draw fps

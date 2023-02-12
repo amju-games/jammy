@@ -1,5 +1,6 @@
 #pragma once
 
+#include "hud.h"
 #include "jammy_game_state.h"
 
 class jammy_game_object;
@@ -36,5 +37,7 @@ protected:
 
   virtual void go_to_next_level();
 
+private:
+  hud m_hud;
 };
 

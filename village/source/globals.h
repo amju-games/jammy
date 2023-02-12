@@ -2,7 +2,6 @@
 
 #include <memory>
 #include "enter_hi_score_state.h"
-#include "font.h"
 #include "game.h"
 #include "game_over_state.h"
 #include "hi_scores.h"
@@ -18,7 +17,6 @@
 
 extern p_image the_screen;
 
-extern font the_font; // TODO Should not be a global. Font is a resource
 extern game the_game;
 extern timer the_timer; // can't this be owned by the game?
 

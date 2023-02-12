@@ -36,12 +36,12 @@ void enter_hi_score_state::draw()
 {
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
-  the_font.draw<jb_font_mask>(the_screen, 46, 30, "HI SCORE");
+  get_font()->draw<jb_font_mask>(the_screen, 46, 30, "HI SCORE");
 
   int score = the_player_progress.get_score();
   std::string str = std::to_string(score);
   const float CHAR_W = 4;
-  the_font.draw<jb_font_mask>(the_screen, 63 - (6 + str.length()) * CHAR_W / 2, 80, "SCORE: " + str);
+  get_font()->draw<jb_font_mask>(the_screen, 63 - (6 + str.length()) * CHAR_W / 2, 80, "SCORE: " + str);
 }
 
 bool enter_hi_score_state::on_keyboard_action(const keyboard_action& ka)

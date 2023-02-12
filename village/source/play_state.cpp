@@ -6,7 +6,6 @@
 #include "directory.h"
 #include "game.h"
 #include "globals.h"
-#include "hud.h"
 #include "jammy_blend.h"
 #include "jammy_game_object.h"
 #include "player.h"
@@ -91,6 +90,8 @@ bool play_state::on_joystick_action(const joystick_action& ja)
 
 void play_state::on_active() 
 {
+  play_state_base::on_active();
+  m_hud.load();
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
 }
 
@@ -130,8 +131,7 @@ void play_state::check_for_level_completed()
 
 void play_state::draw_hud()
 {
-  static hud h;
-  h.draw();
+  m_hud.draw();
 }
 
 void play_state::draw()

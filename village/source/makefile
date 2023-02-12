@@ -40,6 +40,7 @@ level_manager.cpp \
 load_level_state.cpp \
 main.cpp \
 new_game_state.cpp \
+nice_font.cpp \
 parallax_bg.cpp \
 play_state.cpp \
 player.cpp \

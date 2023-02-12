@@ -11,10 +11,6 @@ void init_state::on_active()
   the_screen = std::make_shared<image_32>();
   the_screen->set_size(PRETEND_SCREEN_W, PRETEND_SCREEN_H);
 
-// Init font
-  the_font.set_image(resources().get<image>(get_data_dir() + "font_5x5.png"));
-  the_font.set_num_cells(16, 4);
-
   // Init game states
   the_enter_hi_score_state.reset(new enter_hi_score_state);
   the_game_over_state.reset(new game_over_state);

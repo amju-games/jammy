@@ -13,11 +13,24 @@ const vec2 RADAR_CENTRE(RADAR_X + 8, RADAR_Y + 8);
 
 hud::hud()
 {
+}
+
+bool hud::load()
+{
+  m_font = resources().get<nice_font>("hud.font");
+
   m_life_empty = resources().get<image>(get_data_dir() + "life_empty.png");
   m_life_full = resources().get<image>(get_data_dir() + "life_full.png");
   m_radar = resources().get<image>(get_data_dir() + "radar.png");
   m_blips.set_image(resources().get<image>(get_data_dir() + "blips.png"));
   m_blips.set_num_cells(3, 2);
+
+  return true;
+}
+
+p_font& hud::get_font()
+{
+  return m_font;
 }
 
 void hud::draw_blip(jammy_game_object* h, int cell)
@@ -56,6 +69,6 @@ void hud::draw()
   draw_radar();
 
   // Draw score
-  the_font.draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_player_progress.get_score()));
+  get_font()->draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_player_progress.get_score()));
 }
 

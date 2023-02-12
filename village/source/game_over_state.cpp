@@ -6,12 +6,6 @@
 #include "player.h"
 #include "resources.h"
 
-void draw_centred(int y, const std::string& str)
-{
-  const float CHAR_W = 4;
-  the_font.draw<jb_font_mask>(the_screen, 63 - str.length() * CHAR_W / 2, y, str);
-}
-
 game_over_state::game_over_state()
 {
   // TODO proper image/animated scene
@@ -52,6 +46,6 @@ void game_over_state::draw()
 
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
-  the_font.draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
+  get_font()->draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
 }
 

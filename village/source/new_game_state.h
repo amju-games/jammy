@@ -6,5 +6,6 @@ class new_game_state : public jammy_game_state
 {
 public:
   void on_active() override;
+  void update(float dt) override;
 };
 

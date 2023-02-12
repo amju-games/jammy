@@ -28,9 +28,9 @@ void splash_state::draw()
   
   if (flash < FLASH_PERIOD * .5f)
   {
-    the_font.draw<jb_font_mask>(the_screen, 28, 45, "HIT SPACE TO START!");
+    get_font()->draw<jb_font_mask>(the_screen, 28, 45, "HIT SPACE TO START!");
   }
-  the_font.draw<jb_font_mask>(the_screen, 1, 120, "ARROW KEYS TO MOVE, ESC TO QUIT!");
+  get_font()->draw<jb_font_mask>(the_screen, 1, 120, "ARROW KEYS TO MOVE, ESC TO QUIT!");
 }
 
 bool splash_state::on_keyboard_action(const keyboard_action& ka)
