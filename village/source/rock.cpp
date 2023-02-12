@@ -39,19 +39,21 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
     "rotating_rock_0.png", "rock_1.png", "rock_2.png"
   };
 
-  std::string s = filenames[size_level];
+  std::string filename = filenames[size_level];
  //"rock_" + std::to_string(size_level) + ".png";
 
-  m_sprite.set_image(resources().get<image>(get_data_dir() + s));
-  m_sprite.set_num_cells(1, 1);
-  m_sprite.set_cell_range(0, 0); 
-  m_sprite.set_cell_time(0.1f); // TODO some randomness?
+  sprite s;
+  s.set_image(resources().get<image>(get_data_dir() + filename));
+  s.set_num_cells(1, 1);
+  s.set_cell_range(0, 0); 
+  s.set_cell_time(0.1f); // TODO some randomness?
 
-  if (size_level == 0)
+  if (size_level == 0) // TODO just for now
   {
-    m_sprite.set_num_cells(4, 4);
-    m_sprite.set_cell_range(0, 15); 
+    s.set_num_cells(4, 4);
+    s.set_cell_range(0, 15); 
   }
+  set_sprite(s);
 
   m_explosion.set_image(resources().get<image>(get_data_dir() + "explosion1_64.png"));
 
@@ -61,7 +63,7 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
   m_explosion.set_cell_time(0.05f); // TODO CONFIG
 
   // Set random pos/vel
-  m_pos = gen_random_pos(s_cam_pos);
+  m_pos = gen_random_pos(get_cam_pos());
   m_vel = gen_random_vel(SPEED_LIMIT);
 }
 
