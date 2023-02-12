@@ -33,21 +33,37 @@ void splash_state::draw()
   the_font.draw<jb_font_mask>(the_screen, 1, 120, "ARROW KEYS TO MOVE, ESC TO QUIT!");
 }
 
-void splash_state::on_keyboard_action(const keyboard_action& ka)
+bool splash_state::on_keyboard_action(const keyboard_action& ka)
 {
+  if (jammy_game_state::on_keyboard_action(ka))
+  {
+    return true;
+  }
+
   auto [key, value](ka);
   if (value == button_value::down)
   {
     the_game.set_game_state(the_new_game_state);
+    return true;
   }
+
+  return false;
 }
 
-void splash_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
+bool splash_state::on_game_controller_button_action(const game_controller_button_action& gcba) 
 {
+  if (jammy_game_state::on_game_controller_button_action(gcba))
+  {
+    return true;
+  }
+
   auto [button, value](gcba);
   if (value == button_value::down)
   {
     the_game.set_game_state(the_new_game_state);
+    return true;
   }
+
+  return false;
 }
 

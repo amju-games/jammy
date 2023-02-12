@@ -48,7 +48,7 @@ void game_over_state::update_time_to_next_state()
 
 void game_over_state::draw()
 {
-  play_state::draw();
+  play_state_base::draw();
 
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   

@@ -10,7 +10,7 @@ public:
   void draw() override;
   void update(float dt) override;
 
-  void on_keyboard_action(const keyboard_action&) override; 
+  bool on_keyboard_action(const keyboard_action&) override; 
 
   float get_time_in_state() const { return m_time_in_state; }
 
