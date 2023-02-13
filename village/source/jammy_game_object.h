@@ -13,9 +13,13 @@ public:
   ~jammy_game_object();
 
   static void set_cam_pos(const vec2& pos);
+  static const vec2& get_cam_pos();
 
   virtual void draw(ref_image dest);
   void update(float dt) override; 
+
+  void set_sprite(const sprite&);
+  sprite& get_sprite();
 
   virtual std::string print() const;
 
@@ -39,7 +43,7 @@ protected:
     }
   }
 
-protected:
+private:
   sprite m_sprite;
 
   static vec2 s_cam_pos;

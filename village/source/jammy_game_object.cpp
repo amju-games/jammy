@@ -46,14 +46,30 @@ std::string jammy_game_object::print() const
   return concat(typeid(*this).name(), ": ", get_id()); 
 }
 
+const vec2& jammy_game_object::get_cam_pos()
+{
+  return s_cam_pos;
+}
+
 void jammy_game_object::set_cam_pos(const vec2& pos)
 {
   s_cam_pos = pos;
 }
 
+void jammy_game_object::set_sprite(const sprite& s)
+{
+  m_sprite = s;
+  set_size(vec2(s.get_cell_w(), s.get_cell_h()));
+}
+
+sprite& jammy_game_object::get_sprite()
+{
+  return m_sprite;
+}
+
 void jammy_game_object::draw(ref_image dest)
 {
-  if (!is_alive() || !is_visible())
+  if (!is_updatable() || !is_visible())
   {
     return;
   }
@@ -63,7 +79,7 @@ void jammy_game_object::draw(ref_image dest)
 
 void jammy_game_object::update(float dt) 
 {
-  if (!is_alive())
+  if (!is_updatable())
   {
     return;
   }

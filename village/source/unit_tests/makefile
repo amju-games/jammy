@@ -35,10 +35,13 @@ sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \
 ../anim_controller.cpp \
 ../hi_scores.cpp \
+../nice_font.cpp \
 ../resources.cpp \
 ../vel_controller.cpp \
 ../../../../lo-res/image_8.cpp \
 ../../../../lo-res/image_32.cpp \
+../../../../lo-res/image_colour_xform.cpp \
+../../../../lo-res/image_scale.cpp \
 ../../../../lo-res/palette.cpp \
 ../../../../lo-res/third_party/lodepng.cpp \
 ../../../../microlib/config_file.cpp \

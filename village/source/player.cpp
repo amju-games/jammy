@@ -31,8 +31,10 @@ player::player()
   m_reflect_helmet->add_child(
     resources().get<image>(get_data_dir() + "player_helmet_normals.png")); // TODO
 
-  m_sprite.set_image(resources().get<image>(get_data_dir() + "player_flying_2.png"));
-  m_sprite.set_num_cells(4, 2);
+  sprite s;
+  s.set_image(resources().get<image>(get_data_dir() + "player_flying_2.png"));
+  s.set_num_cells(4, 2);
+  set_sprite(s);
 
   m_flames.set_image(resources().get<image>(get_data_dir() + "flames.png"));
   m_flames.set_num_cells(4, 6); // 4 frames * 6 directions
@@ -130,11 +132,11 @@ void player::update_body_anim(float dt)
   m_anim_controller_body_flying->update(dt);
 
   const anim_info& ai = m_anim_controller_body_flying->get_anim_info(); 
-  m_sprite.set_cell_range(ai.m_cell_min, ai.m_cell_max);
+  get_sprite().set_cell_range(ai.m_cell_min, ai.m_cell_max);
 
   // Anim transitioner takes care of same/different cell range
   int cell = ai.m_cell_min; //m_anim_controller->get_cell();
-  m_sprite.set_cell(cell);
+  get_sprite().set_cell(cell);
 }
 
 void player::update_vel(float dt)

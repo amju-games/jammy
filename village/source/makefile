@@ -23,6 +23,7 @@ LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib
 
 SOURCES=\
 anim_controller.cpp \
+attract_state.cpp \
 collision_player_bullet_rock.cpp \
 collision_player_rock.cpp \
 enter_hi_score_state.cpp \
@@ -39,6 +40,7 @@ level_manager.cpp \
 load_level_state.cpp \
 main.cpp \
 new_game_state.cpp \
+nice_font.cpp \
 parallax_bg.cpp \
 play_state.cpp \
 player.cpp \

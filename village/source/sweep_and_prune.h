@@ -31,7 +31,7 @@ public:
     return cp;
   }
 
-  // For sort/uniq:
+  // For sort/unique:
   static bool eq(const coll_pair& p1, const coll_pair& p2)
   {
     assert(p1.first->get_id() < p1.second->get_id());
@@ -88,12 +88,33 @@ std::cout << "SAP: num extents: " << m_extent_vecs[0].size() << "\n";
     // Check for intersecting AABBs
 
 #ifdef SAP_DEBUG
-std::cout << "SAP: result has " << ret.size() << " pairs.\n";
+if (ret.size() > 0)
+{
+  std::cout << "SAP: result has " << ret.size() << " pairs.\n";
+}
 #endif
     return ret;
   }
 
 //private:
+  // For each axis, keep a sorted vec of min and max extents.
+  // In the broad phase, we re-sort each axis vec, and swaps signal a potential collision.
+  struct extent
+  {
+    DERIVED_TYPE* go = nullptr;
+    float pos = 0; // extent (min or max) on this axis
+    bool is_min = true; 
+
+#ifdef SAP_DEBUG
+    std::ostream& print(std::ostream& os) const
+    {
+      return os << go->get_id() << " " << (is_min ? "min" : "max") << " pos: " << pos;
+    }
+#endif
+  };
+
+  using extent_vec = std::vector<extent>;
+
 
   // Update pos for each extent
   void update_extents()
@@ -113,20 +134,6 @@ std::cout << "SAP: result has " << ret.size() << " pairs.\n";
       e.pos = e.is_min ? get_min_axis_value(*e.go, axis) : get_max_axis_value(*e.go, axis);
     }
   }
-
-  // For each axis, keep a sorted vec of min and max extents.
-  // In the broad phase, we re-sort each axis vec, and swaps signal a potential collision.
-  struct extent
-  {
-    DERIVED_TYPE* go = nullptr;
-    //int id = 0;
-    float pos = 0; // extent (min or max) on this axis
-
-    // Need this? So we only treat 2 of four cases as potential collisions??
-    bool is_min = true; 
-  };
-
-  using extent_vec = std::vector<extent>;
 
 
   void one_axis(int axis, collision_vec& result, const DOUBLE_DISPATCHER& dd)
@@ -155,11 +162,22 @@ std::cout << "SAP: result has " << ret.size() << " pairs.\n";
         if (dd.has_handler(obj1, obj2))
         {
           result.push_back(make_coll_pair(obj1, obj2));
+#ifdef SAP_DEBUG
+          describe(extents[j - 1], extents[j]);
+#endif
         }
         j--;
       } 
     }
   }
+
+#ifdef SAP_DEBUG
+  void describe(const extent& e1, const extent& e2)
+  {
+    e1.print(std::cout) << " - ";
+    e2.print(std::cout) << "\n";
+  }
+#endif
 
   void populate_extents(const game_objects& gos)
   {
