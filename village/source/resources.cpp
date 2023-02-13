@@ -1,17 +1,10 @@
 #include "config_file.h"
 #include "image_8.h"
 #include "image_32.h"
-#include "nice_font.h"
 #include "resources.h"
 
 void initialise_multi_manager(multi_manager& mm)
 {
-  auto nice_font_resource_manager = std::make_unique<resource_manager<nice_font>>( 
-    resource_manager<nice_font>::default_loader,
-    [](){ return std::make_shared<nice_font>(); }
-  );
-  mm.add_resource_manager(".font", std::move(nice_font_resource_manager));
-
   auto image_resource_manager = std::make_unique<resource_manager<image>>( 
     resource_manager<image>::default_loader,
     [](){ return std::make_shared<image_32>(); }

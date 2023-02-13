@@ -17,7 +17,7 @@ hud::hud()
 
 bool hud::load()
 {
-  m_font = resources().get<nice_font>("hud.font");
+  m_font.load("hud.font");
 
   m_life_empty = resources().get<image>(get_data_dir() + "life_empty.png");
   m_life_full = resources().get<image>(get_data_dir() + "life_full.png");
@@ -28,7 +28,7 @@ bool hud::load()
   return true;
 }
 
-p_font& hud::get_font()
+nice_font& hud::get_font()
 {
   return m_font;
 }
@@ -69,6 +69,6 @@ void hud::draw()
   draw_radar();
 
   // Draw score
-  get_font()->draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_player_progress.get_score()));
+  get_font().draw<jb_font_mask>(the_screen, 1, 1, std::to_string(the_player_progress.get_score()));
 }
 

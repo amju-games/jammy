@@ -19,5 +19,8 @@ private:
   int m_x_score = 0;
   int m_x_name = 0;
   float m_timeout = 0;
+  int m_x_title = 0;
+  int m_y_title = 0;
+  float m_scale_title = 1.f;
 };
 

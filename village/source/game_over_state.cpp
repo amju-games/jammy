@@ -46,6 +46,6 @@ void game_over_state::draw()
 
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
   
-  get_font()->draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
+  get_font().draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
 }
 
