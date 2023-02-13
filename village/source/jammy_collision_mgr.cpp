@@ -12,8 +12,8 @@
 #include "player_bullet.h"
 #include "rock.h"
 
-//#define USE_SAP
-#define USE_BRUTE_FORCE
+#define USE_SAP
+//#define USE_BRUTE_FORCE
 
 using dd = double_dispatcher<jammy_game_object>;
 

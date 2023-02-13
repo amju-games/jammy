@@ -11,6 +11,7 @@
 #include <cassert>
 #include <vector>
 #include "collision_mgr.h"
+#include "jammy_game_object.h"
 #include "game.h"
 
 // Broad phase of SAP, produces list of potential colliding pairs
@@ -108,7 +109,7 @@ if (ret.size() > 0)
 #ifdef SAP_DEBUG
     std::ostream& print(std::ostream& os) const
     {
-      return os << go->get_id() << " " << (is_min ? "min" : "max") << " pos: " << pos;
+      return os << go->print() << " " << (is_min ? "min" : "max") << " pos: " << pos;
     }
 #endif
   };
@@ -159,7 +160,9 @@ if (ret.size() > 0)
         assert(obj1);
         assert(obj2);
 
-        if (dd.has_handler(obj1, obj2))
+        if (   obj1->is_collidable()
+            && obj2->is_collidable()
+            && dd.has_handler(obj1, obj2))
         {
           result.push_back(make_coll_pair(obj1, obj2));
 #ifdef SAP_DEBUG
