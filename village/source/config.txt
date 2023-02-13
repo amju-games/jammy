@@ -1,5 +1,8 @@
 # config for jammy game
 
+# Hud
+hud::life_cell_time = .12
+
 # Show hi scores layout
 show_hi_score_state::m_y_spacing = 10
 show_hi_score_state::m_y_start = 40

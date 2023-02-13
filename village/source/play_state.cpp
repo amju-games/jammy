@@ -27,6 +27,8 @@ void play_state::update(float dt)
 { 
   play_state_base::update(dt);
 
+  m_hud.update(dt);
+
   check_for_game_over();
   
   check_for_level_completed(); 
