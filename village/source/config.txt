@@ -13,6 +13,7 @@ show_hi_score_state::m_x_name  = 120
 show_hi_score_state::m_x_title  = 30 
 show_hi_score_state::m_y_title  = 5 
 show_hi_score_state::m_scale_title  = 2.5 
+show_hi_score_state::m_score_time  = .3 
 
 # Attract mode
 attract_state::m_timeout = 10.0

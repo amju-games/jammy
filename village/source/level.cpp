@@ -21,7 +21,9 @@ void level::load()
   the_game.clear_game_objects();
 
   // Add background: do first, so drawn first, until we have some kind of z-ordering
-  the_game.add_game_object(std::make_shared<parallax_bg>());
+  auto bg = std::make_shared<parallax_bg>();
+  bg->load("parallax_bg_config.txt");
+  the_game.add_game_object(bg);
 
   m_collision_mgr.populate_collision_funcs();
 

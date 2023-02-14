@@ -22,5 +22,6 @@ private:
   int m_x_title = 0;
   int m_y_title = 0;
   float m_scale_title = 1.f;
+  float m_score_time = 0.f;
 };
 

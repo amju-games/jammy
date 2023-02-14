@@ -18,6 +18,7 @@ void show_hi_scores_state::on_active()
   m_x_title = config->get_int("show_hi_score_state::m_x_title");
   m_y_title = config->get_int("show_hi_score_state::m_y_title");
   m_scale_title = config->get_float("show_hi_score_state::m_scale_title");
+  m_score_time = config->get_float("show_hi_score_state::m_score_time");
 }
 
 void show_hi_scores_state::draw() 
@@ -32,6 +33,12 @@ void show_hi_scores_state::draw()
 
   for (int i = 0; i < num_scores; i++)
   {
+    float time_to_show_score = static_cast<float>(i) * m_score_time;
+    if (get_time_in_state() < time_to_show_score)
+    {
+      break;
+    }
+
     int score = 0;
     std::string name;
     the_hi_scores.get_hi_score(num_scores - i - 1, score, name);

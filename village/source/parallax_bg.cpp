@@ -8,6 +8,12 @@
 
 parallax_bg::parallax_bg()
 {
+}
+
+bool parallax_bg::load(const std::string& )
+{
+  // TODO Load constants from config file
+
   const std::string FILENAMES[] = 
   {
     "star_bg.png", // TODO use as bg star for now
@@ -22,6 +28,8 @@ parallax_bg::parallax_bg()
     s.set_num_cells(4, 1); 
     s.set_cell_range(0, 3);
   }
+
+  return true;
 }
 
 void parallax_bg::update(float dt)

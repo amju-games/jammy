@@ -1,4 +1,5 @@
 #include "blit.h"
+#include "config_file.h"
 #include "directory.h"
 #include "game_over_state.h"
 #include "globals.h"
@@ -8,17 +9,21 @@
 
 game_over_state::game_over_state()
 {
+}
+
+void game_over_state::on_active()
+{
+  play_state_base::on_active();
+
+  std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
+
   // TODO proper image/animated scene
-  // TODO Load anything configurable in on_active
   m_image = resources().get<image>(get_data_dir() + "doodles.png");
 }
 
 void game_over_state::update(float dt)
 {
-  // play_state::update(dt) does stuff we don't want/need.
-  the_game.update_game_objects(dt);
-  // Maybe coll det?
-  jammy_game_state::update(dt); // update fps counter
+  play_state_base::update(dt); // does coll det, but that's ok
 
   update_time_to_next_state();
 }
