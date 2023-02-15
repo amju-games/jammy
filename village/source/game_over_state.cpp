@@ -50,7 +50,11 @@ void game_over_state::draw()
   play_state_base::draw();
 
   blit<jb_overwrite>(m_image, the_screen, 0, 0); 
-  
-  get_font().draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER");
+
+  // TODO Centred  
+  get_font()
+    .set_scale(4.f)
+    .draw<jb_font_mask>(the_screen, 46, 25, "GAME OVER")
+    .set_scale(1.f);
 }
 

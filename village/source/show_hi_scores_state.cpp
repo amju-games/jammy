@@ -27,7 +27,9 @@ void show_hi_scores_state::draw()
 
   get_font()
     .set_scale(m_scale_title)
-    .draw<jb_font_mask>(the_screen, m_x_title, m_y_title, "HI SCORES"); // TODO localise
+    .draw<jb_font_mask>(the_screen, m_x_title, m_y_title, "HI SCORES") // TODO localise
+     // TODO Centred
+    .set_scale(1.f);
 
   int num_scores = the_hi_scores.get_num_hi_scores();
 
@@ -45,7 +47,6 @@ void show_hi_scores_state::draw()
     float y = i * m_y_spacing + m_y_start;
     std::string s = std::to_string(i + 1) + "."; 
     get_font()
-      .set_scale(1.f)
       .draw<jb_font_mask>(the_screen, m_x_number, y, s)
       .draw<jb_font_mask>(the_screen, m_x_score, y, std::to_string(score))
       .draw<jb_font_mask>(the_screen, m_x_name, y, name);

@@ -10,28 +10,9 @@ namespace
   const float MIN_TIME_IN_STATE = 1.f;
 }
 
-void load_level_state::load_font()
-{
-  p_image font_image = resources().get<image>(get_data_dir() + "font_5x5.png");
-  // Scale decorator
-  const float scale = 4.f;
-  m_big_font.set_image(
-    std::make_shared<image_scale>(
-      font_image,
-      //std::make_shared<image_colour_xform>( // hmm, unfortunately making the magenta also black
-      //  font_image, 
-      //  alg3::vec4(0, 0, 0, 1)), 
-      scale));
-  m_big_font.set_num_cells(16, 4);
-}
-
 void load_level_state::on_active() 
 {
   jammy_game_state::on_active();
-
-  the_screen->clear(colour(0xff, 0x80, 0));
-
-  load_font(); // TODO Font should be a resource
 
   // TODO: initialise loading level.
   // Call partial load each update; draw progress.
@@ -50,10 +31,18 @@ void load_level_state::update(float dt)
 
 void load_level_state::draw() 
 {
+  // TODO Scrolling parallax bg
+  the_screen->clear(colour(0xff, 0x80, 0));
+
   jammy_game_state::draw();
 
+  get_font().draw<jb_font_mask>(the_screen, 50, 20, "LEVEL"); // TODO Centred
+
   int level_num = the_player_progress.get_level();
-  m_big_font.draw<jb_font_mask>(the_screen, 20, 2, "LEVEL " + std::to_string(level_num));
+  get_font()
+    .set_scale(8.f)
+    .draw<jb_font_mask>(the_screen, 50, 40, std::to_string(level_num))
+    .set_scale(1.f);
 }
 
 bool load_level_state::on_keyboard_action(const keyboard_action& ka) 
