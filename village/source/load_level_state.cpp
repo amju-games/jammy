@@ -1,3 +1,4 @@
+#include "config_file.h"
 #include "directory.h"
 #include "globals.h"
 #include "image_scale.h"
@@ -14,6 +15,9 @@ void load_level_state::on_active()
 {
   jammy_game_state::on_active();
 
+  std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
+  m_bg_colour = config->get_f_colour("::bg_colour").to_colour();
+  
   // TODO: initialise loading level.
   // Call partial load each update; draw progress.
   // End state when level loaded
@@ -32,7 +36,7 @@ void load_level_state::update(float dt)
 void load_level_state::draw() 
 {
   // TODO Scrolling parallax bg
-  the_screen->clear(colour(0xff, 0x80, 0));
+  the_screen->clear(m_bg_colour);
 
   jammy_game_state::draw();
 

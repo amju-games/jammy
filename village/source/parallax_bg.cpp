@@ -1,4 +1,5 @@
 #include <iostream>
+#include "config_file.h"
 #include "directory.h"
 #include "globals.h"
 #include "jammy_blend.h"
@@ -14,6 +15,9 @@ bool parallax_bg::load(const std::string& )
 {
   // TODO Load constants from config file
 
+  std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
+  m_bg_colour = config->get_f_colour("::bg_colour").to_colour();
+  
   const std::string FILENAMES[] = 
   {
     "star_bg.png", // TODO use as bg star for now
@@ -74,8 +78,7 @@ vec2 get_random_star_pos(int layer, int star)
 
 void parallax_bg::draw(ref_image dest)
 {
-  // Clear screen to black
-  dest->clear(colour(0, 0, 0xc0));
+  dest->clear(m_bg_colour);
 
   // Draw most distant layer first
   for (int i = NUM_LAYERS - 1; i >= 0; i--)

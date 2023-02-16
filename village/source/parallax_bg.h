@@ -17,5 +17,7 @@ private:
 
   static constexpr int NUM_LAYERS = 2;
   vec2 m_bg_pos[NUM_LAYERS];
+
+  colour m_bg_colour;
 };
 
