@@ -11,6 +11,7 @@ public:
   void update(float dt) override;
 
   bool on_keyboard_action(const keyboard_action&) override;
+  bool on_game_controller_button_action(const game_controller_button_action&) override;
 
 private:
   int m_y_start = 0;

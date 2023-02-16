@@ -12,6 +12,7 @@ void init_state::on_active()
   the_screen->set_size(PRETEND_SCREEN_W, PRETEND_SCREEN_H);
 
   // Init game states
+  the_attract_state.reset(new attract_state);
   the_enter_hi_score_state.reset(new enter_hi_score_state);
   the_game_over_state.reset(new game_over_state);
   the_load_level_state.reset(new load_level_state);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "attract_state.h"
 #include "enter_hi_score_state.h"
 #include "game.h"
 #include "game_over_state.h"
@@ -30,6 +31,7 @@ extern player_progress the_player_progress;
 extern hi_scores the_hi_scores;
 
 // Game states. Should these be stored, e.g. in game?
+extern std::unique_ptr<attract_state> the_attract_state;
 extern std::unique_ptr<game_over_state> the_game_over_state;
 extern std::unique_ptr<enter_hi_score_state> the_enter_hi_score_state;
 extern std::unique_ptr<load_level_state> the_load_level_state;

@@ -1,4 +1,5 @@
 #include "blit.h"
+#include "config_file.h"
 #include "directory.h"
 #include "globals.h"
 #include "jammy_blend.h"
@@ -7,6 +8,15 @@
 
 splash_state::splash_state()
 {
+}
+
+void splash_state::on_active()
+{
+  jammy_game_state::on_active();
+
+  std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
+  m_time_to_next_state = config->get_int("splash_state::m_time_to_next_state");
+  
   m_image = resources().get<image>(get_data_dir() + "Splash_Screen.png");
 }
 
@@ -15,10 +25,17 @@ static const float FLASH_PERIOD = 1.f;
 
 void splash_state::update(float dt) 
 {
+  jammy_game_state::update(dt);
+
   flash += dt;
   if (flash > FLASH_PERIOD)
   {
     flash = 0;
+  }
+
+  if (get_time_in_state() > m_time_to_next_state)
+  {
+    the_game.set_game_state(the_attract_state);
   }
 }
 

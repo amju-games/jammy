@@ -83,4 +83,15 @@ bool show_hi_scores_state::on_keyboard_action(const keyboard_action& ka)
   return false;
 }
 
+bool show_hi_scores_state::on_game_controller_button_action(const game_controller_button_action& gcba)
+{
+  if (play_state_base::on_game_controller_button_action(gcba))
+  {
+    return true;
+  }
+
+  // back to splash state, player wants to start game
+  the_game.set_game_state(the_splash_state);
+  return true;
+}
 
