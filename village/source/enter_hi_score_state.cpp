@@ -15,9 +15,11 @@ static const float WAIT_TIME = 5.f;
 
 void enter_hi_score_state::on_active()
 {
+  jammy_game_state::on_active();
+
   // Set the high score in the high score table, save it out.
   int score = the_player_progress.get_score();
-  std::string name = "JULIET";
+  std::string name = "JULIET"; // TODO Enter name or initials
   the_hi_scores.store(score, name);
   the_hi_scores.save(hi_scores_filename());
 }
