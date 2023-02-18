@@ -36,11 +36,10 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
   // TODO Use child_index so we don't have two children with the same sprite sheet.
   static const std::array<std::string, 3> filenames = 
   {
-    "rotating_rock_0.png", "rock_1.png", "rock_2.png"
+    "rotating_rock_0.png", "rotating_rock_1.png", "rotating_rock_2.png"
   };
 
   std::string filename = filenames[size_level];
- //"rock_" + std::to_string(size_level) + ".png";
 
   sprite s;
   s.set_image(resources().get<image>(get_data_dir() + filename));
@@ -48,11 +47,8 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
   s.set_cell_range(0, 0); 
   s.set_cell_time(0.1f); // TODO some randomness?
 
-  if (size_level == 0) // TODO just for now
-  {
-    s.set_num_cells(4, 4);
-    s.set_cell_range(0, 15); 
-  }
+  s.set_num_cells(4, 4);
+  s.set_cell_range(0, 15); 
   set_sprite(s);
 
   m_explosion.set_image(resources().get<image>(get_data_dir() + "explosion1_64.png"));
