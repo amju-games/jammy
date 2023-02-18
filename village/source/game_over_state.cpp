@@ -16,9 +16,6 @@ void game_over_state::on_active()
   play_state_base::on_active();
 
   std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
-
-  // TODO proper image/animated scene
-  m_image = resources().get<image>(get_data_dir() + "doodles.png");
 }
 
 void game_over_state::update(float dt)
@@ -48,8 +45,6 @@ void game_over_state::update_time_to_next_state()
 void game_over_state::draw()
 {
   play_state_base::draw();
-
-  blit<jb_overwrite>(m_image, the_screen, 0, 0); 
 
   // TODO Centred  
   get_font()

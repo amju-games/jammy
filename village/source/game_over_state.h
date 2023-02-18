@@ -14,8 +14,5 @@ public:
 
 private:
   void update_time_to_next_state();
-  
-private:
-  p_image m_image;
 };
 
