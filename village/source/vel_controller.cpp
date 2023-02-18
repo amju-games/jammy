@@ -1,5 +1,4 @@
-#include <iostream>
-
+#include <algorithm>
 #include "vel_controller.h"
 
 void vel_controller::on_dir_button_action(const dir_button_action& ba) 
