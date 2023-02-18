@@ -38,7 +38,7 @@ void level::load()
 
   // Add asteroids
   // TODO good formula for this
-  const int MAX_NUM_ROCKS = 100; //000; //15;
+  const int MAX_NUM_ROCKS = 20; //000; //15;
   int num_rocks = std::min(MAX_NUM_ROCKS, m_level_num * 100);
 
   m_num_rocks_in_level = 0;
