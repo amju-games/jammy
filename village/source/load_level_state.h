@@ -16,5 +16,11 @@ public:
 
 private:
   colour m_bg_colour;
+  int m_level_x = 0;
+  int m_level_y = 0;
+  float m_level_scale = 1.f;
+  int m_num_x = 0;
+  int m_num_y = 0;
+  float m_num_scale = 1.f;
 };
 

@@ -1,7 +1,7 @@
 # config for jammy game
 
 # Globals
-::bg_colour = 0.5, 0.5, 0
+::bg_colour = 0, 0, 0
 
 # Hud
 hud::life_cell_time = .12
@@ -11,20 +11,29 @@ splash_state::m_time_to_next_state = 4.0
 
 # Show hi scores layout
 show_hi_score_state::m_y_spacing = 10
-show_hi_score_state::m_y_start = 40
-show_hi_score_state::m_timeout = 6.0
-show_hi_score_state::m_x_number = 30
-show_hi_score_state::m_x_score = 70 
-show_hi_score_state::m_x_name  = 120 
-show_hi_score_state::m_x_title  = 30 
-show_hi_score_state::m_y_title  = 5 
+show_hi_score_state::m_y_start = 60
+show_hi_score_state::m_timeout = 15 
+show_hi_score_state::m_x_number = 50
+show_hi_score_state::m_x_score = 90 
+show_hi_score_state::m_x_name  = 140 
+show_hi_score_state::m_x_title  = 50 
+show_hi_score_state::m_y_title  = 35 
 show_hi_score_state::m_scale_title  = 2.5 
 show_hi_score_state::m_score_time  = .3 
 
 # Attract mode
-attract_state::m_timeout = 10.0
+attract_state::m_timeout = 15.0
+
+# Load level state
+load_level_state::m_level_x = 100
+load_level_state::m_level_y = 50
+load_level_state::m_level_scale = 2.0
+load_level_state::m_num_x = 96
+load_level_state::m_num_y = 80
+load_level_state::m_num_scale = 7.0
+
 
 # Initial player progress
-player_progress::lives = 1
-player_progress::level = 5
+player_progress::lives = 3
+player_progress::level = 1
 

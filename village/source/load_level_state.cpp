@@ -17,6 +17,12 @@ void load_level_state::on_active()
 
   std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
   m_bg_colour = config->get_f_colour("::bg_colour").to_colour();
+  m_level_x = config->get_int("load_level_state::m_level_x");
+  m_level_y = config->get_int("load_level_state::m_level_y");
+  m_level_scale = config->get_float("load_level_state::m_level_scale");
+  m_num_x = config->get_int("load_level_state::m_num_x");
+  m_num_y = config->get_int("load_level_state::m_num_y");
+  m_num_scale = config->get_float("load_level_state::m_num_scale");
   
   // TODO: initialise loading level.
   // Call partial load each update; draw progress.
@@ -40,12 +46,17 @@ void load_level_state::draw()
 
   jammy_game_state::draw();
 
-  get_font().draw<jb_font_mask>(the_screen, 50, 20, "LEVEL"); // TODO Centred
+  get_font()
+    .set_scale(m_level_scale)
+    .draw<jb_font_mask>(the_screen, m_level_x, m_level_y, "LEVEL"); // TODO Centred
 
   int level_num = the_player_progress.get_level();
+  std::string s = std::to_string(level_num);
+  if (level_num < 10) s = "0" + s; // TODO func to add leading zeroes
+
   get_font()
-    .set_scale(8.f)
-    .draw<jb_font_mask>(the_screen, 50, 40, std::to_string(level_num))
+    .set_scale(m_num_scale)
+    .draw<jb_font_mask>(the_screen, m_num_x, m_num_y, s)
     .set_scale(1.f);
 }
 
