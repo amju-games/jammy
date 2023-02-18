@@ -15,9 +15,17 @@
 #include "string_utils.h"
 #include "universe.h"
 
+void play_state_base::on_active()
+{
+  jammy_game_state::on_active();
+  m_hud.load();
+}
+ 
 void play_state_base::draw() 
 {
   draw_game_objects();
+
+  draw_hud();
   
   // Explicitly call this from subclass draw() 
   //jammy_game_state::draw(); // fps
@@ -26,8 +34,6 @@ void play_state_base::draw()
 void play_state::update(float dt)
 { 
   play_state_base::update(dt);
-
-  m_hud.update(dt);
 
   check_for_game_over();
   
@@ -41,6 +47,8 @@ void play_state_base::update(float dt)
   the_game.update_game_objects(dt); 
 
   the_level_manager.get_level().col_det();
+
+  m_hud.update(dt);
 }
 
 void play_state_base::draw_game_objects()
@@ -93,7 +101,6 @@ bool play_state::on_joystick_action(const joystick_action& ja)
 void play_state::on_active() 
 {
   play_state_base::on_active();
-  m_hud.load();
   the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
 }
 
@@ -131,7 +138,7 @@ void play_state::check_for_level_completed()
   }
 }
 
-void play_state::draw_hud()
+void play_state_base::draw_hud()
 {
   m_hud.draw();
 }
@@ -139,7 +146,6 @@ void play_state::draw_hud()
 void play_state::draw()
 {
   play_state_base::draw();
-  draw_hud();
 
   jammy_game_state::draw(); // timing info
 }

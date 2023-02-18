@@ -12,3 +12,11 @@ bool player_progress::initialise()
   return true;
 }
 
+void player_progress::add_score(int s)
+{
+  if (m_lives > 0) // ignore updates if game is over
+  {
+    m_score += s;
+  }
+}
+

@@ -9,7 +9,7 @@ public:
   int get_level() const { return m_level; }
   int get_lives() const { return m_lives; }
 
-  void add_score(int s) { m_score += s; }
+  void add_score(int s);
   void set_level(int level) { m_level = level; }
   void dec_lives() { m_lives--; }
   void inc_lives() { m_lives++; }

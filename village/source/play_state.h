@@ -11,9 +11,14 @@ class play_state_base : public jammy_game_state
 public:
   void update(float dt) override;
   void draw() override;
+  void on_active() override;
 
 protected:
   virtual void draw_game_objects();
+  virtual void draw_hud();
+
+private:
+  hud m_hud;
 };
 
 class play_state : public play_state_base
@@ -30,14 +35,9 @@ public:
   bool on_game_controller_button_action(const game_controller_button_action&) override;
 
 protected:
-  virtual void draw_hud();
-
   virtual void check_for_game_over();
   virtual void check_for_level_completed();
 
   virtual void go_to_next_level();
-
-private:
-  hud m_hud;
 };
 
