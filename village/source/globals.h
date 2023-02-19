@@ -11,6 +11,7 @@
 #include "new_game_state.h"
 #include "player_progress.h"
 #include "play_state.h"
+#include "rng.h"
 #include "show_hi_scores_state.h"
 #include "sound_player.h"
 #include "splash_state.h"
@@ -26,6 +27,8 @@ extern std::unique_ptr<sound_player> the_sound_player; // owned by game?
 extern level_manager the_level_manager;
 
 extern player_progress the_player_progress;
+
+extern rng the_rng;
 
 // Hmm
 extern hi_scores the_hi_scores;
