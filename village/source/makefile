@@ -47,6 +47,7 @@ player.cpp \
 player_bullet.cpp \
 player_progress.cpp \
 resources.cpp \
+rng.cpp \
 rock.cpp \
 show_hi_scores_state.cpp \
 splash_state.cpp \

@@ -31,12 +31,14 @@ catch_test_main.cpp \
 hi_scores_tests.cpp \
 player_progress_tests.cpp \
 resources_tests.cpp \
+rng_tests.cpp \
 sweep_and_prune_tests.cpp \
 vel_controller_tests.cpp \
 ../anim_controller.cpp \
 ../hi_scores.cpp \
 ../nice_font.cpp \
 ../resources.cpp \
+../rng.cpp \
 ../vel_controller.cpp \
 ../../../../lo-res/image_8.cpp \
 ../../../../lo-res/image_32.cpp \
