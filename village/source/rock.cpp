@@ -4,6 +4,7 @@
 #include "directory.h"
 #include "globals.h"
 #include "image_32.h"
+#include "image_combine.h"
 #include "resources.h"
 #include "rng.h"
 #include "rock.h"
@@ -47,15 +48,27 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
 
   // TODO Variants.
   // TODO Use child_index so we don't have two children with the same sprite sheet.
-  static const std::array<std::string, 3> filenames = 
+  static const std::array<std::string, 3> interior_filenames = 
   {
     "rotating_rock_0.png", "rotating_rock_1.png", "rotating_rock_2.png"
   };
 
-  std::string filename = filenames[size_level];
+  static const std::array<std::string, 3> outline_filenames = 
+  {
+    "rotated_rock_outline_0.png",
+    "rotated_rock_outline_1.png",
+    "rotated_rock_outline_2.png"
+  };
+
+  std::string int_filename = interior_filenames[size_level];
+  std::string out_filename = outline_filenames[size_level];
+  p_image interior = resources().get<image>(get_data_dir() + int_filename);
+  p_image outline = resources().get<image>(get_data_dir() + out_filename);
+  // Create combined image
+  auto combined = std::make_shared<image_combine>(interior, outline, calc_additive_blend);
 
   sprite s;
-  s.set_image(resources().get<image>(get_data_dir() + filename));
+  s.set_image(combined);
  
   float cell_time_min = config->get_float("rock::cell_time_min");
   float cell_time_max = config->get_float("rock::cell_time_max");
