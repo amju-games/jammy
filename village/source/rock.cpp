@@ -41,6 +41,7 @@ namespace
 rock::rock(int size_level, [[maybe_unused]] int child_index)
 {
   auto config = resources().get<config_file>("config.txt");
+  f_colour outline_colour = config->get_f_colour("rock::outline_colour");
 
   m_size_level = size_level;
   set_is_updatable(size_level == 0);
@@ -64,15 +65,16 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
   std::string out_filename = outline_filenames[size_level];
   p_image interior = resources().get<image>(get_data_dir() + int_filename);
   p_image outline = resources().get<image>(get_data_dir() + out_filename);
+  auto coloured_outline = std::make_shared<image_colour_xform>(outline, outline_colour);
   // Create combined image
-  auto combined = std::make_shared<image_combine>(interior, outline, calc_additive_blend);
+  auto combined = std::make_shared<image_combine>(interior, coloured_outline, calc_alpha_blend);
 
   sprite s;
   s.set_image(combined);
  
   float cell_time_min = config->get_float("rock::cell_time_min");
   float cell_time_max = config->get_float("rock::cell_time_max");
-  s.set_cell_time(the_rng.rand(cell_time_min, cell_time_max)); ////0.1f); // TODO some randomness?
+  s.set_cell_time(the_rng.rand(cell_time_min, cell_time_max)); 
 
   s.set_num_cells(4, 4);
   s.set_cell_range(0, 15); 

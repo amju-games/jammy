@@ -1,7 +1,7 @@
 # config for jammy game
 
 # Globals
-::bg_colour = 0, 0, 0
+::bg_colour = (0, 0, 0)
 
 # Hud
 hud::life_cell_time = .12
@@ -40,5 +40,6 @@ player_progress::level = 1
 # Rocks
 rock::cell_time_min = 0.05
 rock::cell_time_max = 0.2
+rock::outline_colour = (.3, .3, .3)
 
 
