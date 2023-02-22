@@ -24,6 +24,7 @@ LDFLAGS=-framework OpenGL -framework GLUT -framework Carbon libbass.dylib
 SOURCES=\
 anim_controller.cpp \
 attract_state.cpp \
+collision_player_bullet_moon.cpp \
 collision_player_bullet_rock.cpp \
 collision_player_rock.cpp \
 enter_hi_score_state.cpp \
@@ -39,6 +40,7 @@ level.cpp \
 level_manager.cpp \
 load_level_state.cpp \
 main.cpp \
+moon.cpp \
 new_game_state.cpp \
 nice_font.cpp \
 parallax_bg.cpp \
@@ -53,6 +55,8 @@ show_hi_scores_state.cpp \
 splash_state.cpp \
 universe.cpp \
 vel_controller.cpp \
+../../../lo-res/draw_ellipse.cpp \
+../../../lo-res/draw_line.cpp \
 ../../../lo-res/image_8.cpp \
 ../../../lo-res/image_32.cpp \
 ../../../lo-res/image_colour_xform.cpp \

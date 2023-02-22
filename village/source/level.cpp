@@ -2,6 +2,7 @@
 #include "directory.h"
 #include "globals.h"
 #include "level.h"
+#include "moon.h"
 #include "parallax_bg.h"
 #include "sound_player.h"
 
@@ -24,8 +25,6 @@ void level::load()
   auto bg = std::make_shared<parallax_bg>();
   bg->load("parallax_bg_config.txt");
   the_game.add_game_object(bg);
-
-  m_collision_mgr.populate_collision_funcs();
 
   const int MAX_PLAYER_BULLETS = 10;
   m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
@@ -52,9 +51,16 @@ void level::load()
 std::cout << "This many rocks in level: " << m_num_rocks_in_level << "\n";
 #endif
 
+  auto m = std::make_shared<moon>();
+  the_game.add_game_object(m);
+
 std::cout << "Populating collision manager...\n";
 
+  // This could go anywhere, but grouping it with the next line
+  m_collision_mgr.populate_collision_funcs();
+
   // At end of load. We copy all game objects? Or copy ptr to container?
+  // Needs to go at the end for SAP, so we create extents for everything.
   m_collision_mgr.set_game_objects(the_game.get_game_objects());
 
 std::cout << "...done populating collision manager.\n";
