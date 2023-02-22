@@ -1,8 +1,5 @@
-#include "directory.h"
-#include "globals.h"
 #include "player_bullet.h"
 #include "rock.h"
-#include "sound_player.h"
 
 void collision_player_bullet_rock(player_bullet* pb, rock* r)
 {
