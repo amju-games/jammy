@@ -119,7 +119,7 @@ void rock::draw(ref_image dest)
 {
   if (m_is_exploding)
   {
-    draw_sprite<additive_blend>(m_explosion, dest);
+    draw_sprite<add_blend>(m_explosion, dest);
   }
   else 
   {
