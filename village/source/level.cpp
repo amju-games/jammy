@@ -26,18 +26,9 @@ void level::load()
   bg->load("parallax_bg_config.txt");
   the_game.add_game_object(bg);
 
-  const int MAX_PLAYER_BULLETS = 10;
-  m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
-  m_player_bullets->pre_populate_buffer();
-
-  // Add player
-  m_player = std::make_shared<player>();
-  the_game.add_game_object(m_player);
-  jammy_game_object::set_cam_pos(m_player->get_pos());
-
   // Add asteroids
   // TODO good formula for this
-  const int MAX_NUM_ROCKS = 20; //000; //15;
+  const int MAX_NUM_ROCKS = 2; //000; //15;
   int num_rocks = std::min(MAX_NUM_ROCKS, m_level_num * 100);
 
   m_num_rocks_in_level = 0;
@@ -53,6 +44,15 @@ std::cout << "This many rocks in level: " << m_num_rocks_in_level << "\n";
 
   auto m = std::make_shared<moon>();
   the_game.add_game_object(m);
+
+  const int MAX_PLAYER_BULLETS = 10;
+  m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
+  m_player_bullets->pre_populate_buffer();
+
+  // Add player
+  m_player = std::make_shared<player>();
+  the_game.add_game_object(m_player);
+  jammy_game_object::set_cam_pos(m_player->get_pos());
 
 std::cout << "Populating collision manager...\n";
 
