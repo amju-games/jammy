@@ -42,4 +42,8 @@ rock::cell_time_min = 0.05
 rock::cell_time_max = 0.1
 rock::outline_colour = (.4, .4, .4)
 
+# Moons
+moon::size = 256 
+moon::hole::size = 20
+
 

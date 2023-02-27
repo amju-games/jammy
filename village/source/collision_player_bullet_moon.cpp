@@ -5,8 +5,6 @@
 
 void collision_player_bullet_moon(player_bullet* pb, moon* m)
 {
-std::cout << "Collide pb and moon\n";
-
   pb->set_is_updatable(false); 
   pb->set_is_collidable(false);
 
