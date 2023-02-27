@@ -8,6 +8,7 @@ class moon : public jammy_game_object
 {
 public:
   moon();
+  void draw(ref_image dest) override;
   void on_shot_by_player(player_bullet* pb);
 
 private:
@@ -16,5 +17,7 @@ private:
   vec2 find_contact_point_from_right(player_bullet* pb);
   vec2 get_rel_pos(player_bullet* pb);
 
+private:
+  p_image m_inside; 
 };
 

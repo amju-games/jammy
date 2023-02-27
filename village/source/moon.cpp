@@ -4,6 +4,7 @@
 #include "config_file.h"
 #include "draw_ellipse.h"
 #include "image_32.h"
+#include "jammy_blend.h"
 #include "moon.h"
 #include "player_bullet.h"
 #include "resources.h"
@@ -27,6 +28,13 @@ moon::moon()
   set_sprite(s);
 
   set_is_collidable(true);
+
+  m_inside = std::make_shared<image_32>();
+  m_inside->set_size(size, size);
+  m_inside->clear(colour(0, 0, 0, 0));
+  draw_ellipse_solid(m_inside, size / 2, size / 2, size / 2 - 4, size / 2 - 4, 
+    colour(0xff, 0xc0, 0x80)); // TODO
+
 }
 
 vec2 moon::get_rel_pos(player_bullet* pb)
@@ -118,6 +126,12 @@ void moon::on_shot_by_player(player_bullet* pb)
   p_image im = get_sprite().get_image();
 
   blit<sub_blend>(subtract, im, contact_point.x, contact_point.y);
+}
 
+void moon::draw(ref_image dest)
+{
+  auto rel_pos = calc_rel_pos();
+  blit<jb_mask>(m_inside, dest, rel_pos.x, rel_pos.y);
+  jammy_game_object::draw(dest);
 }
 
