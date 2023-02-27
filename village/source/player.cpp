@@ -18,7 +18,7 @@ float MAX_PLAYER_SPEED = 40.f; // TODO
 
 player::player()
 {
-  m_is_collidable = true;
+  set_is_collidable(true);
 
   m_head.set_image(resources().get<image>(get_data_dir() + "player_heads.png"));
   m_head.set_num_cells(8, 4);

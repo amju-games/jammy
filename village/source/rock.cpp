@@ -46,6 +46,7 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
   m_size_level = size_level;
   set_is_updatable(size_level == 0);
   set_is_collidable(size_level == 0);
+  set_is_visible(size_level == 0);
 
   // TODO Variants.
   // TODO Use child_index so we don't have two children with the same sprite sheet.
@@ -110,6 +111,7 @@ void rock::update(float dt)
     if (m_explosion.get_cell() == 15)
     {
       set_is_updatable(false);
+      set_is_visible(false);
       m_is_exploding = false;
     }
   }
@@ -151,7 +153,8 @@ std::cout << "Rock already exploding!\n";
   for (auto& r : m_children)
   {
     r->set_is_updatable(true);
-    r->set_is_collidable(true);
+    r->set_is_collidable(true); 
+    r->set_is_visible(true);
 
     r->set_pos(get_pos()); // plus an offset
 

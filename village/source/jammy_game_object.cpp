@@ -69,7 +69,7 @@ sprite& jammy_game_object::get_sprite()
 
 void jammy_game_object::draw(ref_image dest)
 {
-  if (!is_updatable() || !is_visible())
+  if (!is_visible())
   {
     return;
   }

@@ -16,12 +16,15 @@ player_bullet::player_bullet()
   s.set_cell_time(0.05f);
   set_sprite(s);
   set_is_updatable(false);
+  set_is_visible(false);
+  set_is_collidable(false);
 }
 
 void player_bullet::fire(std::shared_ptr<player>& player)
 {
   set_is_updatable(true);
   set_is_collidable(true);
+  set_is_visible(true);
 
   auto dir = player->get_player_dir();
   const float BULLET_SPEED = 150.0f;
@@ -81,6 +84,7 @@ void player_bullet::update(float dt)
   {
     set_is_updatable(false);
     set_is_collidable(false);
+    set_is_visible(false);
   }
 }
 
