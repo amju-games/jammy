@@ -45,7 +45,7 @@ std::cout << "This many rocks in level: " << m_num_rocks_in_level << "\n";
   auto m = std::make_shared<moon>();
   the_game.add_game_object(m);
 
-  const int MAX_PLAYER_BULLETS = 10;
+  const int MAX_PLAYER_BULLETS = 20;
   m_player_bullets = std::make_unique<circular_buffer<player_bullet>>(the_game, MAX_PLAYER_BULLETS);
   m_player_bullets->pre_populate_buffer();
 

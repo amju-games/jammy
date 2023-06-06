@@ -29,7 +29,7 @@ public:
 protected:
   vec2 calc_rel_pos(const vec2& offset = vec2(0, 0)) const
   {
-    vec2 rel_pos = m_pos - s_cam_pos + CENTRE_SCREEN + offset;
+    vec2 rel_pos = get_pos() - s_cam_pos + CENTRE_SCREEN + offset;
     return rel_pos;
   }
 

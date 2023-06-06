@@ -101,7 +101,7 @@ bool play_state::on_joystick_action(const joystick_action& ja)
 void play_state::on_active() 
 {
   play_state_base::on_active();
-  the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
+//  the_sound_player->play_wav(get_data_dir() + "sounds/sfx_sounds_powerup2.wav");
 }
 
 void play_state::on_deactive() 
