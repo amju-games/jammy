@@ -1,5 +1,7 @@
 *.o
-jammy
+.vs
+Debug
+x64
 Colony.app
 *.zip
 jammy_tests

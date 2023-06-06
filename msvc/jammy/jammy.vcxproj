@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{298840ad-7b96-49c8-ac03-6f4670d46d79}</ProjectGuid>
+    <RootNamespace>jammy</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Juliet\repos\jammy\msvc;C:\Users\Juliet\repos\lo-res;C:\Users\Juliet\repos\lo-res\third_party;C:\Users\Juliet\repos\microlib;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\Juliet\repos\jammy\msvc;C:\Users\Juliet\repos\lo-res;C:\Users\Juliet\repos\lo-res\third_party;C:\Users\Juliet\repos\microlib;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\glut\glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\glut\glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\lo-res\draw_ellipse.cpp" />
+    <ClCompile Include="..\..\..\lo-res\draw_line.cpp" />
+    <ClCompile Include="..\..\..\lo-res\image_32.cpp" />
+    <ClCompile Include="..\..\..\lo-res\image_8.cpp" />
+    <ClCompile Include="..\..\..\lo-res\image_colour_xform.cpp" />
+    <ClCompile Include="..\..\..\lo-res\image_filter.cpp" />
+    <ClCompile Include="..\..\..\lo-res\image_scale.cpp" />
+    <ClCompile Include="..\..\..\lo-res\image_uv_xform.cpp" />
+    <ClCompile Include="..\..\..\lo-res\palette.cpp" />
+    <ClCompile Include="..\..\..\lo-res\render_image_opengl.cpp" />
+    <ClCompile Include="..\..\..\lo-res\sprite.cpp" />
+    <ClCompile Include="..\..\..\lo-res\third_party\lodepng.cpp" />
+    <ClCompile Include="..\..\..\microlib\config_file.cpp" />
+    <ClCompile Include="..\..\..\microlib\directory.cpp" />
+    <ClCompile Include="..\..\..\microlib\file.cpp" />
+    <ClCompile Include="..\..\..\microlib\file_string_utils.cpp" />
+    <ClCompile Include="..\..\..\microlib\game.cpp" />
+    <ClCompile Include="..\..\..\microlib\game_object.cpp" />
+    <ClCompile Include="..\..\..\microlib\message_queue.cpp" />
+    <ClCompile Include="..\..\..\microlib\sound_player_bass24.cpp" />
+    <ClCompile Include="..\..\..\microlib\string_utils.cpp" />
+    <ClCompile Include="..\..\..\microlib\timer.cpp" />
+    <ClCompile Include="..\..\village\source\anim_controller.cpp" />
+    <ClCompile Include="..\..\village\source\attract_state.cpp" />
+    <ClCompile Include="..\..\village\source\collision_player_bullet_moon.cpp" />
+    <ClCompile Include="..\..\village\source\collision_player_bullet_rock.cpp" />
+    <ClCompile Include="..\..\village\source\collision_player_rock.cpp" />
+    <ClCompile Include="..\..\village\source\enter_hi_score_state.cpp" />
+    <ClCompile Include="..\..\village\source\game_over_state.cpp" />
+    <ClCompile Include="..\..\village\source\globals.cpp" />
+    <ClCompile Include="..\..\village\source\hi_scores.cpp" />
+    <ClCompile Include="..\..\village\source\hud.cpp" />
+    <ClCompile Include="..\..\village\source\init_state.cpp" />
+    <ClCompile Include="..\..\village\source\jammy_collision_mgr.cpp" />
+    <ClCompile Include="..\..\village\source\jammy_game_object.cpp" />
+    <ClCompile Include="..\..\village\source\jammy_game_state.cpp" />
+    <ClCompile Include="..\..\village\source\level.cpp" />
+    <ClCompile Include="..\..\village\source\level_manager.cpp" />
+    <ClCompile Include="..\..\village\source\load_level_state.cpp" />
+    <ClCompile Include="..\..\village\source\main.cpp" />
+    <ClCompile Include="..\..\village\source\moon.cpp" />
+    <ClCompile Include="..\..\village\source\new_game_state.cpp" />
+    <ClCompile Include="..\..\village\source\nice_font.cpp" />
+    <ClCompile Include="..\..\village\source\parallax_bg.cpp" />
+    <ClCompile Include="..\..\village\source\player.cpp" />
+    <ClCompile Include="..\..\village\source\player_bullet.cpp" />
+    <ClCompile Include="..\..\village\source\player_progress.cpp" />
+    <ClCompile Include="..\..\village\source\play_state.cpp" />
+    <ClCompile Include="..\..\village\source\resources.cpp" />
+    <ClCompile Include="..\..\village\source\rng.cpp" />
+    <ClCompile Include="..\..\village\source\rock.cpp" />
+    <ClCompile Include="..\..\village\source\show_hi_scores_state.cpp" />
+    <ClCompile Include="..\..\village\source\splash_state.cpp" />
+    <ClCompile Include="..\..\village\source\universe.cpp" />
+    <ClCompile Include="..\..\village\source\vel_controller.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\lo-res\approx_equal.h" />
+    <ClInclude Include="..\..\..\lo-res\blend.h" />
+    <ClInclude Include="..\..\..\lo-res\blit.h" />
+    <ClInclude Include="..\..\..\lo-res\colour.h" />
+    <ClInclude Include="..\..\..\lo-res\colour_index.h" />
+    <ClInclude Include="..\..\..\lo-res\colour_to_normal.h" />
+    <ClInclude Include="..\..\..\lo-res\draw_ellipse.h" />
+    <ClInclude Include="..\..\..\lo-res\draw_line.h" />
+    <ClInclude Include="..\..\..\lo-res\filler.h" />
+    <ClInclude Include="..\..\..\lo-res\font.h" />
+    <ClInclude Include="..\..\..\lo-res\image.h" />
+    <ClInclude Include="..\..\..\lo-res\image_32.h" />
+    <ClInclude Include="..\..\..\lo-res\image_8.h" />
+    <ClInclude Include="..\..\..\lo-res\image_colour_xform.h" />
+    <ClInclude Include="..\..\..\lo-res\image_composite.h" />
+    <ClInclude Include="..\..\..\lo-res\image_decorator.h" />
+    <ClInclude Include="..\..\..\lo-res\image_filter.h" />
+    <ClInclude Include="..\..\..\lo-res\image_lighting.h" />
+    <ClInclude Include="..\..\..\lo-res\image_n.h" />
+    <ClInclude Include="..\..\..\lo-res\image_normal_map.h" />
+    <ClInclude Include="..\..\..\lo-res\image_region.h" />
+    <ClInclude Include="..\..\..\lo-res\image_scale.h" />
+    <ClInclude Include="..\..\..\lo-res\image_sphere_map.h" />
+    <ClInclude Include="..\..\..\lo-res\image_uv_xform.h" />
+    <ClInclude Include="..\..\..\lo-res\palette.h" />
+    <ClInclude Include="..\..\..\lo-res\render_image_opengl.h" />
+    <ClInclude Include="..\..\..\lo-res\sprite.h" />
+    <ClInclude Include="..\..\..\lo-res\sprite_sheet.h" />
+    <ClInclude Include="..\..\..\lo-res\transparency.h" />
+    <ClInclude Include="..\..\..\lo-res\uv.h" />
+    <ClInclude Include="..\..\..\microlib\action.h" />
+    <ClInclude Include="..\..\..\microlib\collision_mgr.h" />
+    <ClInclude Include="..\..\..\microlib\config_file.h" />
+    <ClInclude Include="..\..\..\microlib\deg_to_rad.h" />
+    <ClInclude Include="..\..\..\microlib\directory.h" />
+    <ClInclude Include="..\..\..\microlib\double_dispatcher.h" />
+    <ClInclude Include="..\..\..\microlib\factory.h" />
+    <ClInclude Include="..\..\..\microlib\file.h" />
+    <ClInclude Include="..\..\..\microlib\file_string_utils.h" />
+    <ClInclude Include="..\..\..\microlib\fps_counter.h" />
+    <ClInclude Include="..\..\..\microlib\game.h" />
+    <ClInclude Include="..\..\..\microlib\game_object.h" />
+    <ClInclude Include="..\..\..\microlib\game_object_factory.h" />
+    <ClInclude Include="..\..\..\microlib\game_state.h" />
+    <ClInclude Include="..\..\..\microlib\message_queue.h" />
+    <ClInclude Include="..\..\..\microlib\multi_manager.h" />
+    <ClInclude Include="..\..\..\microlib\resource_manager.h" />
+    <ClInclude Include="..\..\..\microlib\sign.h" />
+    <ClInclude Include="..\..\..\microlib\sound_player.h" />
+    <ClInclude Include="..\..\..\microlib\sound_player_bass23.h" />
+    <ClInclude Include="..\..\..\microlib\sound_player_bass24.h" />
+    <ClInclude Include="..\..\..\microlib\string_utils.h" />
+    <ClInclude Include="..\..\..\microlib\timer.h" />
+    <ClInclude Include="..\..\..\microlib\vec2.h" />
+    <ClInclude Include="..\..\village\source\anim_controller.h" />
+    <ClInclude Include="..\..\village\source\attract_state.h" />
+    <ClInclude Include="..\..\village\source\auto_repeat_suppressor.h" />
+    <ClInclude Include="..\..\village\source\brute_force.h" />
+    <ClInclude Include="..\..\village\source\circular_buffer.h" />
+    <ClInclude Include="..\..\village\source\collision_player_bullet_moon.h" />
+    <ClInclude Include="..\..\village\source\collision_player_bullet_rock.h" />
+    <ClInclude Include="..\..\village\source\collision_player_rock.h" />
+    <ClInclude Include="..\..\village\source\enter_hi_score_state.h" />
+    <ClInclude Include="..\..\village\source\game_over_state.h" />
+    <ClInclude Include="..\..\village\source\globals.h" />
+    <ClInclude Include="..\..\village\source\hi_scores.h" />
+    <ClInclude Include="..\..\village\source\hud.h" />
+    <ClInclude Include="..\..\village\source\init_state.h" />
+    <ClInclude Include="..\..\village\source\jammy_blend.h" />
+    <ClInclude Include="..\..\village\source\jammy_collision_mgr.h" />
+    <ClInclude Include="..\..\village\source\jammy_game_object.h" />
+    <ClInclude Include="..\..\village\source\jammy_game_state.h" />
+    <ClInclude Include="..\..\village\source\level.h" />
+    <ClInclude Include="..\..\village\source\level_manager.h" />
+    <ClInclude Include="..\..\village\source\load_level_state.h" />
+    <ClInclude Include="..\..\village\source\moon.h" />
+    <ClInclude Include="..\..\village\source\narrow_phase_pixel_perfect.h" />
+    <ClInclude Include="..\..\village\source\new_game_state.h" />
+    <ClInclude Include="..\..\village\source\nice_font.h" />
+    <ClInclude Include="..\..\village\source\parallax_bg.h" />
+    <ClInclude Include="..\..\village\source\player.h" />
+    <ClInclude Include="..\..\village\source\player_bullet.h" />
+    <ClInclude Include="..\..\village\source\player_progress.h" />
+    <ClInclude Include="..\..\village\source\play_state.h" />
+    <ClInclude Include="..\..\village\source\resources.h" />
+    <ClInclude Include="..\..\village\source\rng.h" />
+    <ClInclude Include="..\..\village\source\rock.h" />
+    <ClInclude Include="..\..\village\source\show_hi_scores_state.h" />
+    <ClInclude Include="..\..\village\source\splash_state.h" />
+    <ClInclude Include="..\..\village\source\sweep_and_prune.h" />
+    <ClInclude Include="..\..\village\source\universe.h" />
+    <ClInclude Include="..\..\village\source\vel_controller.h" />
+    <ClInclude Include="..\bass2.4\bass.h" />
+    <ClInclude Include="..\glut\glut.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\lo-res\README.md" />
+    <None Include="..\..\..\microlib\libbass.dylib" />
+    <None Include="..\..\..\microlib\README.md" />
+    <None Include="..\..\village\source\hud.font" />
+    <None Include="..\..\village\source\libbass.dylib" />
+    <None Include="..\..\village\source\makefile" />
+    <None Include="..\..\village\source\nice.font" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\village\source\config.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\bass2.4\bass.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
