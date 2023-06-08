@@ -21,7 +21,7 @@ bool hud::load()
   std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
   float life_cell_time = config->get_float("hud::life_cell_time");
 
-  m_font.load("hud.font");
+  m_font.load(get_data_dir() + "hud.font");
 
   m_life_full.set_image(resources().get<image>(get_data_dir() + "life_full.png"));
   m_life_full.set_num_cells(4, 1);

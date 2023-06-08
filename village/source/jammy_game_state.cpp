@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "directory.h"
 #include "fps_counter.h"
 #include "globals.h"
 #include "jammy_blend.h"
@@ -18,7 +19,7 @@ jammy_game_state::jammy_game_state()
 void jammy_game_state::on_active()
 {
   m_time_in_state = 0;
-  m_font.load(m_font_filename);
+  m_font.load(get_data_dir() + m_font_filename);
 }
 
 nice_font& jammy_game_state::get_font()
