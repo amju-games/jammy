@@ -20,23 +20,23 @@ player::player()
 {
   set_is_collidable(true);
 
-  m_head.set_image(resources().get<image>(get_data_dir() + "player_heads.png"));
+  m_head.set_image(resources().get<image>("player_heads.png"));
   m_head.set_num_cells(8, 4);
   m_head.set_cell_range(0, 15);
   m_head.set_cell_time(0.3f);
 
   m_reflect_helmet = std::make_shared<image_sphere_map>();
   m_reflect_helmet->add_child(
-    resources().get<image>(get_data_dir() + "player_helmet_normals.png"));
+    resources().get<image>("player_helmet_normals.png"));
   m_reflect_helmet->add_child(
-    resources().get<image>(get_data_dir() + "player_helmet_normals.png")); // TODO
+    resources().get<image>("player_helmet_normals.png")); // TODO
 
   sprite s;
-  s.set_image(resources().get<image>(get_data_dir() + "player_flying_2.png"));
+  s.set_image(resources().get<image>("player_flying_2.png"));
   s.set_num_cells(4, 2);
   set_sprite(s);
 
-  m_flames.set_image(resources().get<image>(get_data_dir() + "flames.png"));
+  m_flames.set_image(resources().get<image>("flames.png"));
   m_flames.set_num_cells(4, 6); // 4 frames * 6 directions
   m_flames.set_cell_time(FLAME_FRAME_TIME);
 

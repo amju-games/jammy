@@ -23,14 +23,14 @@ bool hud::load()
 
   m_font.load(get_data_dir() + "hud.font");
 
-  m_life_full.set_image(resources().get<image>(get_data_dir() + "life_full.png"));
+  m_life_full.set_image(resources().get<image>("life_full.png"));
   m_life_full.set_num_cells(4, 1);
   m_life_full.set_cell_range(0, 3);
   m_life_full.set_cell_time(life_cell_time);
   m_life_full.set_bounce_mode(true);
 
-  m_radar = resources().get<image>(get_data_dir() + "radar.png");
-  m_blips.set_image(resources().get<image>(get_data_dir() + "blips.png"));
+  m_radar = resources().get<image>("radar.png");
+  m_blips.set_image(resources().get<image>("blips.png"));
   m_blips.set_num_cells(3, 2);
 
   return true;

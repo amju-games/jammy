@@ -7,7 +7,7 @@
 
 player_bullet::player_bullet() 
 {
-  p_image im = resources().get<image>(get_data_dir() + "player_bullet_2.png");
+  p_image im = resources().get<image>("player_bullet_2.png");
   m_colour_decorator = std::make_shared<image_colour_xform>();
   m_colour_decorator->set_child(im);
   sprite(s);

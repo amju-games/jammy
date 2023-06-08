@@ -12,7 +12,7 @@ bool nice_font::load(const std::string& filename)
     return false;
   }
   std::string font_image = cf.get_string("font_image");
-  m_image = resources().get<image>(get_data_dir() + font_image);
+  m_image = resources().get<image>(font_image);
 
   m_scale = std::make_shared<image_scale>(m_image);
 

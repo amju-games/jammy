@@ -17,7 +17,7 @@ void splash_state::on_active()
   std::shared_ptr<config_file> config = resources().get<config_file>("config.txt");
   m_time_to_next_state = config->get_int("splash_state::m_time_to_next_state");
   
-  m_image = resources().get<image>(get_data_dir() + "Splash_Screen.png");
+  m_image = resources().get<image>("Splash_Screen.png");
 }
 
 static float flash = 0;

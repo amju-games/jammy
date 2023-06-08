@@ -27,7 +27,7 @@ bool parallax_bg::load(const std::string& )
   {
     auto& s = m_sprites[i];
 
-    s.set_image(resources().get<image>(get_data_dir() + FILENAMES[i]));
+    s.set_image(resources().get<image>(FILENAMES[i]));
     s.set_cell_time(.4f); // TODO TEMP TEST
     s.set_num_cells(4, 1); 
     s.set_cell_range(0, 3);

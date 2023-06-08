@@ -64,8 +64,8 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
 
   std::string int_filename = interior_filenames[size_level];
   std::string out_filename = outline_filenames[size_level];
-  p_image interior = resources().get<image>(get_data_dir() + int_filename);
-  p_image outline = resources().get<image>(get_data_dir() + out_filename);
+  p_image interior = resources().get<image>(int_filename);
+  p_image outline = resources().get<image>(out_filename);
   auto coloured_outline = std::make_shared<image_colour_xform>(outline, outline_colour);
   // Create combined image
   auto combined = std::make_shared<image_combine>(interior, coloured_outline, calc_alpha_blend);
@@ -82,7 +82,7 @@ rock::rock(int size_level, [[maybe_unused]] int child_index)
   s.set_cell_dir(get_random_dir());
   set_sprite(s);
 
-  m_explosion.set_image(resources().get<image>(get_data_dir() + "explosion1_64.png"));
+  m_explosion.set_image(resources().get<image>("explosion1_64.png"));
 
   // TODO this cell range should not loop
   m_explosion.set_num_cells(4, 4);

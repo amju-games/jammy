@@ -1,5 +1,4 @@
 #include "blit.h"
-#include "directory.h"
 #include "enter_hi_score_state.h"
 #include "globals.h"
 #include "jammy_blend.h"
@@ -8,7 +7,7 @@
 
 enter_hi_score_state::enter_hi_score_state()
 {
-  m_image = resources().get<image>(get_data_dir() + "Splash_Screen.png");
+  m_image = resources().get<image>("Splash_Screen.png");
 }
 
 static const float WAIT_TIME = 5.f;
