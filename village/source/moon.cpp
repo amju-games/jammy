@@ -1,13 +1,31 @@
 #include <iostream>
 
 #include <algorithm>
+#include <numbers>
 #include "config_file.h"
 #include "draw_ellipse.h"
+#include "draw_line.h"
 #include "image_32.h"
 #include "jammy_blend.h"
 #include "moon.h"
 #include "player_bullet.h"
 #include "resources.h"
+
+void draw_horizontal_stripe_on_image(ref_image dest, const colour& col, int top, int thickness, int wiggles, int waviness, float phase1, float phase2)
+{
+  int w = dest->get_width();
+
+  for (int x = 0; x < w; x++)
+  {
+    float theta = static_cast<float>(x) / static_cast<float>(w) * std::numbers::pi * static_cast<float>(wiggles);
+    int y = static_cast<int>(sinf(theta + phase1) * static_cast<float>(waviness)) + top;
+
+    float waviness_variation = (cosf(theta) + 2.f);
+    int h = static_cast<int>(sinf(theta + phase2) * waviness * waviness_variation) + thickness; 
+
+    draw_line(dest, x, y, x, y + h, col);
+  } 
+}
 
 moon::moon()
 {
@@ -35,6 +53,11 @@ moon::moon()
   draw_ellipse_solid(m_inside, size / 2, size / 2, size / 2 - 4, size / 2 - 4, 
     colour(0xff, 0xc0, 0x80)); // TODO
 
+  // int top, int thickness, int wiggles, int waviness, float phase1, float phase2)
+
+  colour stripe_col(255, 255, 255, 255);
+  draw_horizontal_stripe_on_image(m_inside, stripe_col, 50, 30, 3, 7, 1.f, 2.5f);
+  draw_horizontal_stripe_on_image(m_inside, stripe_col, 120, 20, 3, 5, -2.f, 1.5f);
 }
 
 vec2 moon::get_rel_pos(player_bullet* pb)
@@ -132,6 +155,6 @@ void moon::draw(ref_image dest)
 {
   auto rel_pos = calc_rel_pos();
   blit<jb_mask>(m_inside, dest, rel_pos.x, rel_pos.y);
-  jammy_game_object::draw(dest);
+//  jammy_game_object::draw(dest);
 }
 

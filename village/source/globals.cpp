@@ -13,6 +13,7 @@ std::unique_ptr<attract_state> the_attract_state;
 std::unique_ptr<enter_hi_score_state> the_enter_hi_score_state;
 std::unique_ptr<game_over_state> the_game_over_state;
 std::unique_ptr<load_level_state> the_load_level_state;
+std::unique_ptr<moon_state> the_moon_state;
 std::unique_ptr<new_game_state> the_new_game_state;
 std::unique_ptr<play_state> the_play_state;
 std::unique_ptr<show_hi_scores_state> the_show_hi_scores_state;

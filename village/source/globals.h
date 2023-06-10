@@ -8,6 +8,7 @@
 #include "hi_scores.h"
 #include "level_manager.h"
 #include "load_level_state.h"
+#include "moon_state.h"
 #include "new_game_state.h"
 #include "player_progress.h"
 #include "play_state.h"
@@ -38,6 +39,7 @@ extern std::unique_ptr<attract_state> the_attract_state;
 extern std::unique_ptr<game_over_state> the_game_over_state;
 extern std::unique_ptr<enter_hi_score_state> the_enter_hi_score_state;
 extern std::unique_ptr<load_level_state> the_load_level_state;
+extern std::unique_ptr<moon_state> the_moon_state;
 extern std::unique_ptr<new_game_state> the_new_game_state;
 extern std::unique_ptr<play_state> the_play_state;
 extern std::unique_ptr<show_hi_scores_state> the_show_hi_scores_state;
