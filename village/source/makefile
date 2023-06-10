@@ -45,6 +45,7 @@ new_game_state.cpp \
 nice_font.cpp \
 parallax_bg.cpp \
 play_state.cpp \
+play_state_base.cpp \
 player.cpp \
 player_bullet.cpp \
 player_progress.cpp \
