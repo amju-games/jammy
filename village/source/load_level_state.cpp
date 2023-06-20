@@ -8,7 +8,7 @@
 
 namespace
 {
-  const float MIN_TIME_IN_STATE = 1.f;
+  const float MIN_TIME_IN_STATE = 0.f;
 }
 
 void load_level_state::on_active() 
