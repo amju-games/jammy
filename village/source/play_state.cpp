@@ -26,6 +26,11 @@ void play_state::update(float dt)
 
 bool play_state::on_keyboard_action(const keyboard_action& ka) 
 {
+  if (play_state_base::on_keyboard_action(ka))
+  {
+    return true;
+  }
+
   auto [key, value](ka);
   // TODO Remappable controls
   if (key == ' ' && value == button_value::down)
