@@ -25,7 +25,8 @@ void init_state::on_active()
 
   load_attract_level();
 
-  the_game.set_game_state(the_show_hi_scores_state); //the_splash_state);
+  the_moon_state = std::make_unique<moon_state>();
+  the_game.set_game_state(the_moon_state); //the_show_hi_scores_state); //the_splash_state);
 
   the_hi_scores.load(hi_scores_filename());
 }
